@@ -3350,4 +3350,61 @@ function loop(t){
 }
 requestAnimationFrame(loop);
 C.focus();
-</script></body></html>
+</script>
+<script>
+// ---- Touch controls (phones/tablets): floating joystick left, action buttons right ----
+// Same pattern as nipplejs-style dynamic joysticks: the stick appears where your thumb lands.
+(()=>{
+ const isTouch=('ontouchstart' in window)||navigator.maxTouchPoints>0;
+ if(!isTouch)return;
+ const css=document.createElement('style');css.textContent=`
+ #tc{position:fixed;inset:0;pointer-events:none;z-index:50;touch-action:none;user-select:none;-webkit-user-select:none}
+ #tc .zone{position:absolute;left:0;bottom:0;width:45vw;height:60vh;pointer-events:auto}
+ #tc .base{position:absolute;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;border:2px solid #ffffff40;background:#ffffff12;display:none}
+ #tc .knob{position:absolute;left:35px;top:35px;width:50px;height:50px;border-radius:50%;background:#ffffff55;border:2px solid #fff8}
+ #tc .btns{position:absolute;right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(3,58px);gap:8px;pointer-events:auto}
+ #tc .b{width:58px;height:58px;opacity:.85;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 13px system-ui,sans-serif;color:#fff;background:#ffffff1f;border:2px solid #ffffff55}
+ #tc .b.on{background:#ffffff66}
+ #tc .sm{width:52px;height:52px;justify-self:center;align-self:center;font-size:11px}
+ #tc .L{border-color:#3fc1d9}#tc .H{border-color:#ff5ca8}#tc .S{border-color:#f5c542}#tc .G{border-color:#a78bfa}
+ #tc .pause{position:absolute;top:max(8px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));width:44px;height:30px;border-radius:8px;font-size:14px;pointer-events:auto}
+ #tcrot{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:#000e;color:#fff;font:700 18px system-ui;text-align:center}
+ @media (orientation:portrait){#tcrot{display:flex}}`;
+ document.head.appendChild(css);
+ const css2=document.createElement('style');css2.textContent='#hint{display:none!important}body{gap:0;overflow:hidden;height:100vh;margin:0}canvas,canvas.compact{width:min(100vw,calc(100vh*16/9))!important;border-radius:0;border:0}';document.head.appendChild(css2);
+ const R=document.createElement('div');R.id='tc';R.innerHTML=`
+  <div class="zone"><div class="base"><div class="knob"></div></div></div>
+  <div class="btns">
+   <div class="b sm" data-k="SU">SUPER</div><div class="b sm" data-k="UL">ULT</div><div class="b sm" data-k="RG">RAGE</div>
+   <div class="b G" data-k="G">GRAB</div><div class="b H" data-k="H">HEAVY</div><div class="b S" data-k="S">SPEC</div>
+   <div></div><div class="b L" data-k="L">LIGHT</div><div></div>
+  </div>
+  <div class="b pause" data-k="PAUSE">II</div>
+`;
+ document.body.appendChild(R);
+ const RO=document.createElement('div');RO.id='tcrot';RO.textContent='Rotate your phone sideways to play';document.body.appendChild(RO);
+ const key=k=>k==='PAUSE'?cfg.pauseKey:cfg.keys[0][k];
+ const down=c=>{if(!c)return;if(!K[c])pr[c]=1;K[c]=1};
+ const up=c=>{if(c)K[c]=0};
+ // buttons
+ for(const b of R.querySelectorAll('[data-k]')){
+  const k=b.dataset.k;
+  b.addEventListener('touchstart',e=>{e.preventDefault();aud.unlock();b.classList.add('on');down(key(k))},{passive:false});
+  const end=e=>{e.preventDefault();b.classList.remove('on');up(key(k))};
+  b.addEventListener('touchend',end,{passive:false});b.addEventListener('touchcancel',end,{passive:false});
+ }
+ // joystick
+ const Z=R.querySelector('.zone'),B=R.querySelector('.base'),N=R.querySelector('.knob');let id=null,ox=0,oy=0,dir={l:0,r:0,u:0,d:0};
+ const setDir=(nd)=>{const m=cfg.keys[0];for(const k of['l','r','u','d']){if(nd[k]&&!dir[k])down(m[k]);if(!nd[k]&&dir[k])up(m[k])}dir=nd};
+ Z.addEventListener('touchstart',e=>{e.preventDefault();aud.unlock();const t=e.changedTouches[0];if(id!==null)return;id=t.identifier;ox=t.clientX;oy=t.clientY;B.style.left=ox+'px';B.style.top=(oy-(innerHeight-Z.offsetHeight))+'px';B.style.display='block';N.style.transform=''},{passive:false});
+ Z.addEventListener('touchmove',e=>{e.preventDefault();for(const t of e.changedTouches){if(t.identifier!==id)continue;
+   let dx=t.clientX-ox,dy=t.clientY-oy;const d=Math.hypot(dx,dy),mx=45;if(d>mx){dx*=mx/d;dy*=mx/d}N.style.transform=`translate(${dx}px,${dy}px)`;
+   const dz=16;setDir({l:dx<-dz,r:dx>dz,u:dy<-dz*1.8,d:dy>dz*1.8})}},{passive:false});
+ const jEnd=e=>{for(const t of e.changedTouches)if(t.identifier===id){id=null;B.style.display='none';setDir({l:0,r:0,u:0,d:0})}};
+ Z.addEventListener('touchend',jEnd);Z.addEventListener('touchcancel',jEnd);
+ // only show in a fight; menus are tapped directly on the screen
+ const FIGHT=new Set(['fight','intro']);
+ setInterval(()=>{const on=FIGHT.has(S);R.style.display=on?'block':'none';if(!on&&id!==null){id=null;B.style.display='none';setDir({l:0,r:0,u:0,d:0})}},100);
+})();
+</script>
+</body></html>
