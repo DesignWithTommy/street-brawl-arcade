@@ -65,7 +65,7 @@ function keyLabel(code){
 }
 function applyDisplay(){
  C.className=cfg.scale===1?'stretch':cfg.scale===2?'compact':'';
- HINT.innerHTML=`<b>P1:</b> ${keyLabel(cfg.keys[0].l)}/${keyLabel(cfg.keys[0].r)} move, ${keyLabel(cfg.keys[0].u)} jump (again in air = double jump), ${keyLabel(cfg.keys[0].d)} crouch / fast-fall, back to block, <b>${keyLabel(cfg.keys[0].L)}</b> light, <b>${keyLabel(cfg.keys[0].H)}</b> heavy, <b>${keyLabel(cfg.keys[0].S)}</b> special, <b>${keyLabel(cfg.keys[0].G)}</b> grab, <b>${keyLabel(cfg.keys[0].L)}+${keyLabel(cfg.keys[0].S)}</b> super, <b>${keyLabel(cfg.keys[0].G)}+${keyLabel(cfg.keys[0].S)}</b> ultimate, <b>${keyLabel(cfg.keys[0].H)}+${keyLabel(cfg.keys[0].S)}</b> rage | <b>P2:</b> ${keyLabel(cfg.keys[1].l)}/${keyLabel(cfg.keys[1].r)} move, ${keyLabel(cfg.keys[1].u)}/${keyLabel(cfg.keys[1].d)}, <b>${keyLabel(cfg.keys[1].L)}/${keyLabel(cfg.keys[1].H)}/${keyLabel(cfg.keys[1].S)}/${keyLabel(cfg.keys[1].G)}</b> (or Numpad 1-4) | <b>${keyLabel(cfg.pauseKey)}</b> Pause | Controllers supported`;
+ HINT.innerHTML=`${keyLabel(cfg.keys[0].l)}/${keyLabel(cfg.keys[0].r)} move, ${keyLabel(cfg.keys[0].u)} jump (again in air = double jump), ${keyLabel(cfg.keys[0].d)} crouch / fast-fall, back to block, <b>${keyLabel(cfg.keys[0].L)}</b> light, <b>${keyLabel(cfg.keys[0].H)}</b> heavy, <b>${keyLabel(cfg.keys[0].S)}</b> special, <b>${keyLabel(cfg.keys[0].G)}</b> grab, <b>${keyLabel(cfg.keys[0].L)}+${keyLabel(cfg.keys[0].S)}</b> super, <b>${keyLabel(cfg.keys[0].G)}+${keyLabel(cfg.keys[0].S)}</b> ultimate, <b>${keyLabel(cfg.keys[0].H)}+${keyLabel(cfg.keys[0].S)}</b> rage | <b>${keyLabel(cfg.pauseKey)}</b> Pause | Controllers supported`;
  if(cfg.full&&!document.fullscreenElement&&document.documentElement.requestFullscreen){document.documentElement.requestFullscreen().catch(()=>{})}
  else if(!cfg.full&&document.fullscreenElement&&document.exitFullscreen){document.exitFullscreen().catch(()=>{})}
 }
@@ -702,7 +702,6 @@ let HB={L:0,H:0,S:0,G:0,jump:0,blk:0,air:0},DN=[],slo=0,kof=0,pracLastDmg=0,prac
 const MENU_ITEMS=[
  {id:'story',label:'STORY',sub:'9 chapters. Take down the Kingpin.'},
  {id:'arcade',label:'ARCADE',sub:'Pick a fighter, beat 5 opponents'},
- {id:'versus',label:'VERSUS',sub:'2 players, 1 keyboard or pads'},
  {id:'online',label:'ONLINE',sub:'Play a friend with a room code'},
  {id:'practice',label:'TRAINING',sub:'Drills, frame data, recording'},
  {id:'settings',label:'SETTINGS',sub:'Gameplay, audio, controls'},
@@ -2930,13 +2929,14 @@ function howtoD(){
    ['Rage',[a('H')+'+'+a('S')],[b('H')+'+'+b('S')],['Y+RB']],
    ['Pause',[keyLabel(cfg.pauseKey)],[keyLabel(cfg.pauseKey)],['Start']]
   ];
-  const C=[100,260,470,680];X.font='bold 14px Impact,sans-serif';
-  [['',''],['PLAYER 1','#ff5ca8'],['PLAYER 2','#3fc1d9'],['CONTROLLER','#f5c542']].forEach(([t,c],i)=>{X.fillStyle=c||'#fff';X.fillText(t,C[i],142)});
+  rows.forEach(r=>{if(typeof r[1]!=='string')r.splice(2,1)});
+  const C=[120,330,600];X.font='bold 14px Impact,sans-serif';
+  [['',''],['KEYBOARD','#ff5ca8'],['CONTROLLER','#f5c542']].forEach(([t,c],i)=>{X.fillStyle=c||'#fff';X.fillText(t,C[i],142)});
   const cap=(t,x,y)=>{X.font='bold 12px monospace';const w=Math.max(22,X.measureText(t).width+12);X.fillStyle='#262a45';X.fillRect(x,y-14,w,19);X.strokeStyle='#4a5080';X.lineWidth=1;X.strokeRect(x,y-14,w,19);X.fillStyle='#fff';X.textAlign='center';X.fillText(t,x+w/2,y);X.textAlign='left';return w};
   rows.forEach((r,ri)=>{const y=172+ri*22.5;if(ri%2){X.fillStyle='#ffffff08';X.fillRect(80,y-16,800,22)}
    X.fillStyle='#dce2f5';X.font='bold 13px system-ui,sans-serif';X.fillText(r[0],C[0],y);
    if(typeof r[1]==='string'){X.fillStyle='#b7c2df';X.font='13px system-ui,sans-serif';X.fillText(r[1],C[1],y);return}
-   for(let c=1;c<4;c++){let x=C[c];r[c].forEach((t,k)=>{if(k){X.fillStyle='#8b93b5';X.font='11px system-ui';X.fillText('or',x+2,y);x+=18}x+=cap(t,x,y)+4})}
+   for(let c=1;c<3;c++){let x=C[c];r[c].forEach((t,k)=>{if(k){X.fillStyle='#8b93b5';X.font='11px system-ui';X.fillText('or',x+2,y);x+=18}x+=cap(t,x,y)+4})}
   });
   const padInfo=PD[0]||PD[1]?`Controller detected: ${PD[0]?'P1 ready ':''}${PD[1]?'P2 ready':''}`:'Using a controller? Press any button so the browser detects it.';
   X.fillStyle=PD[0]||PD[1]?'#2ecc71':'#8b93b5';X.font='bold 12px system-ui,sans-serif';X.textAlign='center';
