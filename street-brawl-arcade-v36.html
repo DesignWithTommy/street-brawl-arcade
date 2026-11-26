@@ -65,7 +65,7 @@ function keyLabel(code){
 }
 function applyDisplay(){
  C.className=cfg.scale===1?'stretch':cfg.scale===2?'compact':'';
- HINT.innerHTML=`<b>P1:</b> ${keyLabel(cfg.keys[0].l)}/${keyLabel(cfg.keys[0].r)} move, ${keyLabel(cfg.keys[0].u)} jump (again in air = double jump), ${keyLabel(cfg.keys[0].d)} crouch / fast-fall, back to block, <b>${keyLabel(cfg.keys[0].L)}</b> light, <b>${keyLabel(cfg.keys[0].H)}</b> heavy, <b>${keyLabel(cfg.keys[0].S)}</b> special, <b>${keyLabel(cfg.keys[0].G)}</b> grab | <b>P2:</b> ${keyLabel(cfg.keys[1].l)}/${keyLabel(cfg.keys[1].r)} move, ${keyLabel(cfg.keys[1].u)}/${keyLabel(cfg.keys[1].d)}, <b>${keyLabel(cfg.keys[1].L)}/${keyLabel(cfg.keys[1].H)}/${keyLabel(cfg.keys[1].S)}/${keyLabel(cfg.keys[1].G)}</b> (or Numpad 1-4) | <b>${keyLabel(cfg.pauseKey)}</b> Pause | Controllers supported`;
+ HINT.innerHTML=`<b>P1:</b> ${keyLabel(cfg.keys[0].l)}/${keyLabel(cfg.keys[0].r)} move, ${keyLabel(cfg.keys[0].u)} jump (again in air = double jump), ${keyLabel(cfg.keys[0].d)} crouch / fast-fall, back to block, <b>${keyLabel(cfg.keys[0].L)}</b> light, <b>${keyLabel(cfg.keys[0].H)}</b> heavy, <b>${keyLabel(cfg.keys[0].S)}</b> special, <b>${keyLabel(cfg.keys[0].G)}</b> grab, <b>${keyLabel(cfg.keys[0].L)}+${keyLabel(cfg.keys[0].S)}</b> super, <b>${keyLabel(cfg.keys[0].G)}+${keyLabel(cfg.keys[0].S)}</b> ultimate, <b>${keyLabel(cfg.keys[0].H)}+${keyLabel(cfg.keys[0].S)}</b> rage | <b>P2:</b> ${keyLabel(cfg.keys[1].l)}/${keyLabel(cfg.keys[1].r)} move, ${keyLabel(cfg.keys[1].u)}/${keyLabel(cfg.keys[1].d)}, <b>${keyLabel(cfg.keys[1].L)}/${keyLabel(cfg.keys[1].H)}/${keyLabel(cfg.keys[1].S)}/${keyLabel(cfg.keys[1].G)}</b> (or Numpad 1-4) | <b>${keyLabel(cfg.pauseKey)}</b> Pause | Controllers supported`;
  if(cfg.full&&!document.fullscreenElement&&document.documentElement.requestFullscreen){document.documentElement.requestFullscreen().catch(()=>{})}
  else if(!cfg.full&&document.fullscreenElement&&document.exitFullscreen){document.exitFullscreen().catch(()=>{})}
 }
@@ -1808,8 +1808,8 @@ function settingsU(){
 }
 
 function howtoU(){
- if(pr.ArrowLeft||pr.KeyA||padP('pl')){howtoTab=(howtoTab+3)%4;aud.sfx('move')}
- if(pr.ArrowRight||pr.KeyD||padP('pr')){howtoTab=(howtoTab+1)%4;aud.sfx('move')}
+ if(pr.ArrowLeft||pr.KeyA||padP('pl')){howtoTab=(howtoTab+4)%5;aud.sfx('move')}
+ if(pr.ArrowRight||pr.KeyD||padP('pr')){howtoTab=(howtoTab+1)%5;aud.sfx('move')}
  if(pr.Escape||pr.Backspace||pr.Enter||pr.Space||padP('pbk')||padP('pok')){S=prevS;aud.sfx('back')}
 }
 
@@ -2881,8 +2881,8 @@ function settingsD(){
 function howtoD(){
  X.fillStyle='#0b0c14';X.fillRect(0,0,W,H);
  big('HOW TO PLAY',52,40,'#fff');
- const tabs=['CONTROLS','NOTATION','COMBAT & COMBOS','SPECIALS'];
- tabs.forEach((t,i)=>btn(85+i*200,70,188,34,t,i===howtoTab,'#ff2e88',()=>{howtoTab=i;aud.sfx('move')}));
+ const tabs=['CONTROLS','NOTATION','COMBAT','METER','ROSTER'];
+ tabs.forEach((t,i)=>btn(75+i*164,70,152,34,t,i===howtoTab,'#ff2e88',()=>{howtoTab=i;aud.sfx('move')}));
 
  X.fillStyle='#121422';X.fillRect(70,118,820,346);
  X.strokeStyle='#2c304a';X.strokeRect(70,118,820,346);
@@ -2897,7 +2897,8 @@ function howtoD(){
     `Stand / Low Block: Back / Down+Back`,
     `Light / Heavy: ${keyLabel(k1.L)} / ${keyLabel(k1.H)}`,
     `Special / Grab: ${keyLabel(k1.S)} / ${keyLabel(k1.G)}`,
-    `Dash: Double-tap Forward/Back`
+    `Dash: Double-tap Forward/Back`,
+   `Super ${keyLabel(k1.L)}+${keyLabel(k1.S)} · Ult ${keyLabel(k1.G)}+${keyLabel(k1.S)} · Rage ${keyLabel(k1.H)}+${keyLabel(k1.S)}`
    ]},
    {x:362,title:'PLAYER 2 (KEYBOARD)',c:'#3fc1d9',lines:[
     `Move: ${keyLabel(k2.l)} / ${keyLabel(k2.r)}`,
@@ -2953,17 +2954,31 @@ function howtoD(){
    '• Launchers & Air Combos: Hold Jump (Up) after a launching Heavy hit, then press j.L / j.H.',
    '• High / Low / Overhead / Sweep: 2L & 2H (Sweep) beat standing block; 6H (Overhead) beats low block.',
    '• Grabs & Guard Break: Grabs beat blocks at close range. Heavy pressure drains Guard until GUARD BREAK!',
-   '• Anti-Infinite Protection: Hitstun scaling & air juggle limits keep combos fair and skilled.'
+   '• Anti-Infinite Protection: Hitstun scaling & air juggle limits keep combos fair and skilled.',
+   '• Rex Ultimate launches straight up — chase with j.L / j.H for an air combo!'
+  ];
+  X.fillStyle='#e2e6f5';X.font='14px system-ui,sans-serif';
+  tips.forEach((t,i)=>X.fillText(t,100,190+i*38));
+ }else if(howtoTab===3){
+  const k=cfg.keys[0],K2=a=>keyLabel(k[a]);
+  X.fillStyle='#f5c542';X.font='bold 16px Impact,sans-serif';X.fillText('METER, SUPER, ULTIMATE & RAGE',100,156);
+  const tips=[
+   `• Meter fills as you deal and take damage (bar under your health).`,
+   `• SUPER — ${K2('L')}+${K2('S')} together · costs ½ bar · fast, strong signature attack.`,
+   `• ULTIMATE — ${K2('G')}+${K2('S')} together · costs a full bar · cinematic finisher, huge damage.`,
+   `• RAGE — ${K2('H')}+${K2('S')} together · +30% damage for 6 seconds.`,
+   '• Controller: Super = X/A + RB · Ultimate = LB + RB · Rage = Y/B + RB.',
+   '• Training mode: [7] Move List · [8] Combo Trials · [9] Input Display.'
   ];
   X.fillStyle='#e2e6f5';X.font='14px system-ui,sans-serif';
   tips.forEach((t,i)=>X.fillText(t,100,196+i*40));
  }else{
-  X.fillStyle='#f5c542';X.font='bold 16px Impact,sans-serif';X.fillText('ROSTER SPECIAL MOVES & COMMANDS',100,154);
-  const cmds=['66+S','236+S','Close S','66+H/S','4+S / Blk+S','214+S','6+S / 4+S','6+S'];
-  CH.slice(0,8).forEach((c,i)=>{
-   const y=184+i*33;
-   X.fillStyle=c.c2;X.font='bold 13px system-ui,sans-serif';X.fillText(`${c.n} — ${c.sn} (${cmds[i]}):`,100,y);
-   X.fillStyle='#d2d8ef';X.font='13px system-ui,sans-serif';X.fillText(c.sd,378,y);
+  X.fillStyle='#f5c542';X.font='bold 16px Impact,sans-serif';X.fillText('ROSTER — SPECIAL (S) & ULTIMATE (G+S)   ·   full lists: [7] Move List',90,146);
+  CH.forEach((c,i)=>{
+   const x=90+(i>>3)*400,y=176+(i&7)*35;
+   X.fillStyle=c.c2;X.font="bold 13px system-ui,sans-serif";X.fillText(c.n,x,y,74);
+   X.fillStyle='#d2d8ef';X.font='12px system-ui,sans-serif';X.fillText(`S: ${c.sn}`,x+80,y,300);
+   X.fillStyle='#f5c542';X.fillText(`ULT: ${ULT[c.id]?ULT[c.id].n:'-'}`,x+80,y+15,300);
   });
  }
 
