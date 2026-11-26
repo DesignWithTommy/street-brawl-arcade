@@ -2265,6 +2265,49 @@ function fig(f,idleAnim=true,showAura=true){
   X.beginPath();X.moveTo(bk-8,hy-36);X.lineTo(bk-2,hy-18);X.stroke();
  }
 
+ // Outfit detail pass: torso shading + per-fighter clothing
+ if(!flash){
+  X.lineCap='round';X.strokeStyle='#ffffff1f';X.lineWidth=torsoW*.28;X.beginPath();X.moveTo(torsoW*.22,hy-2);X.lineTo(bk+torsoW*.22,hy-33);X.stroke();
+  X.strokeStyle='#0000002e';X.beginPath();X.moveTo(-torsoW*.24,hy-2);X.lineTo(bk-torsoW*.24,hy-33);X.stroke();
+  const mx=t=>bk*t; // x along the spine at fraction t (0 hips .. 1 shoulders)
+  if(c.id==='ember'){ // hi-vis demolition vest
+   X.strokeStyle='#facc15';X.lineWidth=3;X.beginPath();X.moveTo(mx(.25)-10,hy-9);X.lineTo(mx(.25)+10,hy-9);X.moveTo(mx(.7)-10,hy-25);X.lineTo(mx(.7)+10,hy-25);X.stroke();
+   X.strokeStyle='#e5e7eb';X.lineWidth=1.2;X.stroke();
+  }else if(c.id==='shade'){ // ninja sash + kunai
+   X.strokeStyle='#a855f7';X.lineWidth=3.5;X.beginPath();X.moveTo(mx(.95)-8,hy-34);X.lineTo(mx(.1)+9,hy-4);X.stroke();
+   X.fillStyle='#d8b4fe';X.fillRect(mx(.4)-2,hy-18,4,7);
+  }else if(c.id==='tommy'){ // Muay Thai shorts band
+   X.fillStyle='#dc2626';X.fillRect(-11,hy-7,22,8);X.fillStyle='#fff';X.fillRect(-11,hy-4,22,2);
+  }else if(c.id==='danny'){ // hoodie pocket + drawstrings
+   X.fillStyle='#0000003a';X.fillRect(mx(.3)-8,hy-15,16,7);
+   X.strokeStyle='#f8fafc';X.lineWidth=1.2;X.beginPath();X.moveTo(mx(.95)-2,hy-34);X.lineTo(mx(.7)-2,hy-24);X.moveTo(mx(.95)+3,hy-34);X.lineTo(mx(.7)+3,hy-24);X.stroke();
+  }else if(c.id==='will'){ // duty belt + badge
+   X.fillStyle='#0b0f1a';X.fillRect(-11,hy-6,22,5);X.fillStyle='#cbd5e1';X.fillRect(-2,hy-6,4,5);
+   X.fillStyle='#fbbf24';X.beginPath();for(let q=0;q<10;q++){const r=q%2?2:4.5,an=q*Math.PI/5-Math.PI/2;X.lineTo(mx(.8)+5+Math.cos(an)*r,hy-28+Math.sin(an)*r)}X.closePath();X.fill();
+  }else if(c.id==='donna'){ // corset lacing + belt
+   X.strokeStyle='#f0abfc';X.lineWidth=1.2;X.beginPath();for(let q=0;q<4;q++){const y=hy-8-q*6,x=mx((8+q*6)/36);X.moveTo(x-4,y);X.lineTo(x+4,y-5);X.moveTo(x+4,y);X.lineTo(x-4,y-5)}X.stroke();
+   X.fillStyle='#1e1b2e';X.fillRect(-10,hy-5,20,4);X.fillStyle=c.c2;X.fillRect(-2,hy-5,4,4);
+  }else if(c.id==='ghost'){ // tattered spectral hem
+   X.fillStyle='#e2e8f0aa';X.beginPath();X.moveTo(-11,hy-4);for(let q=0;q<=6;q++)X.lineTo(-11+q*22/6,hy+4+((q+(fr>>3))%2)*6);X.lineTo(11,hy-4);X.closePath();X.fill();
+  }else if(c.id==='fortyoz'){ // stained vest + belly stain + belt
+   X.fillStyle='#f5f5f4';X.globalAlpha=.85;X.fillRect(mx(.5)-6,hy-26,12,20);X.globalAlpha=1;
+   X.fillStyle='#92400e99';X.beginPath();X.ellipse(mx(.35)+2,hy-12,5,3.5,.4,0,7);X.fill();
+   X.fillStyle='#292524';X.fillRect(-11,hy-5,22,4);
+  }else if(c.id==='charcoal'){ // jerk-pit apron
+   X.fillStyle='#1f2937';X.strokeStyle=c.c2;X.lineWidth=1.2;X.fillRect(mx(.35)-8,hy-22,16,24);X.strokeRect(mx(.35)-8,hy-22,16,24);
+   X.strokeStyle='#4b5563';X.beginPath();X.moveTo(mx(.35)-8,hy-22);X.lineTo(mx(.95),hy-35);X.lineTo(mx(.35)+8,hy-22);X.stroke();
+   X.fillStyle='#f97316';X.fillRect(mx(.35)-3,hy-12,6,2);
+  }else if(c.id==='volt'){ // utility belt
+   X.fillStyle='#0f172a';X.fillRect(-11,hy-6,22,5);X.fillStyle=c.c2;X.fillRect(-6,hy-5,3,3);X.fillRect(3,hy-5,3,3);
+  }else if(c.id==='kira'){ // courier jacket zip + belt
+   X.strokeStyle='#fbcfe8';X.lineWidth=1.2;X.beginPath();X.moveTo(mx(.08),hy-4);X.lineTo(mx(.95),hy-34);X.stroke();
+  }else if(c.id==='kingpin'){ // waistcoat + gold chain
+   X.fillStyle='#1c1917';X.beginPath();X.moveTo(mx(.95)-5,hy-34);X.lineTo(mx(.95)+5,hy-34);X.lineTo(mx(.1)+7,hy-3);X.lineTo(mx(.1)-7,hy-3);X.closePath();X.fill();
+   X.strokeStyle='#f5c542';X.lineWidth=1.5;X.beginPath();X.arc(mx(.5)+2,hy-20,6,.2,2.6);X.stroke();
+  }else if(c.id==='brutus'){ // studded collar
+   X.fillStyle='#d6d3d1';for(let q=-2;q<=2;q++){X.beginPath();X.arc(mx(1)+q*4,hy-37,1.6,0,7);X.fill()}
+  }
+ }
  // Articulated Arms + Weapons / Gloves / Flames
  const sy=hy-32,armW=c.id==='brutus'||c.id==='titan'?12:9.5;
  const armCol=flash?'#ffffff':skin(c,2);
