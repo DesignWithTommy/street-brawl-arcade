@@ -501,7 +501,7 @@ const ULT={
  will:{n:'LAST LINE',t:'proj',s:10,a:2,r:28,d:10,w:50,h:40,vx:.01,k:'b',burst:1,bd:30,br:175,pl:6,flash:1},
  ghost:{n:'HAUNTING',t:'proj',s:12,a:2,r:26,d:30,w:50,h:44,vx:5,home:2,k:'p',kx:6,ky:-11,lau:1},
  fortyoz:{n:'LAST CALL',t:'proj',s:10,a:2,r:28,d:28,w:50,h:36,vx:8,vy:-8,g:.32,k:'b',bnc:3,kx:9,ky:-10},
- charcoal:{n:'KINGSTON SMOKEOUT',t:'boss',tb:1,s:10,a:34,r:24,d:6,hits:7,hi2:4,w:84,h:18,dx:2,k:'k',smk:1},
+ charcoal:{n:'JERK PIT ERUPTION',t:'proj',march:4,s:16,a:24,r:26,d:8,w:50,h:30,vx:.01,pl:1,k:'b',burst:1,bd:9,br:70,pil:1,hop:-7},
  donna:{n:'BLACK WIDOW',t:'grab',s:8,a:6,r:28,d:32,w:180,h:50,kx:-6,ky:-9,k:'b'}
 };
 // 4 airborne moves each: air Light, air Heavy, air Down+Heavy, air Special (AS table)
@@ -1528,7 +1528,10 @@ function upd(f,o,i){
    addFx(f.x,f.y-55,ch.c2,52,'smoke');
   }
   if(m.hop&&f.t===1&&f.y>=G-2)f.vy=m.hop;
-  if(m.t==='proj'&&f.t===m.s){
+  if(m.march&&f.t>=m.s&&(f.t-m.s)%7===0&&(f.t-m.s)/7<m.march){const q=(f.t-m.s)/7,fin=q===m.march-1,mx=f.x+(o.x-f.x)*(q+1)/m.march;
+   PJ.push({x:Math.max(30,Math.min(W-30,mx)),y:G-40,vx:.01*f.face,vy:0,g:0,o:f,m:fin?{...m,bd:18,br:100}:m,l:1,burst:true,bn:0});
+   addDust(mx,G,f.face,'#f9731699',6);if(cfg.shake)shk=Math.max(shk,fin?14:6)}
+  if(m.t==='proj'&&f.t===m.s&&!m.march){
    PJ.push({x:m.at==='o'?o.x:m.at==='s'?f.x:f.x+f.face*30,y:m.at?G-40:m.low?f.y-14:f.y-70*ch.z,vx:f.face*m.vx,vy:m.vy||0,g:m.g||0,o:f,m,l:m.pl||(m.burst?58:m.ret?80:m.home?150:95),burst:!!m.burst,bn:0});
   }
   if(f.t>m.s&&f.t<=E&&m.t!=='ctr'&&m.t!=='proj'){
