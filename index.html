@@ -627,16 +627,16 @@ addEventListener('keydown',e=>{
 });
 addEventListener('keyup',e=>K[e.code]=0);
 
-let mx=-1,my=-1,mClick=0,UI_HITS=[];
+let mx=-1,my=-1,mClick=0,UI_HITS=[],OX=0;
 C.addEventListener('mousemove',e=>{
  const r=C.getBoundingClientRect();
- mx=(e.clientX-r.left)*(W/r.width);
+ mx=(e.clientX-r.left)*((W+2*OX)/r.width)-OX;
  my=(e.clientY-r.top)*(H/r.height);
 });
 C.addEventListener('mousedown',e=>{
  aud.unlock();C.focus();
  const r=C.getBoundingClientRect();
- mx=(e.clientX-r.left)*(W/r.width);
+ mx=(e.clientX-r.left)*((W+2*OX)/r.width)-OX;
  my=(e.clientY-r.top)*(H/r.height);
  mClick=1;
 });
@@ -3102,11 +3102,18 @@ function hdFit(){
  let w=Math.round((r.width||W)*dpr),h=Math.round((r.height||H)*dpr);
  const cap=3840/w;if(cap<1){w=Math.round(w*cap);h=Math.round(h*cap)}
  if(w>0&&h>0&&(C.width!==w||C.height!==h)){C.width=w;C.height=h}
- X.setTransform(C.width/W,0,0,C.height/H,0,0);X.imageSmoothingQuality='high';
+ // wider screens (phones): keep the game's shape, extend the sides instead of stretching
+ const sc=C.height/H;OX=Math.max(0,(C.width/sc-W)/2);
+ X.setTransform(sc,0,0,sc,OX*sc,0);X.imageSmoothingQuality='high';
 }
 function draw(){
  hdFit();
  draw0();drawMeme();
+ if(OX>0){const sc=C.height/H,p=Math.ceil(OX*sc),g=Math.round(W*sc);X.save();X.setTransform(1,0,0,1,0,0);
+  // smear the outer 6px of the game into the side margins (colour continues, no readable text), then dim
+  const e=Math.max(2,Math.round(6*sc));X.drawImage(C,p,0,e,C.height,0,0,p,C.height);X.drawImage(C,p+g-e,0,e,C.height,p+g,0,C.width-p-g,C.height);
+  const gl=X.createLinearGradient(0,0,p,0);gl.addColorStop(0,'#000d');gl.addColorStop(1,'#0006');X.fillStyle=gl;X.fillRect(0,0,p,C.height);
+  const gr=X.createLinearGradient(p+g,0,C.width,0);gr.addColorStop(0,'#0006');gr.addColorStop(1,'#000d');X.fillStyle=gr;X.fillRect(p+g,0,C.width-p-g,C.height);X.restore()}
  if(S==='fight'&&NET.live===0&&mode!==3){const idle=!Object.keys(pr).length;afkT=idle?afkT+1:0;if(afkT===900)meme('Are you AFK or praying?','#aaa')}
 }
 function draw0(){
