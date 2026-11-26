@@ -1822,8 +1822,8 @@ function settingsU(){
 }
 
 function howtoU(){
- if(pr.ArrowLeft||pr.KeyA||padP('pl')){howtoTab=(howtoTab+4)%5;aud.sfx('move')}
- if(pr.ArrowRight||pr.KeyD||padP('pr')){howtoTab=(howtoTab+1)%5;aud.sfx('move')}
+ if(pr.ArrowLeft||pr.KeyA||padP('pl')){howtoTab=(howtoTab+7)%8;aud.sfx('move')}
+ if(pr.ArrowRight||pr.KeyD||padP('pr')){howtoTab=(howtoTab+1)%8;aud.sfx('move')}
  if(pr.Escape||pr.Backspace||pr.Enter||pr.Space||padP('pbk')||padP('pok')){S=prevS;aud.sfx('back')}
 }
 
@@ -2916,91 +2916,61 @@ function settingsD(){
 function howtoD(){
  X.fillStyle='#0b0c14';X.fillRect(0,0,W,H);
  big('HOW TO PLAY',52,40,'#fff');
- const tabs=['CONTROLS','COMBO KEY','COMBAT','METER','ROSTER'];
- tabs.forEach((t,i)=>btn(75+i*164,70,152,34,t,i===howtoTab,'#ff2e88',()=>{howtoTab=i;aud.sfx('move')}));
-
+ const tabs=['MOVE','ATTACK','POWER','COMBOS','DEFENSE','TIPS','ROSTER I','ROSTER II'],NT=tabs.length;
+ tabs.forEach((t,i)=>btn(70+i*103,70,97,34,t,i===howtoTab,'#ff2e88',()=>{howtoTab=i;aud.sfx('move')}));
  X.fillStyle='#121422';X.fillRect(70,118,820,346);
- X.strokeStyle='#2c304a';X.strokeRect(70,118,820,346);
+ X.lineWidth=1;X.strokeStyle='#2c304a';X.strokeRect(70,118,820,346);
  X.textAlign='left';
-
+ const TOUCH=('ontouchstart' in window)||navigator.maxTouchPoints>0;
+ const k1=cfg.keys[0],a=k=>keyLabel(k1[k]);
+ const title=(t,c='#f5c542')=>{X.fillStyle=c;X.font='bold 20px Impact,sans-serif';X.textAlign='left';X.fillText(t,100,156)};
+ const cap=(t,x,y)=>{X.font='bold 14px monospace';const w=Math.max(26,X.measureText(t).width+14);X.fillStyle='#262a45';X.fillRect(x,y-17,w,24);X.strokeStyle='#4a5080';X.lineWidth=1;X.strokeRect(x,y-17,w,24);X.fillStyle='#fff';X.textAlign='center';X.fillText(t,x+w/2,y);X.textAlign='left';return w};
+ // table: [label, keyboard|touch, controller]  (a string in col 1 spans both)
+ const table=(rows,y0=200,dy=40)=>{const C=[110,300,590];X.font='bold 15px Impact,sans-serif';
+  [['',''],[TOUCH?'TOUCH SCREEN':'KEYBOARD','#ff5ca8'],['CONTROLLER','#f5c542']].forEach(([t,c],i)=>{X.fillStyle=c||'#fff';X.fillText(t,C[i],y0-30)});
+  rows.forEach((r,ri)=>{const y=y0+ri*dy;if(ri%2){X.fillStyle='#ffffff08';X.fillRect(84,y-22,792,34)}
+   X.fillStyle='#fff';X.font='bold 16px system-ui,sans-serif';X.fillText(r[0],C[0],y);
+   if(typeof r[1]==='string'){X.fillStyle='#c7cfe8';X.font='15px system-ui,sans-serif';X.fillText(r[1],C[1],y);return}
+   for(let c=1;c<3;c++){let x=C[c];r[c].forEach((t,k)=>{if(k){X.fillStyle='#8b93b5';X.font='12px system-ui';X.fillText('or',x+3,y);x+=22}x+=cap(t,x,y)+4})}})};
+ const lines=(arr,y0=200,dy=44,f='16px system-ui,sans-serif')=>{arr.forEach((t,i)=>{const y=y0+i*dy;
+  X.fillStyle='#ff2e88';X.beginPath();X.arc(108,y-5,4,0,7);X.fill();X.fillStyle='#e2e6f5';X.font=f;X.fillText(t,124,y,740)})};
  if(howtoTab===0){
-  const k1=cfg.keys[0],k2=cfg.keys[1],a=k=>keyLabel(k1[k]),b=k=>keyLabel(k2[k]);
-  const rows=[
-   ['Move',[a('l'),a('r')],[b('l'),b('r')],['D-Pad','Stick']],
-   ['Jump',[a('u')],[b('u')],['Up']],
-   ['Crouch',[a('d')],[b('d')],['Down']],
-   ['Drop down','Double-tap down while standing on a platform'],
-   ['Block','Hold back (away from foe) · Down+Back = low block'],
-   ['Dash','Double-tap forward or back'],
-   ['Light',[a('L')],[b('L'),'Num1'],['X','A']],
-   ['Heavy',[a('H')],[b('H'),'Num2'],['Y','B']],
-   ['Special',[a('S')],[b('S'),'Num3'],['RB','RT']],
-   ['Grab',[a('G')],[b('G'),'Num4'],['LB','LT']],
-   ['Super',[a('SU')],[b('L')+'+'+b('S')],['X+RB']],
-   ['Ultimate',[a('UL')],[b('G')+'+'+b('S')],['LB+RB']],
-   ['Rage',[a('RG')],[b('H')+'+'+b('S')],['Y+RB']],
-   ['Pause',[keyLabel(cfg.pauseKey)],[keyLabel(cfg.pauseKey)],['Start']]
-  ];
-  rows.forEach(r=>{if(typeof r[1]!=='string')r.splice(2,1)});
-  const TOUCH=('ontouchstart' in window)||navigator.maxTouchPoints>0;
-  if(TOUCH){const T={Move:['Joystick ←/→'],Jump:['Stick up'],Crouch:['Stick down'],Light:['Big fist'],Heavy:['Big boot'],Special:['Star'],Grab:['Hand'],Super:['Bolt'],Ultimate:['Burst'],Rage:['Flame'],Pause:['II']};
-   rows.forEach(r=>{if(T[r[0]])r[1]=T[r[0]]});const dr=rows.find(r=>r[0]==='Drop down');if(dr)dr[1]='Flick the stick down twice while on a platform';
-   const bl=rows.find(r=>r[0]==='Block');if(bl)bl[1]='Hold stick away from foe · down-away = low block';const ds=rows.find(r=>r[0]==='Dash');if(ds)ds[1]='Flick the stick forward or back twice'}
-  const C=[120,330,600];X.font='bold 14px Impact,sans-serif';
-  [['',''],[TOUCH?'TOUCH SCREEN':'KEYBOARD','#ff5ca8'],['CONTROLLER','#f5c542']].forEach(([t,c],i)=>{X.fillStyle=c||'#fff';X.fillText(t,C[i],142)});
-  const cap=(t,x,y)=>{X.font='bold 12px monospace';const w=Math.max(22,X.measureText(t).width+12);X.fillStyle='#262a45';X.fillRect(x,y-14,w,19);X.strokeStyle='#4a5080';X.lineWidth=1;X.strokeRect(x,y-14,w,19);X.fillStyle='#fff';X.textAlign='center';X.fillText(t,x+w/2,y);X.textAlign='left';return w};
-  rows.forEach((r,ri)=>{const y=166+ri*20.6;if(ri%2){X.fillStyle="#ffffff08";X.fillRect(80,y-15,800,20)}
-   X.fillStyle='#dce2f5';X.font='bold 13px system-ui,sans-serif';X.fillText(r[0],C[0],y);
-   if(typeof r[1]==='string'){X.fillStyle='#b7c2df';X.font='13px system-ui,sans-serif';X.fillText(r[1],C[1],y);return}
-   for(let c=1;c<3;c++){let x=C[c];r[c].forEach((t,k)=>{if(k){X.fillStyle='#8b93b5';X.font='11px system-ui';X.fillText('or',x+2,y);x+=18}x+=cap(t,x,y)+4})}
-  });
-  const padInfo=PD[0]||PD[1]?`Controller detected: ${PD[0]?'P1 ready ':''}${PD[1]?'P2 ready':''}`:'Using a controller? Press any button so the browser detects it.';
-  X.fillStyle=PD[0]||PD[1]?'#2ecc71':'#8b93b5';X.font='bold 12px system-ui,sans-serif';X.textAlign='center';
-  X.fillText(padInfo,480,459);X.textAlign='left';
+  title('MOVING');
+  table(TOUCH?[
+   ['Move',['Joystick ← →'],['D-Pad','Stick']],['Jump',['Stick up'],['Up']],['Crouch',['Stick down'],['Down']],
+   ['Block','Hold the stick away from your foe'],['Dash','Flick the stick forward or back twice'],['Drop down','Flick the stick down twice on a platform']]:[
+   ['Move',[a('l'),a('r')],['D-Pad','Stick']],['Jump',[a('u')],['Up']],['Crouch',[a('d')],['Down']],
+   ['Block','Hold back, away from your foe'],['Dash','Double-tap forward or back'],['Drop down','Double-tap down while on a platform']]);
+  const padInfo=PD[0]||PD[1]?'Controller detected':'Using a controller? Press any button so the browser detects it.';
+  X.fillStyle=PD[0]||PD[1]?'#2ecc71':'#8b93b5';X.font='bold 13px system-ui,sans-serif';X.textAlign='center';X.fillText(padInfo,480,450);X.textAlign='left';
  }else if(howtoTab===1){
-  X.fillStyle='#f5c542';X.font='bold 16px Impact,sans-serif';X.fillText('HOW TO READ A COMBO',96,154);
-  const rows=[['L','Light attack'],['H','Heavy attack'],['S','Special'],['G','Grab'],
-   ['2','After a button: hold DOWN while you press it   (L2 = crouching Light)'],
-   ['6','After a button: hold TOWARD the enemy while you press it   (H6 = forward Heavy)'],
-   ['space','Next button. Press them one after another as each hit lands']];
-  rows.forEach((r,i)=>{const y=184+i*34;X.fillStyle='#1b1f34';X.fillRect(96,y-20,70,28);X.strokeStyle='#3fc1d966';X.strokeRect(96,y-20,70,28);
-   X.fillStyle='#fff';X.font='bold 15px monospace';X.textAlign='center';X.fillText(r[0],131,y);X.textAlign='left';X.fillStyle='#e2e6f5';X.font='14px system-ui,sans-serif';X.fillText(r[1],184,y)});
-  X.fillStyle='#3fc1d9';X.font='bold 14px system-ui,sans-serif';X.fillText('Example:  L  L  H6   =   Light, Light, then hold toward + Heavy',96,436);
-  X.fillStyle='#9aa0c0';X.font='12px system-ui,sans-serif';X.fillText("Your fighter's full combo list is in the pause menu (MOVE LIST).",96,460);
+  title('ATTACKING');
+  table(TOUCH?[['Light',['Big fist'],['X','A']],['Heavy',['Big boot'],['Y','B']],['Special',['Star'],['RB','RT']],['Grab',['Hand'],['LB','LT']],['Pause',['II'],['Start']]]
+   :[['Light',[a('L')],['X','A']],['Heavy',[a('H')],['Y','B']],['Special',[a('S')],['RB','RT']],['Grab',[a('G')],['LB','LT']],['Pause',[keyLabel(cfg.pauseKey)],['Start']]],200,44);
  }else if(howtoTab===2){
-  X.fillStyle='#3fc1d9';X.font='bold 16px Impact,sans-serif';X.fillText('OFFENSE, DEFENSE, CANCELS & GUARD BREAK',100,156);
-  const tips=[
-   '• Chain & Cancel System: Light → Directional Light → Heavy → Special on hit!',
-   '• Shade Special Cancel: Shade can cancel Shadow Step (S) directly into Heavy (H) on hit.',
-   '• Launchers & Air Combos: Hold Jump (Up) after a launching Heavy hit, then press j.L / j.H.',
-   '• High / Low / Overhead / Sweep: 2L & 2H (Sweep) beat standing block; 6H (Overhead) beats low block.',
-   '• Grabs & Guard Break: Grabs beat blocks at close range. Heavy pressure drains Guard until GUARD BREAK!',
-   '• Anti-Infinite Protection: Hitstun scaling & air juggle limits keep combos fair and skilled.',
-   '• Rex Ultimate launches straight up — chase with j.L / j.H for an air combo!'
-  ];
-  X.fillStyle='#e2e6f5';X.font='14px system-ui,sans-serif';
-  tips.forEach((t,i)=>X.fillText(t,100,190+i*38));
+  title('POWER MOVES');
+  table(TOUCH?[['Super',['Bolt'],['X+RB']],['Ultimate',['Burst'],['LB+RB']],['Rage',['Flame'],['Y+RB']]]
+   :[['Super',[a('SU')],['X+RB']],['Ultimate',[a('UL')],['LB+RB']],['Rage',[a('RG')],['Y+RB']]],200,40);
+  lines(['Your meter (under your health bar) fills when you hit or get hit.','Super costs half a bar.   Ultimate costs a full bar.','Rage needs a full rage bar: +30% damage for 6 seconds.'],350,32,'15px system-ui,sans-serif');
  }else if(howtoTab===3){
-  const k=cfg.keys[0],TC=('ontouchstart' in window)||navigator.maxTouchPoints>0,K2=a=>TC?({SU:'Bolt button',UL:'Burst button',RG:'Flame button'}[a]):keyLabel(k[a]);
-  X.fillStyle='#f5c542';X.font='bold 16px Impact,sans-serif';X.fillText('METER, SUPER, ULTIMATE & RAGE',100,156);
-  const tips=[
-   `• Meter fills as you deal and take damage (bar under your health).`,
-   `• SUPER — ${K2('SU')} · costs ½ bar · fast, strong signature attack.`,
-   `• ULTIMATE — ${K2('UL')} · costs a full bar · cinematic finisher, huge damage.`,
-   `• RAGE — ${K2('RG')} · +30% damage for 6 seconds.`,
-   '• Controller: Super = X/A + RB · Ultimate = LB + RB · Rage = Y/B + RB.',
-   TC?'• Move List: pause (II) → MOVE LIST.':'• Training mode: [7] Move List · [8] Combo Trials · [9] Input Display.'
-  ];
-  X.fillStyle='#e2e6f5';X.font='14px system-ui,sans-serif';
-  tips.forEach((t,i)=>X.fillText(t,100,196+i*40));
+  title('HOW TO READ A COMBO');
+  const rows=[['L','Light'],['H','Heavy'],['S','Special'],['G','Grab'],['L2','A 2 means hold DOWN while pressing'],['H6','A 6 means hold TOWARD your foe while pressing']];
+  rows.forEach((r,i)=>{const y=200+i*36;cap(r[0],110,y);X.fillStyle='#e2e6f5';X.font='16px system-ui,sans-serif';X.fillText(r[1],170,y)});
+  X.fillStyle='#3fc1d9';X.font='bold 16px system-ui,sans-serif';X.fillText('Example:   L  L  H6   =   Light, Light, then toward + Heavy',110,425);
+  X.fillStyle='#9aa0c0';X.font='13px system-ui,sans-serif';X.fillText("Press each button as the last hit lands. Your full list: pause → MOVE LIST.",110,451);
+ }else if(howtoTab===4){
+  title('DEFENSE','#3fc1d9');
+  lines(['Hold away from your foe to block.  Hold down + away to block low.','Crouching attacks hit foes blocking high.','Forward Heavy (H6) is an overhead: it hits foes blocking low.','Grabs beat blocking, so don\'t just turtle.','Blocking drains your Guard. Empty Guard = GUARD BREAK, you\'re stunned.']);
+ }else if(howtoTab===5){
+  title('TIPS','#3fc1d9');
+  lines(['Chain attacks on hit: Light → Heavy → Special.','Launchers knock foes into the air. Jump after them and keep hitting.','Rex\'s Ultimate is an uppercut: chase it with air attacks.','Combos get weaker the longer they go, so there are no infinites.','Dash in to close the gap, dash back to escape pressure.']);
  }else{
-  X.fillStyle='#f5c542';X.font='bold 16px Impact,sans-serif';X.fillText('ROSTER — SPECIAL (S) & ULTIMATE (G+S)   ·   full lists: [7] Move List',90,146);
-  CH.forEach((c,i)=>{
-   const x=90+(i>>3)*400,y=176+(i&7)*35;
-   X.fillStyle=c.c2;X.font="bold 13px system-ui,sans-serif";X.fillText(c.n,x,y,74);
-   X.fillStyle='#d2d8ef';X.font='12px system-ui,sans-serif';X.fillText(`S: ${c.sn}`,x+80,y,300);
-   X.fillStyle='#f5c542';X.fillText(`ULT: ${ULT[c.id]?ULT[c.id].n:'-'}`,x+80,y+15,300);
-  });
+  const p=howtoTab-6;title('FIGHTERS '+(p?'9–16':'1–8'));
+  X.font='bold 13px system-ui,sans-serif';[['SPECIAL','#d2d8ef',260],['SUPER','#3fc1d9',460],['ULTIMATE','#f5c542',660]].forEach(([t,c,x])=>{X.fillStyle=c;X.fillText(t,x,156)});
+  CH.slice(p*8,p*8+8).forEach((c,i)=>{const y=190+i*33;if(i%2){X.fillStyle='#ffffff08';X.fillRect(84,y-21,792,31)}
+   X.fillStyle=c.c2;X.font='bold 15px system-ui,sans-serif';X.fillText(c.n,100,y,150);
+   X.font='14px system-ui,sans-serif';X.fillStyle='#d2d8ef';X.fillText(c.sn,260,y,190);
+   X.fillStyle='#3fc1d9';X.fillText(SUP[c.id]?SUP[c.id].n:'-',460,y,190);X.fillStyle='#f5c542';X.fillText(ULT[c.id]?ULT[c.id].n:'-',660,y,200)});
  }
 
  btn(380,478,200,38,'BACK (ESC)',true,'#3fc1d9',()=>{S=prevS;aud.sfx('back')});
