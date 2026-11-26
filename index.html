@@ -497,12 +497,12 @@ const ULT={
  titan:{n:'FINAL DRIVE',t:'proj',s:20,a:4,r:30,d:10,w:50,h:40,vx:.01,at:'s',pl:1,hop:-9,k:'b',burst:1,bd:32,br:185,quake:1,arm:1},
  kingpin:{n:'GOLD STANDARD',t:'proj',march:5,s:16,a:24,r:26,d:8,w:50,h:30,vx:.01,pl:1,k:'b',burst:1,bd:9,br:70,pil:1,hop:-7},
  tommy:{n:'EIGHT LIMBS',t:'boss',s:5,a:30,r:22,d:5,hits:8,hi2:4,w:72,h:16,dx:5,k:'p'},
- danny:{n:'SKYFALL',vy:-11,t:'boss',s:5,a:28,r:22,d:5,hits:7,hi2:4,w:80,h:14,dx:7,k:'k'},
+ danny:{n:'HEADSPIN',t:'boss',s:5,a:30,r:22,d:5,hits:8,hi2:4,w:70,h:14,dx:2,k:'k',low:1,lau:1},
  will:{n:'LAST LINE',t:'dash',s:10,a:12,r:28,d:34,w:80,h:50,dx:10,kx:18,ky:-6,k:'b',arm:1},
- ghost:{n:'HAUNTING',t:'tele',s:10,a:6,r:24,d:30,w:72,h:44,kx:6,ky:-11,k:'p',lau:1},
- fortyoz:{n:'LAST CALL',t:'grab',slam:1,s:6,a:4,r:30,d:34,w:90,h:50,kx:8,ky:-10,k:'b'},
+ ghost:{n:'FORGOTTEN',t:'proj',s:14,a:2,r:26,d:10,w:50,h:30,vx:.01,at:'o',pl:20,k:'b',burst:1,smk:1,bd:32,br:110},
+ fortyoz:{n:'LAST CALL MOLOTOV',t:'proj',s:10,a:2,r:26,d:10,w:50,h:30,vx:6,vy:-7,g:.3,k:'b',burst:1,bd:30,br:120,pil:1},
  charcoal:{n:'JERK PIT ERUPTION',t:'proj',march:4,s:16,a:24,r:26,d:8,w:50,h:30,vx:.01,pl:1,k:'b',burst:1,bd:9,br:70,pil:1,hop:-7},
- donna:{n:'BLACK WIDOW',t:'grab',s:8,a:6,r:28,d:32,w:180,h:50,kx:-6,ky:-9,k:'b'}
+ donna:{n:'BLACK WIDOW WEB',t:'proj',s:10,a:2,r:26,d:30,w:70,h:90,vx:4.5,pl:110,k:'b',kx:4,ky:-10}
 };
 // 4 airborne moves each: air Light, air Heavy, air Down+Heavy, air Special (AS table)
 const AIR={
@@ -539,8 +539,8 @@ const SUP={
  will:{n:'TASER',t:'proj',s:7,a:2,r:22,d:10,w:50,h:56,vx:11,k:'b',elec:1},
  donna:{n:'VENOM SPIT',t:'proj',s:8,a:2,r:20,d:12,w:50,h:44,vx:8,vy:-4,g:.25,k:'b'},
  ghost:{n:'POSSESS',t:'grab',s:6,a:4,r:26,d:20,w:80,h:44,kx:-8,ky:-8,k:'p'},
- fortyoz:{n:'DRUNKEN FIST',t:'boss',s:6,a:20,r:24,d:6,hits:4,hi2:5,w:74,h:16,dx:5,k:'p'},
- charcoal:{n:'BRANDING IRON',t:'grab',s:6,a:4,r:24,d:20,w:80,h:44,kx:10,ky:-6,k:'p'}
+ fortyoz:{n:'LIQUID COURAGE',t:'buff',buff:200,s:10,a:2,r:18,d:0,w:30,h:0,k:'b'},
+ charcoal:{n:'SCOTCH BONNET BREATH',t:'proj',s:7,a:2,r:22,d:8,w:50,h:30,vx:6,pl:22,k:'p',burst:1,bd:16,br:70}
 };
 function goSup(f){
  const u=SUP[f.ch.id];if(!u)return;
