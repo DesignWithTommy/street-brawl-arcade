@@ -644,7 +644,7 @@ C.addEventListener('mousedown',e=>{
 const PD={},PP={};
 function padU(){
  const ps=(navigator.getGamepads?[...navigator.getGamepads()]:[]).filter(p=>p&&p.connected);
- for(let n=0;n<2;n++){
+ for(let n=0;n<4;n++){
   const p=ps[n];if(!p){PD[n]=0;PP[n]={};continue}
   const B=i=>{const b=p.buttons[i];return !!b&&(b.pressed||b.value>.5)},a=i=>p.axes[i]||0;
   const c={l:B(14)||a(0)<-.5,r:B(15)||a(0)>.5,u:B(12)||a(1)<-.5,d:B(13)||a(1)>.5};
@@ -658,11 +658,13 @@ function padU(){
   PP[n]=c;PD[n]=c;
  }
 }
-const padP=k=>(PD[0]&&PD[0][k])||(PD[1]&&PD[1][k]);
+const padP=k=>(PD[0]&&PD[0][k])||(PD[1]&&PD[1][k])||(PD[2]&&PD[2][k])||(PD[3]&&PD[3][k]);
+// Single local player: every connected pad drives P1, so a virtual/ghost pad in slot 0 (Steam, DS4Windows, vJoy, headsets) can't steal input.
+const padAll=()=>{let m=0;for(let n=0;n<4;n++){const p=PD[n];if(!p)continue;m=m||{};for(const k in p)m[k]=m[k]||p[k]}return m};
 const NUM_ALT={L:'Numpad1',H:'Numpad2',S:'Numpad3',G:'Numpad4'};
 const p1Used=c=>Object.values(cfg.keys[0]).includes(c);
 const inp=id=>{
- const m=cfg.keys[id],g=PD[id];
+ const m=cfg.keys[id],g=id===0?padAll():PD[id];
  const i={l:K[m.l]||(g&&g.l),r:K[m.r]||(g&&g.r),u:K[m.u]||(g&&g.u),d:K[m.d]||(g&&g.d)};
  for(const k of'LHSG'){
   const alt=id===1&&!p1Used(NUM_ALT[k])?pr[NUM_ALT[k]]:0;
