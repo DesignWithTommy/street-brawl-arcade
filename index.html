@@ -2231,14 +2231,25 @@ function fig(f,idleAnim=true,showAura=true){
  const legCol=flash?'#ffffff':skin(c,1);
  const legW=c.id==='brutus'||c.id==='titan'?14:11;
 
+ // Pose state from the stick-figure reference sheets: run cycle, wide guard, jump tuck, hit recoil, grabbed dangle, limp KO
+ const PS=f.st==='hit'?'hit':f.st==='grabbed'?'grab':dn?'down':m?'atk':air?'air':(f.st==='idle'&&idleAnim&&Math.abs(f.vx)>.5)?'run':'idle';
+ const ph=fr*.32*Math.sign(f.vx||1)*f.face,sw=Math.sin(ph),cw=Math.cos(ph);
  // Articulated Back & Front Legs
- limb(-3,hy,-20+w,air?-18:0,air?-11:5,legW,dk(legCol),c.c+'55');
+ if(PS==='run')limb(-3,hy,-4-sw*20,-Math.max(0,cw)*12,-9-Math.max(0,cw)*6,legW,dk(legCol),c.c+'55');
+ else if(PS==='air')limb(-3,hy,f.vy<0?-16:-12,f.vy<0?-10:-2,f.vy<0?-10:-6,legW,dk(legCol),c.c+'55');
+ else if(PS==='hit')limb(-3,hy,-18,0,6,legW,dk(legCol),c.c+'55');
+ else if(PS==='grab'||PS==='down')limb(-3,hy,-10,-2,-4,legW,dk(legCol),c.c+'55');
+ else if(PS==='idle'&&cr)limb(-3,hy,-28,0,9,legW,dk(legCol),c.c+'55');
+ else limb(-3,hy,-22+w,0,7,legW,dk(legCol),c.c+'55');
  if(m&&m.k==='k'){
   tx=22+e*(m.w*.92-22);ty=hy+m.ya+(m.yb-m.ya)*cl;
   limb(0,hy,tx,ty,-7,legW,legCol,rim);
- }else{
-  limb(3,hy,24-w,air?-26:0,air?-12:-7,legW,legCol,c.c+'88');
- }
+ }else if(PS==='run')limb(3,hy,4+sw*20,-Math.max(0,-cw)*12,-9-Math.max(0,-cw)*6,legW,legCol,c.c+'88');
+ else if(PS==='air')limb(3,hy,f.vy<0?16:18,f.vy<0?-30:-12,f.vy<0?-14:-9,legW,legCol,c.c+'88');
+ else if(PS==='hit')limb(3,hy,14,-20,-12,legW,legCol,c.c+'88');
+ else if(PS==='grab')limb(3,hy,8,2,-5,legW,legCol,c.c+'88');
+ else if(PS==='idle'&&cr)limb(3,hy,30,0,-10,legW,legCol,c.c+'88');
+ else limb(3,hy,26-w,0,-9,legW,legCol,c.c+'88');
 
  // Arms: far arm behind the torso from the rear shoulder, near arm drawn after it
  const sy=hy-32,armW=c.id==='brutus'||c.id==='titan'?12:9.5;
@@ -2257,6 +2268,21 @@ function fig(f,idleAnim=true,showAura=true){
    if(m.k==='b')limb(bk-5,sy+1,x,y-7,5,armW,dk(armCol),rim);
    else limb(bk-5,sy+1,-14,sy+10,6,armW,dk(armCol));
   }
+ }else if(PS==='hit'){
+  FA.push(()=>limb(bk,sy,bk+6,sy-30,-8,armW,armCol,rim));
+  limb(bk-5,sy+1,bk-24,sy-20,6,armW,dk(armCol));
+ }else if(PS==='grab'){
+  FA.push(()=>limb(bk,sy,18,sy-26,-6,armW,armCol,rim));
+  limb(bk-5,sy+1,-14,sy-26,6,armW,dk(armCol));
+ }else if(PS==='down'){
+  FA.push(()=>limb(bk,sy,16,sy+26,5,armW,armCol,rim));
+  limb(bk-5,sy+1,-12,sy+24,-5,armW,dk(armCol));
+ }else if(PS==='air'){
+  FA.push(()=>limb(bk,sy,24,sy-14,7,armW,armCol,rim));
+  limb(bk-5,sy+1,-20,sy-12,-6,armW,dk(armCol));
+ }else if(PS==='run'){
+  FA.push(()=>limb(bk,sy,bk-sw*16,sy+20,9,armW,armCol,rim));
+  limb(bk-5,sy+1,bk-5+sw*16,sy+20,9,armW,dk(armCol));
  }else{
   if(c.id==='rex'){FA.push(()=>limb(bk,sy,22,sy-6,8,armW,armCol,c.c));limb(bk-5,sy+1,15,sy-13,6,armW,dk(armCol),c.c)}
   else if(c.id==='sensei'){FA.push(()=>limb(bk,sy,24,sy-6,7,armW,armCol,rim));limb(bk-5,sy+1,-12,sy+6,5,armW,dk(armCol))}
