@@ -229,8 +229,8 @@ const mk=(id,n,full,nick,st,c,c2,a,diff,hp,sp,jp,z,f,q,S,sn,sd,scdMax,rival,quot
 const CH=[
  mk('rex','REX','REX "REDLINE" VEGA','REDLINE','Brawler','#e74c3c','#ff4422','#7b241c','Beginner',
   100,3.6,-15,1,1,1,
-  M(9,12,20,13,70,24,12,-4,{t:'dash',dx:9.5,k:'b'}),
-  'Rising Charge','Forward rush into a crushing body blow that drives the foe back.',55,7,
+  M(6,2,20,0,30,0,0,0,{t:'buff',buff:150,k:'b'}),
+  'Redline','Cranks his pacemaker into the red: faster, harder-hitting fists for a few seconds.',55,7,
   "I'm not done... not yet.",
   'Champ whose heart stopped when he refused to take a dive. Came back on a pacemaker tuned to redline.',
   'Balanced punches, reliable chains, strong pressure.',
@@ -262,8 +262,8 @@ const CH=[
  ),
  mk('brutus','BRUTUS','BRUTUS "THE BEAST" COLE','THE BEAST','Grappler','#e67e22','#ff7700','#6e2c00','Advanced',
   124,2.6,-13,1.18,1.4,1.28,
-  M(8,3,30,20,80,40,5,-7,{t:'grab',k:'b',slam:1}),
-  'Groundbreaker','Close-range command grab that lifts and slams the foe.',70,0,
+  M(9,4,24,11,140,28,-7,-5,{k:'b',whip:1}),
+  'Chain Hook','Lashes out with his old pit chain and drags the foe into arm’s reach.',70,0,
   'No one beats me.',
   'Ten years chained in the Kingpin’s pit. He ripped the shackles out of the wall and kept them.',
   'Command grabs, slams, heavy punishment, high HP.',
@@ -487,11 +487,11 @@ const AS={
 const ROSTER=[0,1,2,3,4,5,6,7,9,10,11,12,13,14,15];   // selectable (Kingpin = 8, unlockable)
 // Ultimates: G+S with a FULL special meter. Super-freeze, startup invulnerable, high min damage scaling.
 const ULT={
- rex:{n:"CHAMPION'S FURY",t:'dash',s:7,a:10,r:12,d:30,w:66,h:30,dx:4,vy:-12,kx:1.5,ky:-19,k:'p',upc:1,ya:12,yb:-58},
- volt:{n:'LIVE WIRE',t:'boss',s:6,a:30,r:24,d:6,hits:6,hi2:5,w:80,h:16,dx:13,k:'b',elec:1},
- brutus:{n:'CHAIN STORM',t:'boss',s:6,a:30,r:26,d:7,hits:5,hi2:6,w:96,h:20,dx:6,k:'b'},
- kira:{n:'LIGHTNING RUSH',t:'boss',s:4,a:30,r:22,d:5,hits:6,hi2:4,w:80,h:16,dx:12,k:'k'},
- sensei:{n:'HUNDRED PALMS',t:'boss',s:4,a:30,r:24,d:5,hits:8,hi2:4,w:70,h:20,dx:3,k:'p'},
+ rex:{n:'FLATLINE',t:'proj',s:8,a:2,r:26,d:10,w:50,h:30,vx:.01,pl:4,k:'b',burst:1,elec:1,bd:30,br:140,kx:6,ky:-14},
+ volt:{n:'LIGHTNING ROD',t:'proj',march:6,s:14,a:30,r:26,d:7,w:50,h:30,vx:.01,pl:1,k:'b',burst:1,bd:8,br:70,elec:1},
+ brutus:{n:'RIP THE WALLS',t:'proj',march:5,s:16,a:24,r:26,d:9,w:50,h:30,vx:.01,pl:1,k:'b',burst:1,smk:1,quake:1,bd:10,br:80,hop:-8},
+ kira:{n:'SPECIAL DELIVERY',t:'proj',s:10,a:2,r:26,d:10,w:50,h:30,vx:.01,at:'o',pl:30,k:'b',burst:1,flash:1,bd:32,br:110},
+ sensei:{n:'ASHES OF THE DOJO',t:'proj',march:5,s:16,a:24,r:26,d:8,w:50,h:30,vx:.01,pl:1,k:'b',burst:1,smk:1,pil:1,bd:9,br:70},
  ember:{n:'INFERNO',t:'proj',s:12,a:2,r:30,d:10,w:50,h:30,vx:.01,at:'o',pl:26,k:'b',burst:1,bd:30,br:80,pil:1},
  shade:{n:'SHADOW EXECUTION',t:'boss',s:6,a:28,r:24,d:6,hits:6,hi2:5,w:80,h:16,dx:15,k:'k',tb:1},
  titan:{n:'FINAL DRIVE',t:'proj',s:20,a:4,r:30,d:10,w:50,h:40,vx:.01,at:'s',pl:1,hop:-9,k:'b',burst:1,bd:32,br:185,quake:1,arm:1},
@@ -525,11 +525,11 @@ const AIR={
 };
 // Super: LIGHT + SPECIAL with half meter (50)
 const SUP={
- rex:{n:'HAYMAKER',s:9,a:4,r:24,d:22,w:74,h:30,kx:13,ky:-5,k:'p'},
- volt:{n:'TESLA FIELD',t:'proj',s:8,a:2,r:24,d:6,w:50,h:30,vx:.01,k:'b',burst:1,bd:18,br:115,pl:5,elec:1},
- brutus:{n:'CHAIN WHIP',s:10,a:4,r:26,d:18,w:140,h:28,kx:-5,ky:-6,k:'b',whip:1},
+ rex:{n:'ROPE-A-DOPE',t:'ctr',s:2,a:30,r:20,d:0,w:38,h:0,rv:24,cn:'ROPE-A-DOPE!',k:'b'},
+ volt:{n:'SURGE TRAP',t:'proj',s:8,a:2,r:18,d:16,w:40,h:20,vx:.01,low:1,pl:300,k:'b',elec:1,kx:3,ky:-9},
+ brutus:{n:'SHACKLE THROW',t:'proj',s:10,a:2,r:24,d:18,w:50,h:30,vx:7.5,vy:-6,g:.3,k:'b',burst:1,smk:1,bd:18,br:90},
  kira:{n:'PARKOUR SLIDE',t:'dash',s:5,a:6,r:20,d:16,w:70,h:20,dx:13,kx:3,ky:-12,k:'k',low:1,lau:1},
- sensei:{n:'IRON PALM',s:8,a:4,r:22,d:18,w:66,h:48,kx:4,ky:-3,k:'p'},
+ sensei:{n:'ECHO PALM',t:'proj',s:8,a:2,r:22,d:16,w:60,h:60,vx:5,pl:70,k:'p',kx:9,ky:-4},
  ember:{n:'AFTERBURNER',t:'dash',s:6,a:8,r:22,d:18,w:70,h:30,dx:11,kx:12,ky:-6,k:'k'},
  shade:{n:'KUNAI FAN',t:'proj',s:6,a:2,r:18,d:16,w:50,h:26,vx:15,k:'b'},
  titan:{n:'QB SACK',t:'grab',slam:1,s:6,a:4,r:26,d:20,w:80,h:50,kx:8,ky:-8,k:'b'},
@@ -1397,7 +1397,7 @@ function connect(f,o,m,fc){
  // Sensei Perfect Reversal counter check
  if(o.st==='atk'&&d&&d.t==='ctr'&&o.t>=d.s-2&&o.t<=d.s+d.a+3&&m.t!=='grab'&&(m.t==='proj'||m.t==='burst'||Math.abs(o.x-f.x)>160)){if(d.ult){o.x=Math.max(40,Math.min(W-40,f.x-f.face*52));o.face=f.x>o.x?1:-1;o.st='idle';o.mv=null;o.fx=['MIRROR STEP!',65];addFx(o.x,o.y-60,'#2ecc71',80,'ring');aud.sfx('ctr');take(o,f,(d.rv||18)*(RULE()===5?2:1),40,12,-12,o.face);hs=10;return 1}o.st='idle';o.mv=null;o.fx=['ABSORBED!',40];addFx(o.x+o.face*24,o.y-60,'#2ecc71',50,'ring');aud.sfx('blk');hs=4;return 1}
  if(o.st==='atk'&&d&&d.t==='ctr'&&o.t>=d.s-2&&o.t<=d.s+d.a+3&&m.t!=='grab'){
-  o.st='idle';o.mv=null;o.fx=['PERFECT REVERSAL!',65];
+  o.fx=[d.cn||'PERFECT REVERSAL!',65];o.st='idle';o.mv=null;
   if(Math.abs(o.x-f.x)<120)f.x=Math.max(40,Math.min(W-40,o.x+o.face*52));
   addFx(o.x+o.face*24,o.y-60,'#2ecc71',70,'ring');
   aud.sfx('ctr');
@@ -1542,7 +1542,8 @@ function upd(f,o,i){
   if(m.t==='proj'&&f.t===m.s&&!m.march){
    PJ.push({x:m.at==='o'?o.x:m.at==='s'?f.x:f.x+f.face*30,y:m.at?G-40:m.low?f.y-14:f.y-70*ch.z,vx:f.face*m.vx,vy:m.vy||0,g:m.g||0,o:f,m,l:m.pl||(m.burst?58:m.ret?80:m.home?150:95),burst:!!m.burst,bn:0});
   }
-  if(f.t>m.s&&f.t<=E&&m.t!=='ctr'&&m.t!=='proj'){
+  if(m.buff&&f.t===m.s){f.rage=Math.max(f.rage||0,m.buff);f.fx=[(m.n||'REDLINE')+'!',45];addFx(f.x,f.y-55,ch.c2,110,'ring');aud.sfx('ctr')}
+  if(f.t>m.s&&f.t<=E&&m.t!=='ctr'&&m.t!=='proj'&&m.t!=='buff'){
    if(m.t==='boss'){
     const nh=m.hits||3;
     if(f.bossHits<nh&&(f.t-m.s)%(m.hi2||5)===1){
@@ -1570,7 +1571,7 @@ function upd(f,o,i){
    else if(ch.id==='shade'&&f.k==='S'&&f.b.H){f.b.H=0;go(f,'H',1,i)}
    else {const ii=f.bi?{...i,...f.bi}:i;for(const k of['S','H','L'])if(f.b[k]&&(O[k]>O[f.k]||(k!=='S'&&O[k]===O[f.k]&&dkey(f,k,ii)!==f.v&&f.cn<3)||comboNext(f,k,ii))){f.b[k]=0;go(f,k,1,i);break}}
   }
-  if(f.st==='atk'&&m.ult&&m.t==='ctr'&&f.t===m.s+m.a){f.mv={...ULT.rex,n:'MIRROR PALM',ult:1,d:26,k:'p'};f.t=0;f.hit=0;f.fx=['MIRROR PALM!',45];aud.sfx('dash')}
+  if(f.st==='atk'&&m.ult&&m.t==='ctr'&&f.t===m.s+m.a){f.mv={t:'dash',s:7,a:10,r:12,d:30,w:66,h:30,dx:4,vy:-12,kx:1.5,ky:-19,k:'p',upc:1,ya:12,yb:-58,n:'MIRROR PALM',ult:1,d:26,k:'p'};f.t=0;f.hit=0;f.fx=['MIRROR PALM!',45];aud.sfx('dash')}
   else if(f.st==='atk'&&f.t>=E+m.r){f.st='idle';f.mv=null}
  }
  else if(f.st==='idle'){
@@ -2763,7 +2764,7 @@ function drawCombos(){
   let y=119;const nx=(n,i,m)=>{row(y,n,i,m);y+=15.5};
   R0.forEach(([n,i,k],j)=>{const tag=['','',' ↑',' (low)','','',' (push)',' (low)','','',' (swap)',''][j];nx((MNAME[c.id]?MNAME[c.id][j]:n)+tag,i,moveOf(c,k))});
   nx(c.sn,'S',c.S);
-  const CMD={rex:['→ → + S','Dash-in special'],volt:['↓ ↘ → + S','Motion special'],ember:['↓ ↙ ← + S','Motion special'],sensei:['← + S','Counter stance'],titan:['→ + S','Charging special'],shade:['← or → + S','Directional teleport'],kira:['→ → + H','Rush cancel (uses special meter)']}[c.id];
+  const CMD={rex:['→ → + S','Longer Redline'],volt:['↓ ↘ → + S','Motion special'],ember:['↓ ↙ ← + S','Motion special'],sensei:['← + S','Counter stance'],titan:['→ + S','Charging special'],shade:['← or → + S','Directional teleport'],kira:['→ → + H','Rush cancel (uses special meter)']}[c.id];
   if(CMD)nx(c.sn+' — COMMAND (+12% dmg, faster)',CMD[0],{...c.S,d:R(c.S.d*1.12),s:Math.max(2,c.S.s-1)});
   nx('Air: '+(A.L?A.L.n:'Light'),'Jump L',air('L',A.L));
   nx('Air: '+(A.H?A.H.n:'Heavy'),'Jump H',air('H',A.H));
