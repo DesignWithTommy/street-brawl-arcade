@@ -1373,7 +1373,7 @@ function finishThrow(f,o,m){
   aud.sfx('slam');
   if(cfg.shake)shk=13;
   take(f,o,dm,m.h,m.kx,m.ky,fc);
-  o.fx=['GROUNDBREAKER!',50];
+  o.fx=['SLAM!',50];
  }else{
   aud.sfx('grab');
   addDust(o.x,G,fc*3,'#ffffff77',5);
@@ -2764,7 +2764,7 @@ function drawCombos(){
   let y=119;const nx=(n,i,m)=>{row(y,n,i,m);y+=15.5};
   R0.forEach(([n,i,k],j)=>{const tag=['','',' ↑',' (low)','','',' (push)',' (low)','','',' (swap)',''][j];nx((MNAME[c.id]?MNAME[c.id][j]:n)+tag,i,moveOf(c,k))});
   nx(c.sn,'S',c.S);
-  const CMD={rex:['→ → + S','Longer Redline'],volt:['↓ ↘ → + S','Motion special'],ember:['↓ ↙ ← + S','Motion special'],sensei:['← + S','Counter stance'],titan:['→ + S','Charging special'],shade:['← or → + S','Directional teleport'],kira:['→ → + H','Rush cancel (uses special meter)']}[c.id];
+  const CMD={rex:['→ → + S','Faster Redline'],volt:['↓ ↘ → + S','Motion special'],ember:['↓ ↙ ← + S','Motion special'],sensei:['← + S','Counter stance'],titan:['→ + S','Charging special'],shade:['← or → + S','Directional teleport'],kira:['→ → + H','Rush cancel (uses special meter)']}[c.id];
   if(CMD)nx(c.sn+' — COMMAND (+12% dmg, faster)',CMD[0],{...c.S,d:R(c.S.d*1.12),s:Math.max(2,c.S.s-1)});
   nx('Air: '+(A.L?A.L.n:'Light'),'Jump L',air('L',A.L));
   nx('Air: '+(A.H?A.H.n:'Heavy'),'Jump H',air('H',A.H));
