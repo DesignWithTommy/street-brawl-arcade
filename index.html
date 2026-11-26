@@ -229,8 +229,8 @@ const mk=(id,n,full,nick,st,c,c2,a,diff,hp,sp,jp,z,f,q,S,sn,sd,scdMax,rival,quot
 const CH=[
  mk('rex','REX','REX "REDLINE" VEGA','REDLINE','Brawler','#e74c3c','#ff4422','#7b241c','Beginner',
   100,3.6,-15,1,1,1,
-  M(9,12,20,13,70,24,7,-10,{t:'dash',dx:9.5,lau:1,k:'b'}),
-  'Rising Charge','Forward rush into a launching uppercut combo starter.',55,7,
+  M(9,12,20,13,70,24,12,-4,{t:'dash',dx:9.5,k:'b'}),
+  'Rising Charge','Forward rush into a crushing body blow that drives the foe back.',55,7,
   "I'm not done... not yet.",
   'Champ whose heart stopped when he refused to take a dive. Came back on a pacemaker tuned to redline.',
   'Balanced punches, reliable chains, strong pressure.',
@@ -488,19 +488,19 @@ const ROSTER=[0,1,2,3,4,5,6,7,9,10,11,12,13,14,15];   // selectable (Kingpin = 8
 // Ultimates: G+S with a FULL special meter. Super-freeze, startup invulnerable, high min damage scaling.
 const ULT={
  rex:{n:"CHAMPION'S FURY",t:'dash',s:7,a:10,r:12,d:30,w:66,h:30,dx:4,vy:-12,kx:1.5,ky:-19,k:'p',upc:1,ya:12,yb:-58},
- volt:{n:'RAILGUN',t:'proj',s:10,a:2,r:28,d:26,w:50,h:40,vx:15,kx:9,ky:-9,k:'b'},
- brutus:{n:'PILEDRIVER',t:'grab',slam:1,s:6,a:4,r:30,d:34,w:92,h:50,kx:6,ky:-9,k:'b'},
+ volt:{n:'LIVE WIRE',t:'boss',s:6,a:30,r:24,d:6,hits:6,hi2:5,w:80,h:16,dx:13,k:'b',elec:1},
+ brutus:{n:'CHAIN STORM',t:'boss',s:6,a:30,r:26,d:7,hits:5,hi2:6,w:96,h:20,dx:6,k:'b'},
  kira:{n:'LIGHTNING RUSH',t:'boss',s:4,a:30,r:22,d:5,hits:6,hi2:4,w:80,h:16,dx:12,k:'k'},
- sensei:{n:'HEAVEN MIRROR',t:'ctr',s:2,a:50,r:24,d:0,rv:38,w:38,h:0,k:'b'},
+ sensei:{n:'HUNDRED PALMS',t:'boss',s:4,a:30,r:24,d:5,hits:8,hi2:4,w:70,h:20,dx:3,k:'p'},
  ember:{n:'INFERNO',t:'proj',s:12,a:2,r:30,d:10,w:50,h:30,vx:.01,at:'o',pl:26,k:'b',burst:1,bd:30,br:80,pil:1},
- shade:{n:'SHADOW EXECUTION',t:'tele',s:12,a:6,r:24,d:28,w:72,h:40,kx:8,ky:-11,k:'k',lau:1},
+ shade:{n:'SHADOW EXECUTION',t:'boss',s:6,a:28,r:24,d:6,hits:6,hi2:5,w:80,h:16,dx:15,k:'k',tb:1},
  titan:{n:'FINAL DRIVE',t:'proj',s:20,a:4,r:30,d:10,w:50,h:40,vx:.01,at:'s',pl:1,hop:-9,k:'b',burst:1,bd:32,br:185,quake:1,arm:1},
- kingpin:{n:'ABSOLUTE VERDICT',t:'boss',s:6,a:32,r:26,d:7,hits:6,hi2:5,w:84,h:18,dx:11,k:'b'},
- tommy:{n:'EIGHT LIMBS',t:'grab',s:5,a:4,r:30,d:34,w:84,h:50,kx:14,ky:-8,k:'p'},
+ kingpin:{n:'GOLD STANDARD',t:'proj',march:5,s:16,a:24,r:26,d:8,w:50,h:30,vx:.01,pl:1,k:'b',burst:1,bd:9,br:70,pil:1,hop:-7},
+ tommy:{n:'EIGHT LIMBS',t:'boss',s:5,a:30,r:22,d:5,hits:8,hi2:4,w:72,h:16,dx:5,k:'p'},
  danny:{n:'SKYFALL',vy:-11,t:'boss',s:5,a:28,r:22,d:5,hits:7,hi2:4,w:80,h:14,dx:7,k:'k'},
- will:{n:'LAST LINE',t:'proj',s:10,a:2,r:28,d:10,w:50,h:40,vx:.01,k:'b',burst:1,bd:30,br:175,pl:6,flash:1},
- ghost:{n:'HAUNTING',t:'proj',s:12,a:2,r:26,d:30,w:50,h:44,vx:5,home:2,k:'p',kx:6,ky:-11,lau:1},
- fortyoz:{n:'LAST CALL',t:'proj',s:10,a:2,r:28,d:28,w:50,h:36,vx:8,vy:-8,g:.32,k:'b',bnc:3,kx:9,ky:-10},
+ will:{n:'LAST LINE',t:'dash',s:10,a:12,r:28,d:34,w:80,h:50,dx:10,kx:18,ky:-6,k:'b',arm:1},
+ ghost:{n:'HAUNTING',t:'tele',s:10,a:6,r:24,d:30,w:72,h:44,kx:6,ky:-11,k:'p',lau:1},
+ fortyoz:{n:'LAST CALL',t:'grab',slam:1,s:6,a:4,r:30,d:34,w:90,h:50,kx:8,ky:-10,k:'b'},
  charcoal:{n:'JERK PIT ERUPTION',t:'proj',march:4,s:16,a:24,r:26,d:8,w:50,h:30,vx:.01,pl:1,k:'b',burst:1,bd:9,br:70,pil:1,hop:-7},
  donna:{n:'BLACK WIDOW',t:'grab',s:8,a:6,r:28,d:32,w:180,h:50,kx:-6,ky:-9,k:'b'}
 };
@@ -528,19 +528,19 @@ const SUP={
  rex:{n:'HAYMAKER',s:9,a:4,r:24,d:22,w:74,h:30,kx:13,ky:-5,k:'p'},
  volt:{n:'TESLA FIELD',t:'proj',s:8,a:2,r:24,d:6,w:50,h:30,vx:.01,k:'b',burst:1,bd:18,br:115,pl:5,elec:1},
  brutus:{n:'CHAIN WHIP',s:10,a:4,r:26,d:18,w:140,h:28,kx:-5,ky:-6,k:'b',whip:1},
- kira:{n:'RUSH HOUR',t:'boss',s:4,a:18,r:20,d:6,hits:3,hi2:5,w:72,h:16,dx:13,k:'k'},
+ kira:{n:'PARKOUR SLIDE',t:'dash',s:5,a:6,r:20,d:16,w:70,h:20,dx:13,kx:3,ky:-12,k:'k',low:1,lau:1},
  sensei:{n:'IRON PALM',s:8,a:4,r:22,d:18,w:66,h:48,kx:4,ky:-3,k:'p'},
- ember:{n:'FLAME PILLAR',t:'proj',s:10,a:2,r:24,d:6,w:50,h:30,vx:3,vy:-1,g:0,k:'b',burst:1,bd:20,br:90,pl:12},
+ ember:{n:'AFTERBURNER',t:'dash',s:6,a:8,r:22,d:18,w:70,h:30,dx:11,kx:12,ky:-6,k:'k'},
  shade:{n:'KUNAI FAN',t:'proj',s:6,a:2,r:18,d:16,w:50,h:26,vx:15,k:'b'},
- titan:{n:'STIFF ARM',s:8,a:6,r:24,d:20,w:80,h:30,kx:15,ky:-4,k:'p',arm:1},
+ titan:{n:'QB SACK',t:'grab',slam:1,s:6,a:4,r:26,d:20,w:80,h:50,kx:8,ky:-8,k:'b'},
  kingpin:{n:'GOLD RUSH',t:'proj',s:8,a:2,r:22,d:18,w:50,h:30,vx:9,k:'b'},
  tommy:{n:'SPINNING ELBOW',s:5,a:4,r:20,d:19,w:60,h:30,kx:9,ky:-6,k:'p'},
- danny:{n:'TORNADO',t:'boss',s:5,a:18,r:22,d:6,hits:3,hi2:5,w:76,h:16,dx:4,vy:-8,k:'k'},
+ danny:{n:'WINDMILL',t:'dash',s:5,a:8,r:22,d:18,w:80,h:20,dx:6,kx:6,ky:-8,k:'k',low:1},
  will:{n:'TASER',t:'proj',s:7,a:2,r:22,d:10,w:50,h:56,vx:11,k:'b',elec:1},
  donna:{n:'VENOM SPIT',t:'proj',s:8,a:2,r:20,d:12,w:50,h:44,vx:8,vy:-4,g:.25,k:'b'},
  ghost:{n:'POSSESS',t:'grab',s:6,a:4,r:26,d:20,w:80,h:44,kx:-8,ky:-8,k:'p'},
  fortyoz:{n:'DRUNKEN FIST',t:'boss',s:6,a:20,r:24,d:6,hits:4,hi2:5,w:74,h:16,dx:5,k:'p'},
- charcoal:{n:'HOT COAL',t:'proj',s:8,a:2,r:22,d:14,w:50,h:30,vx:7,k:'b',lo:1,low:1}
+ charcoal:{n:'BRANDING IRON',t:'grab',s:6,a:4,r:24,d:20,w:80,h:44,kx:10,ky:-6,k:'p'}
 };
 function goSup(f){
  const u=SUP[f.ch.id];if(!u)return;
@@ -3383,8 +3383,8 @@ C.focus();
  #tc .btns .b{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;font-size:22px;line-height:1}
  #tc .btns .big{width:84px;height:84px}
  #tc .btns .b{opacity:.5;background:#ffffff10}#tc .btns .b.on{opacity:.85;background:#ffffff40}
- #tc .btns .b{border:2.5px solid #000c!important;background:#ffffff1a;box-shadow:inset 0 0 0 1px #ffffff30}
- #tc .btns svg{width:50%;height:50%;fill:#fff;fill-opacity:.9;stroke:#000;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+ #tc .btns .b{border:0!important;background:#ffffff1a;box-shadow:none}
+ #tc .btns svg{width:66%;height:66%;fill:#fff;fill-opacity:.9;stroke:#000;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
  #tc .b{width:58px;height:58px;opacity:.85;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 13px system-ui,sans-serif;color:#fff;background:#ffffff1f;border:2px solid #ffffff55}
  #tc .b.on{background:#ffffff66}
  #tc .L{border-color:#3fc1d9}#tc .H{border-color:#ff5ca8}#tc .S{border-color:#f5c542}#tc .G{border-color:#a78bfa}
