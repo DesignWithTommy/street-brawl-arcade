@@ -2943,7 +2943,7 @@ function howtoD(){
   ];
   rows.forEach(r=>{if(typeof r[1]!=='string')r.splice(2,1)});
   const TOUCH=('ontouchstart' in window)||navigator.maxTouchPoints>0;
-  if(TOUCH){const T={Move:['Joystick ←/→'],Jump:['Stick up'],Crouch:['Stick down'],Light:['LIGHT'],Heavy:['HEAVY'],Special:['SPEC'],Grab:['GRAB'],Super:['SUPER'],Ultimate:['ULT'],Rage:['RAGE'],Pause:['II']};
+  if(TOUCH){const T={Move:['Joystick ←/→'],Jump:['Stick up'],Crouch:['Stick down'],Light:['👊 big'],Heavy:['🦶 big'],Special:['✨'],Grab:['✋'],Super:['⚡'],Ultimate:['💥'],Rage:['🔥'],Pause:['II']};
    rows.forEach(r=>{if(T[r[0]])r[1]=T[r[0]]});const dr=rows.find(r=>r[0]==='Drop down');if(dr)dr[1]='Flick the stick down twice while on a platform';
    const bl=rows.find(r=>r[0]==='Block');if(bl)bl[1]='Hold stick away from foe · down-away = low block';const ds=rows.find(r=>r[0]==='Dash');if(ds)ds[1]='Flick the stick forward or back twice'}
   const C=[120,330,600];X.font='bold 14px Impact,sans-serif';
@@ -2992,7 +2992,7 @@ function howtoD(){
   X.fillStyle='#e2e6f5';X.font='14px system-ui,sans-serif';
   tips.forEach((t,i)=>X.fillText(t,100,190+i*38));
  }else if(howtoTab===3){
-  const k=cfg.keys[0],TC=('ontouchstart' in window)||navigator.maxTouchPoints>0,K2=a=>TC?({SU:'SUPER button',UL:'ULT button',RG:'RAGE button'}[a]):keyLabel(k[a]);
+  const k=cfg.keys[0],TC=('ontouchstart' in window)||navigator.maxTouchPoints>0,K2=a=>TC?({SU:'⚡ button',UL:'💥 button',RG:'🔥 button'}[a]):keyLabel(k[a]);
   X.fillStyle='#f5c542';X.font='bold 16px Impact,sans-serif';X.fillText('METER, SUPER, ULTIMATE & RAGE',100,156);
   const tips=[
    `• Meter fills as you deal and take damage (bar under your health).`,
@@ -3379,10 +3379,11 @@ C.focus();
  #tc .zone{position:absolute;left:0;bottom:0;width:45vw;height:60vh;pointer-events:auto}
  #tc .base{position:absolute;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;border:2px solid #ffffff40;background:#ffffff12;display:none}
  #tc .knob{position:absolute;left:35px;top:35px;width:50px;height:50px;border-radius:50%;background:#ffffff55;border:2px solid #fff8}
- #tc .btns{position:absolute;right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(3,58px);gap:8px;pointer-events:auto}
+ #tc .btns{position:absolute;right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));width:240px;height:232px;pointer-events:none}
+ #tc .btns .b{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;font-size:22px;line-height:1}
+ #tc .btns .big{width:84px;height:84px;font-size:36px}
  #tc .b{width:58px;height:58px;opacity:.85;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 13px system-ui,sans-serif;color:#fff;background:#ffffff1f;border:2px solid #ffffff55}
  #tc .b.on{background:#ffffff66}
- #tc .sm{width:52px;height:52px;justify-self:center;align-self:center;font-size:11px}
  #tc .L{border-color:#3fc1d9}#tc .H{border-color:#ff5ca8}#tc .S{border-color:#f5c542}#tc .G{border-color:#a78bfa}
  #tc .pause{position:absolute;top:max(8px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));width:44px;height:30px;border-radius:8px;font-size:14px;pointer-events:auto}
  #tcrot{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:#000e;color:#fff;font:700 18px system-ui;text-align:center}
@@ -3395,9 +3396,13 @@ C.focus();
  const R=document.createElement('div');R.id='tc';R.innerHTML=`
   <div class="zone"><div class="base"><div class="knob"></div></div></div>
   <div class="btns">
-   <div class="b sm" data-k="SU">SUPER</div><div class="b sm" data-k="UL">ULT</div><div class="b sm" data-k="RG">RAGE</div>
-   <div class="b G" data-k="G">GRAB</div><div class="b H" data-k="H">HEAVY</div><div class="b S" data-k="S">SPEC</div>
-   <div></div><div class="b L" data-k="L">LIGHT</div><div></div>
+   <div class="b big L" data-k="L" style="left:70px;top:190px">👊</div>
+   <div class="b big H" data-k="H" style="left:150px;top:110px">🦶</div>
+   <div class="b S" data-k="S" style="left:182px;top:200px;width:54px;height:54px">✨</div>
+   <div class="b G" data-k="G" style="left:45px;top:115px;width:48px;height:48px">✋</div>
+   <div class="b" data-k="SU" style="left:88px;top:40px;width:44px;height:44px;border-color:#3fc1d9">⚡</div>
+   <div class="b" data-k="UL" style="left:148px;top:26px;width:44px;height:44px;border-color:#f5c542">💥</div>
+   <div class="b" data-k="RG" style="left:207px;top:40px;width:44px;height:44px;border-color:#ff4d4d">🔥</div>
   </div>
   <div class="b pause" data-k="PAUSE">II</div>
 `;
