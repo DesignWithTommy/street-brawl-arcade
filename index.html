@@ -2199,7 +2199,7 @@ function fig(f,idleAnim=true,showAura=true){
  if(m&&m.t==='tele'&&f.t<m.s)X.globalAlpha=.25;
  const cr=(f.cr&&f.st==='idle')||(m&&m.cr),hy=cr?-30:-54;
  const w=f.st==='idle'&&!air&&idleAnim?Math.sin(fr*.35)*Math.min(14,Math.abs(f.vx)*5):0;
- const bk=f.st==='hit'?(f.bst?-6:-12-(f.sq||0)*16):m?(m.lean?m.lean*cl:(f.t<=m.s?-5*Math.sin(Math.PI*f.t/m.s):7*cl)):air?Math.max(-6,Math.min(6,f.vx*1.4)):f.st==='idle'?Math.max(-5,Math.min(5,f.vx*1.6)):0;
+ const bk=f.st==='hit'?(f.bst?-6:-12-(f.sq||0)*16):m?(m.lean?m.lean*cl:m.k==='k'?-10*cl:(f.t<=m.s?-5*Math.sin(Math.PI*f.t/m.s):7*cl)):air?Math.max(-6,Math.min(6,f.vx*1.4)):f.st==='idle'?Math.max(-5,Math.min(5,f.vx*1.6)):0;
 
  // Charcoal smoke wisps
  if(c.id==='charcoal'&&cfg.vfx>0&&!dn){for(let q=0;q<4;q++){const ph=(fr*.6+q*25)%100;X.fillStyle='rgba(156,163,175,'+(.4*(1-ph/100))+')';X.beginPath();X.arc(Math.sin(q*2+fr*.03)*14,hy-20-ph*.9,6+ph*.14,0,7);X.fill()}}
@@ -2232,7 +2232,7 @@ function fig(f,idleAnim=true,showAura=true){
  const legW=c.id==='brutus'||c.id==='titan'?14:11;
 
  // Pose state from the stick-figure reference sheets: run cycle, wide guard, jump tuck, hit recoil, grabbed dangle, limp KO
- const PS=f.st==='hit'?'hit':f.st==='grabbed'?'grab':dn?'down':m?'atk':air?'air':(f.st==='idle'&&idleAnim&&Math.abs(f.vx)>.5)?'run':'idle';
+ const PS=S==='end'&&f.st==='idle'&&!m&&!air&&f.hp>0&&(f===P1?wins[0]:wins[1])>=Math.max(...wins)?'win':f.st==='hit'?'hit':f.st==='grabbed'?'grab':dn?'down':m?'atk':air?'air':(f.st==='idle'&&idleAnim&&Math.abs(f.vx)>.5)?'run':'idle';
  const ph=fr*.32*Math.sign(f.vx||1)*f.face,sw=Math.sin(ph),cw=Math.cos(ph);
  // Articulated Back & Front Legs
  if(PS==='run')limb(-3,hy,-4-sw*20,-Math.max(0,cw)*12,-9-Math.max(0,cw)*6,legW,dk(legCol),c.c+'55');
@@ -2266,8 +2266,15 @@ function fig(f,idleAnim=true,showAura=true){
   }else{
    FA.push(()=>limb(bk,sy,x,y,-5,armW,armCol,rim));
    if(m.k==='b')limb(bk-5,sy+1,x,y-7,5,armW,dk(armCol),rim);
+   else if(m.t==='proj'||m.t==='boss')limb(bk-5,sy+1,x-4,y+6,-4,armW,dk(armCol),rim);
    else limb(bk-5,sy+1,-14,sy+10,6,armW,dk(armCol));
   }
+ }else if(m&&m.k==='k'){
+  FA.push(()=>limb(bk,sy,bk+18,sy-12,8,armW,armCol,rim));
+  limb(bk-5,sy+1,bk-26,sy-4+cl*6,-6,armW,dk(armCol));
+ }else if(PS==='win'){
+  FA.push(()=>limb(bk,sy,bk+16,sy-34,-6,armW,armCol,rim));
+  limb(bk-5,sy+1,bk-20,sy-32,6,armW,dk(armCol));
  }else if(PS==='hit'){
   FA.push(()=>limb(bk,sy,bk+6,sy-30,-8,armW,armCol,rim));
   limb(bk-5,sy+1,bk-24,sy-20,6,armW,dk(armCol));
@@ -2294,8 +2301,7 @@ function fig(f,idleAnim=true,showAura=true){
  X.lineCap='round';X.strokeStyle=bodyDark;X.lineWidth=torsoW;
  X.beginPath();X.moveTo(0,hy);X.lineTo(bk,hy-36);X.stroke();
  // Hips/pants: a pelvis in the leg colour so the legs grow out of the body instead of hiding behind it
- if(c.id!=='sensei'&&c.id!=='ghost'){X.fillStyle=legCol;X.beginPath();const pw=torsoW+4;X.roundRect?X.roundRect(-pw/2,hy-7,pw,13,5):X.rect(-pw/2,hy-7,pw,13);X.fill();
-  X.strokeStyle=legCol;X.lineWidth=legW;X.lineCap='round';X.beginPath();X.moveTo(-3,hy+2);X.lineTo(-5,hy+8);X.moveTo(3,hy+2);X.lineTo(5,hy+8);X.stroke()}
+ if(c.id!=='sensei'&&c.id!=='ghost'){X.fillStyle=legCol;X.beginPath();const pw=torsoW+4;X.roundRect?X.roundRect(-pw/2,hy-8,pw,10,3):X.rect(-pw/2,hy-8,pw,10);X.fill()}
  // Character Torso Gear
  if(c.id==='rex'){
   X.fillStyle='#f5c542';X.fillRect(-13,hy-6,26,7);X.fillStyle='#c0392b';X.beginPath();X.arc(0,hy-2.5,5,0,7);X.fill();
