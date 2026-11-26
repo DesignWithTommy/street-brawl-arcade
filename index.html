@@ -2033,6 +2033,7 @@ function drawBolt(x1,y1,x2,y2,col,lw=2){
  X.lineTo(x2,y2);X.stroke();
 }
 
+const dk=h=>{if(!h||h[0]!=='#'||h.length<7)return h;const n=parseInt(h.slice(1,7),16),f=v=>Math.round(v*.7).toString(16).padStart(2,'0');return '#'+f(n>>16)+f(n>>8&255)+f(n&255)};
 function limb(x1,y1,x2,y2,bend,w,col,col2=null){
  const mx=(x1+x2)/2,my=(y1+y2)/2,dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy)||1;
  const nx=-dy/len,ny=dx/len,jx=mx+nx*bend,jy=my+ny*bend;
@@ -2231,14 +2232,37 @@ function fig(f,idleAnim=true,showAura=true){
  const legW=c.id==='brutus'||c.id==='titan'?14:11;
 
  // Articulated Back & Front Legs
- limb(0,hy,-14+w,air?-18:0,-11,legW,legCol,c.c+'88');
+ limb(-3,hy,-17+w,air?-18:0,-11,legW,dk(legCol),c.c+'55');
  if(m&&m.k==='k'){
   tx=22+e*(m.w*.92-22);ty=hy+m.ya+(m.yb-m.ya)*cl;
   limb(0,hy,tx,ty,-7,legW,legCol,rim);
  }else{
-  limb(0,hy,14-w,air?-26:0,-12,legW,legCol,c.c+'88');
+  limb(3,hy,20-w,air?-26:0,-12,legW,legCol,c.c+'88');
  }
 
+ // Arms: far arm behind the torso from the rear shoulder, near arm drawn after it
+ const sy=hy-32,armW=c.id==='brutus'||c.id==='titan'?12:9.5;
+ const armCol=flash?'#ffffff':skin(c,2),FA=[];
+ if(f.blk){
+  FA.push(()=>limb(bk,sy,24,sy-16,-7,armW,armCol,rim));
+  limb(bk-5,sy+1,20,sy-2,-5,armW,dk(armCol));
+ }else if(m&&(m.k==='p'||m.k==='b')){
+  const x=24+e*(m.w-24),y=sy+m.ya+(m.yb-m.ya)*cl;
+  if(m.t!=='grab'){tx=x;ty=y}
+  if(m.t==='grab'){
+   FA.push(()=>limb(bk,sy,x,sy+8,6,armW,armCol,rim));
+   limb(bk-5,sy+1,x,sy-12,-6,armW,dk(armCol),rim);
+  }else{
+   FA.push(()=>limb(bk,sy,x,y,-5,armW,armCol,rim));
+   if(m.k==='b')limb(bk-5,sy+1,x,y-7,5,armW,dk(armCol),rim);
+   else limb(bk-5,sy+1,-14,sy+10,6,armW,dk(armCol));
+  }
+ }else{
+  if(c.id==='rex'){FA.push(()=>limb(bk,sy,22,sy-6,8,armW,armCol,c.c));limb(bk-5,sy+1,15,sy-13,6,armW,dk(armCol),c.c)}
+  else if(c.id==='sensei'){FA.push(()=>limb(bk,sy,24,sy-6,7,armW,armCol,rim));limb(bk-5,sy+1,-12,sy+6,5,armW,dk(armCol))}
+  else if(c.id==='ember'){FA.push(()=>limb(bk,sy,22,sy-10,7,armW,armCol,rim));limb(bk-5,sy+1,-10,sy+10,4,armW,dk(armCol))}
+  else{FA.push(()=>limb(bk,sy,24,sy+4,7,armW,armCol,rim));limb(bk-5,sy+1,11,sy+14,5,armW,dk(armCol))}
+ }
  // Torso
  const torsoW=c.id==='titan'?28:c.id==='brutus'?27:20;
  X.lineCap='round';X.strokeStyle=bodyDark;X.lineWidth=torsoW;
@@ -2314,28 +2338,8 @@ function fig(f,idleAnim=true,showAura=true){
   }
  }
  // Articulated Arms + Weapons / Gloves / Flames
- const sy=hy-32,armW=c.id==='brutus'||c.id==='titan'?12:9.5;
- const armCol=flash?'#ffffff':skin(c,2);
- if(f.blk){
-  limb(bk,sy,24,sy-16,-7,armW,armCol,rim);
-  limb(bk,sy,20,sy-2,-5,armW,armCol);
- }else if(m&&(m.k==='p'||m.k==='b')){
-  const x=24+e*(m.w-24),y=sy+m.ya+(m.yb-m.ya)*cl;
-  if(m.t!=='grab'){tx=x;ty=y}
-  if(m.t==='grab'){
-   limb(bk,sy,x,sy+8,6,armW,armCol,rim);
-   limb(bk,sy,x,sy-12,-6,armW,armCol,rim);
-  }else{
-   limb(bk,sy,x,y,-5,armW,armCol,rim);
-   if(m.k==='b')limb(bk,sy,x,y-7,5,armW,armCol,rim);
-   else limb(bk,sy,-14,sy+10,6,armW,armCol);
-  }
- }else{
-  if(c.id==='rex'){limb(bk,sy,22,sy-6,8,armW,armCol,c.c);limb(bk,sy,15,sy-13,6,armW,armCol,c.c)}
-  else if(c.id==='sensei'){limb(bk,sy,24,sy-6,7,armW,armCol,rim);limb(bk,sy,-12,sy+6,5,armW,armCol)}
-  else if(c.id==='ember'){limb(bk,sy,22,sy-10,7,armW,armCol,rim);limb(bk,sy,-10,sy+10,4,armW,armCol)}
-  else{limb(bk,sy,24,sy+4,7,armW,armCol,rim);limb(bk,sy,11,sy+14,5,armW,armCol)}
- }
+
+ FA.forEach(g=>g());
 
  // Hand Gear Details (Rex wraps, Danny lightning, Brutus chains, Ember palm fire, Shade katana)
  const gx=m&&m.k!=='k'?tx||24:22,gy=m&&m.k!=='k'?ty||sy-4:sy-5;
