@@ -2271,17 +2271,22 @@ function fig(f,idleAnim=true,showAura=true){
  // Hand Gear Details (Rex wraps, Danny lightning, Brutus chains, Ember palm fire, Shade katana)
  const gx=m&&m.k!=='k'?tx||24:22,gy=m&&m.k!=='k'?ty||sy-4:sy-5;
  if(c.id==='rex'){
-  X.fillStyle='#eef2f7';X.strokeStyle=c.c;X.lineWidth=2;X.beginPath();X.arc(gx,gy,6.5,0,7);X.fill();X.stroke();
+  // Champ's red boxing glove with white cuff
+  X.fillStyle='#d62828';X.strokeStyle='#7b1414';X.lineWidth=1.5;X.beginPath();X.ellipse(gx+1,gy,9,7.5,0,0,7);X.fill();X.stroke();
+  X.fillStyle='#ff6b6b';X.beginPath();X.ellipse(gx+3,gy-3,3,2,0,0,7);X.fill();X.fillStyle='#f1f5f9';X.fillRect(gx-11,gy-5,4,10);
  }else if(c.id==='volt'){
-  X.fillStyle=c.c2;X.beginPath();X.arc(gx,gy,6.5,0,7);X.fill();
-  if(cfg.vfx>0)drawBolt(gx-6,gy-6,gx+8,gy+8,'#fff',1.5);
+  // Car-battery jumper clamp, sparking
+  X.strokeStyle='#111';X.lineWidth=2;X.beginPath();X.moveTo(gx-4,gy+2);X.quadraticCurveTo(gx-22,gy+20,gx-30,gy-8);X.stroke();
+  X.save();X.translate(gx,gy);X.rotate(-.4);X.fillStyle='#e11d48';X.fillRect(-3,-3,10,6);X.fillStyle='#9ca3af';X.fillRect(6,-4,6,3);X.fillRect(6,1,6,3);X.restore();
+  if(cfg.vfx>0&&fr%6<3)drawBolt(gx+10,gy-4,gx+16+VR()*6,gy-12+VR()*8,'#e0ffff',1.4);
  }else if(c.id==='brutus'){
   X.fillStyle=c.c;X.strokeStyle='#99a3b5';X.lineWidth=2.5;X.beginPath();X.arc(gx,gy,7.5,0,7);X.fill();X.stroke();
   X.fillStyle='#6b7280';X.fillRect(gx-9,gy-3,6,10);X.strokeStyle='#9ca3af';X.lineWidth=2;
   for(let q=1;q<5;q++){X.beginPath();X.ellipse(gx-8-q*3,gy+6+q*5+Math.sin(fr*.2+q)*q*1.2,2.5,3.5,0,0,7);X.stroke()}
  }else if(c.id==='ember'){
-  X.fillStyle='#ffea55';X.beginPath();X.arc(gx,gy,7+Math.sin(fr*.4)*1.5,0,7);X.fill();
-  X.fillStyle='#ff5500';X.beginPath();X.arc(gx,gy,4,0,7);X.fill();
+  // Demolition expert: dynamite stick with lit fuse
+  if(!(m&&m.t==='proj'&&f.t>m.s)){X.save();X.translate(gx,gy);X.rotate(-.5);X.fillStyle='#c81e1e';X.fillRect(-3.5,-14,7,20);X.fillStyle='#fbbf24';X.fillRect(-3.5,-6,7,2);
+   X.strokeStyle='#d6d3d1';X.lineWidth=1.2;X.beginPath();X.moveTo(0,-14);X.quadraticCurveTo(4,-18,2,-21);X.stroke();X.fillStyle=fr%4<2?'#fff7a8':'#ff9f1a';X.beginPath();X.arc(2,-21,2+Math.sin(fr*.9),0,7);X.fill();X.restore()}
  }else if(c.id==='shade'){
   X.strokeStyle='#e8d5ff';X.lineWidth=3.2;X.beginPath();
   const ang=m?-.3+e*.7:-.8;
@@ -2298,7 +2303,22 @@ function fig(f,idleAnim=true,showAura=true){
  }else if(c.id==='ghost'&&cfg.vfx>0){
   X.fillStyle='#e2e8f055';X.beginPath();X.arc(gx,gy,7+Math.sin(fr*.3)*2,0,7);X.fill();
  }else if(c.id==='tommy'||c.id==='danny'||c.id==='charcoal'){
-  X.fillStyle=c.c2;X.beginPath();X.arc(gx,gy,5.5,0,7);X.fill();
+  if(c.id==='tommy'){ // Muay Thai hand wraps
+   X.fillStyle='#f8fafc';X.beginPath();X.arc(gx,gy,6,0,7);X.fill();X.strokeStyle='#dc2626';X.lineWidth=1.5;for(let q=-1;q<=1;q++){X.beginPath();X.moveTo(gx-6,gy+q*3);X.lineTo(gx+6,gy+q*3-1);X.stroke()}
+  }else if(c.id==='danny'){ // B-boy spray can
+   X.fillStyle='#0ea5e9';X.fillRect(gx-3.5,gy-10,7,15);X.fillStyle='#e2e8f0';X.fillRect(gx-2,gy-13,4,3);X.fillStyle='#fff';X.fillRect(gx-2.5,gy-6,5,3);
+  }else{ // Jerk-pit tongs with a glowing coal
+   X.strokeStyle='#9ca3af';X.lineWidth=2;X.beginPath();X.moveTo(gx-4,gy+2);X.lineTo(gx+16,gy-4);X.moveTo(gx-4,gy+2);X.lineTo(gx+16,gy+2);X.stroke();
+   X.fillStyle='#f97316';X.beginPath();X.arc(gx+17,gy-1,3.5+Math.sin(fr*.3)*.6,0,7);X.fill();
+  }
+ }else if(c.id==='kira'&&!(m&&m.t==='proj'&&f.t>m.s)){ // courier parcel
+  X.fillStyle='#b45309';X.fillRect(gx-8,gy-7,16,13);X.fillStyle='#fde68a';X.fillRect(gx-8,gy-2,16,3);X.fillStyle=c.c2;X.fillRect(gx-1,gy-7,2,13);
+ }else if(c.id==='sensei'){ // prayer beads
+  for(let q=0;q<9;q++){const a=q*.7+1.2;X.fillStyle=q===4?'#dc2626':'#78350f';X.beginPath();X.arc(gx+Math.cos(a)*7,gy+4+Math.sin(a)*9,2.2,0,7);X.fill()}
+ }else if(c.id==='titan'){ // #99's football
+  X.save();X.translate(gx+2,gy);X.rotate(-.5);X.fillStyle='#7c2d12';X.beginPath();X.ellipse(0,0,10,6.5,0,0,7);X.fill();X.strokeStyle='#fff';X.lineWidth=1.2;X.beginPath();X.moveTo(-4,0);X.lineTo(4,0);for(let q=-3;q<=3;q+=2){X.moveTo(q,-2);X.lineTo(q,2)}X.stroke();X.restore();
+ }else if(c.id==='kingpin'){ // gold cane topped with a diamond
+  X.strokeStyle='#f5c542';X.lineWidth=3;X.beginPath();X.moveTo(gx,gy-6);X.lineTo(gx+6,gy+46);X.stroke();X.fillStyle='#bae6fd';X.beginPath();X.moveTo(gx,gy-14);X.lineTo(gx+5,gy-8);X.lineTo(gx,gy-3);X.lineTo(gx-5,gy-8);X.closePath();X.fill();
  }
 
  // Head Silhouette & Glowing Poster Eyes
@@ -3118,6 +3138,20 @@ function draw0(){
   else if(p.m&&p.m.smk){
    for(let q=0;q<5;q++){const a=q*1.3+fr*.08,rr=(p.burst?14:20)+Math.sin(fr*.2+q)*3;X.fillStyle=q%2?'#6b7280cc':'#9ca3afbb';X.beginPath();X.arc(p.x+Math.cos(a)*10,p.y+Math.sin(a)*7,rr*.7,0,7);X.fill()}
    X.fillStyle='#fbbf2466';X.beginPath();X.arc(p.x,p.y,5,0,7);X.fill();
+  }else if(p.m&&p.m.flash||(p.o.ch.id==='will'&&p.burst)){ // riot flashbang canister
+   X.save();X.translate(p.x,p.y);X.rotate(fr*.3);X.fillStyle='#4b5563';X.fillRect(-5,-9,10,18);X.fillStyle='#9ca3af';X.fillRect(-5,-9,10,3);X.fillRect(3,-12,3,5);X.restore();
+   if(fr%8<4){X.fillStyle='#ffffffaa';X.beginPath();X.arc(p.x,p.y,3,0,7);X.fill()}
+  }else if(p.o.ch.id==='will'&&p.m&&p.m.elec){ // taser darts on wires
+   const sx=p.o.x+p.o.face*20,sy=p.o.y-60;X.strokeStyle='#cbd5e1';X.lineWidth=1;X.beginPath();X.moveTo(sx,sy);X.lineTo(p.x,p.y-3);X.moveTo(sx,sy+3);X.lineTo(p.x,p.y+3);X.stroke();
+   X.fillStyle='#facc15';X.fillRect(p.x-3,p.y-5,6,3);X.fillRect(p.x-3,p.y+2,6,3);if(fr%4<2)drawBolt(p.x,p.y-4,p.x,p.y+4,'#e0ffff',1.2);
+  }else if(p.o.ch.id==='volt'){ // crackling battery orb
+   X.fillStyle='#0e7490';X.beginPath();X.arc(p.x,p.y,13,0,7);X.fill();X.fillStyle='#a5f3fc';X.beginPath();X.arc(p.x,p.y,7,0,7);X.fill();
+   if(cfg.vfx>0)for(let q=0;q<3;q++){const a=VR()*6.28;drawBolt(p.x,p.y,p.x+Math.cos(a)*22,p.y+Math.sin(a)*22,'#e0ffff',1.3)}
+  }else if(p.o.ch.id==='ember'&&p.burst&&!(p.m&&p.m.at)){ // spinning dynamite stick, fuse burning
+   X.save();X.translate(p.x,p.y);X.rotate(fr*.35);X.fillStyle='#c81e1e';X.fillRect(-4,-12,8,24);X.fillStyle='#fbbf24';X.fillRect(-4,-3,8,2);X.fillStyle=fr%4<2?'#fff7a8':'#ff9f1a';X.beginPath();X.arc(0,-15,3,0,7);X.fill();X.restore();
+  }else if(p.o.ch.id==='ember'&&p.m&&p.m.at){ // planted charge bundle under the foe
+   X.fillStyle='#c81e1e';for(let q=-1;q<=1;q++)X.fillRect(p.x+q*7-3,G-18,6,18);X.fillStyle='#111';X.fillRect(p.x-11,G-10,22,3);
+   X.fillStyle=fr%6<3?'#ff3b3b':'#400';X.beginPath();X.arc(p.x,G-22,3,0,7);X.fill();
   }else if(p.burst){
    X.fillStyle='#ff5500';X.beginPath();X.arc(p.x,p.y,15,0,7);X.fill();
    X.fillStyle='#ffea00';X.beginPath();X.arc(p.x,p.y,8,0,7);X.fill();
