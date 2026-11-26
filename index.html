@@ -2914,42 +2914,33 @@ function howtoD(){
  X.textAlign='left';
 
  if(howtoTab===0){
-  const k1=cfg.keys[0],k2=cfg.keys[1];
-  const cols=[
-   {x:94,title:'PLAYER 1 (KEYBOARD)',c:'#ff5ca8',lines:[
-    `Move: ${keyLabel(k1.l)} / ${keyLabel(k1.r)}`,
-    `Jump / Crouch: ${keyLabel(k1.u)} / ${keyLabel(k1.d)}`,
-    `Stand / Low Block: Back / Down+Back`,
-    `Light / Heavy: ${keyLabel(k1.L)} / ${keyLabel(k1.H)}`,
-    `Special / Grab: ${keyLabel(k1.S)} / ${keyLabel(k1.G)}`,
-    `Dash: Double-tap Forward/Back`,
-   `Super ${keyLabel(k1.L)}+${keyLabel(k1.S)} · Ult ${keyLabel(k1.G)}+${keyLabel(k1.S)} · Rage ${keyLabel(k1.H)}+${keyLabel(k1.S)}`
-   ]},
-   {x:362,title:'PLAYER 2 (KEYBOARD)',c:'#3fc1d9',lines:[
-    `Move: ${keyLabel(k2.l)} / ${keyLabel(k2.r)}`,
-    `Jump / Crouch: ${keyLabel(k2.u)} / ${keyLabel(k2.d)}`,
-    `Stand / Low Block: Back / Down+Back`,
-    `Light / Heavy: ${keyLabel(k2.L)} / ${keyLabel(k2.H)} (Num 1/2)`,
-    `Special / Grab: ${keyLabel(k2.S)} / ${keyLabel(k2.G)} (Num 3/4)`,
-    `Pause: ${keyLabel(cfg.pauseKey)}`
-   ]},
-   {x:635,title:'CONTROLLER / STICK',c:'#f5c542',lines:[
-    'Move / Jump / Crouch: D-Pad / Stick',
-    'Block: Hold Back / Down-Back',
-    'Light Attack: X or A',
-    'Heavy Attack: Y or B',
-    'Special Attack: RB or RT',
-    'Grab: LB or LT  |  Pause: Start'
-   ]}
+  const k1=cfg.keys[0],k2=cfg.keys[1],a=k=>keyLabel(k1[k]),b=k=>keyLabel(k2[k]);
+  const rows=[
+   ['Move',[a('l'),a('r')],[b('l'),b('r')],['D-Pad','Stick']],
+   ['Jump',[a('u')],[b('u')],['Up']],
+   ['Crouch',[a('d')],[b('d')],['Down']],
+   ['Block','Hold back (away from foe) · Down+Back = low block'],
+   ['Dash','Double-tap forward or back'],
+   ['Light',[a('L')],[b('L'),'Num1'],['X','A']],
+   ['Heavy',[a('H')],[b('H'),'Num2'],['Y','B']],
+   ['Special',[a('S')],[b('S'),'Num3'],['RB','RT']],
+   ['Grab',[a('G')],[b('G'),'Num4'],['LB','LT']],
+   ['Super',[a('L')+'+'+a('S')],[b('L')+'+'+b('S')],['X+RB']],
+   ['Ultimate',[a('G')+'+'+a('S')],[b('G')+'+'+b('S')],['LB+RB']],
+   ['Rage',[a('H')+'+'+a('S')],[b('H')+'+'+b('S')],['Y+RB']],
+   ['Pause',[keyLabel(cfg.pauseKey)],[keyLabel(cfg.pauseKey)],['Start']]
   ];
-  cols.forEach(col=>{
-   X.fillStyle=col.c;X.font='bold 15px Impact,sans-serif';X.fillText(col.title,col.x,156);
-   X.fillStyle='#dce2f5';X.font='13px system-ui,sans-serif';
-   col.lines.forEach((ln,idx)=>X.fillText(ln,col.x,192+idx*34));
+  const C=[100,260,470,680];X.font='bold 14px Impact,sans-serif';
+  [['',''],['PLAYER 1','#ff5ca8'],['PLAYER 2','#3fc1d9'],['CONTROLLER','#f5c542']].forEach(([t,c],i)=>{X.fillStyle=c||'#fff';X.fillText(t,C[i],142)});
+  const cap=(t,x,y)=>{X.font='bold 12px monospace';const w=Math.max(22,X.measureText(t).width+12);X.fillStyle='#262a45';X.fillRect(x,y-14,w,19);X.strokeStyle='#4a5080';X.lineWidth=1;X.strokeRect(x,y-14,w,19);X.fillStyle='#fff';X.textAlign='center';X.fillText(t,x+w/2,y);X.textAlign='left';return w};
+  rows.forEach((r,ri)=>{const y=172+ri*22.5;if(ri%2){X.fillStyle='#ffffff08';X.fillRect(80,y-16,800,22)}
+   X.fillStyle='#dce2f5';X.font='bold 13px system-ui,sans-serif';X.fillText(r[0],C[0],y);
+   if(typeof r[1]==='string'){X.fillStyle='#b7c2df';X.font='13px system-ui,sans-serif';X.fillText(r[1],C[1],y);return}
+   for(let c=1;c<4;c++){let x=C[c];r[c].forEach((t,k)=>{if(k){X.fillStyle='#8b93b5';X.font='11px system-ui';X.fillText('or',x+2,y);x+=18}x+=cap(t,x,y)+4})}
   });
-  const padInfo=PD[0]||PD[1]?`Controller Detected: ${PD[0]?'P1 Ready ':''}${PD[1]?'P2 Ready':''}`:'Press any controller button so the browser detects your pad.';
+  const padInfo=PD[0]||PD[1]?`Controller detected: ${PD[0]?'P1 ready ':''}${PD[1]?'P2 ready':''}`:'Using a controller? Press any button so the browser detects it.';
   X.fillStyle=PD[0]||PD[1]?'#2ecc71':'#8b93b5';X.font='bold 12px system-ui,sans-serif';X.textAlign='center';
-  X.fillText(padInfo,480,444);
+  X.fillText(padInfo,480,458);X.textAlign='left';
  }else if(howtoTab===1){
   X.fillStyle='#f5c542';X.font='bold 16px Impact,sans-serif';X.fillText('NUMPAD DIRECTIONAL NOTATION (FACING RIGHT)',96,154);
   const grid=[['7 ↖','8 ↑','9 ↗'],['4 ←','5 ·','6 →'],['1 ↙','2 ↓','3 ↘']];
