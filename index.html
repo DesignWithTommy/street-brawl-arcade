@@ -3381,7 +3381,10 @@ C.focus();
  #tcrot{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:#000e;color:#fff;font:700 18px system-ui;text-align:center}
  @media (orientation:portrait){#tcrot{display:flex}}`;
  document.head.appendChild(css);
- const css2=document.createElement('style');css2.textContent='#hint{display:none!important}body{gap:0;overflow:hidden;height:100vh;margin:0}canvas,canvas.compact{width:min(100vw,calc(100vh*16/9))!important;border-radius:0;border:0}';document.head.appendChild(css2);
+ const css2=document.createElement('style');css2.textContent='#hint{display:none!important}body{gap:0;overflow:hidden;height:100vh;margin:0}html,body{height:100%;background:#000}body{display:block!important;padding:0!important}canvas,canvas.compact{position:fixed;inset:0;width:100vw!important;height:100dvh!important;aspect-ratio:auto!important;border-radius:0;border:0;box-shadow:none}';document.head.appendChild(css2);
+ // fill the whole phone screen: go fullscreen + lock landscape on first tap
+ const fs=()=>{const e=document.documentElement;if(!document.fullscreenElement&&e.requestFullscreen)e.requestFullscreen({navigationUI:'hide'}).then(()=>screen.orientation&&screen.orientation.lock&&screen.orientation.lock('landscape').catch(()=>{})).catch(()=>{})};
+ addEventListener('touchend',fs,{passive:true});
  const R=document.createElement('div');R.id='tc';R.innerHTML=`
   <div class="zone"><div class="base"><div class="knob"></div></div></div>
   <div class="btns">
