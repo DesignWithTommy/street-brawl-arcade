@@ -228,9 +228,9 @@ const mk=(id,n,full,nick,st,c,c2,a,diff,hp,sp,jp,z,f,q,S,sn,sd,scdMax,rival,quot
 
 const CH=[
  mk('rex','REX','REX "REDLINE" VEGA','REDLINE','Brawler','#e74c3c','#ff4422','#7b241c','Beginner',
-  118,3.6,-15,1,1,1,
+  112,3.6,-15,1,1,1,
   M(6,2,20,0,30,0,0,0,{t:'buff',buff:210,k:'b'}),
-  'Redline','Cranks his pacemaker into the red: faster, harder-hitting fists for a few seconds.',55,7,
+  'Redline','Cranks his pacemaker into the red: +30% damage for a few seconds.',55,7,
   "I'm not done... not yet.",
   'Champ whose heart stopped when he refused to take a dive. Came back on a pacemaker tuned to redline.',
   'Balanced punches, reliable chains, strong pressure.',
@@ -244,7 +244,7 @@ const CH=[
   ['With The Kingpin defeated, Rex exposes the rigged Underground Circuit to the city press.','His boxing license is restored—and every fighter in the Circuit knows nobody owns Redline Vega.']
  ),
  mk('volt','DANNY','DANNY "STATIC" KANE','STATIC','Ranged','#0088ff','#00f0ff','#0e3660','Intermediate',
-  94,3.4,-15,1,1.05,.95,
+  88,3.4,-15,1,1.05,.95,
   M(13,2,26,9,50,20,7,-5,{t:'proj',vx:7.4,k:'b'}),
   'Energy Orb','Launches a high-voltage electric orb across the arena.',50,6,
   'Power never lies.',
@@ -261,7 +261,7 @@ const CH=[
   {w:84}
  ),
  mk('brutus','BRUTUS','BRUTUS "THE BEAST" COLE','THE BEAST','Grappler','#e67e22','#ff7700','#6e2c00','Advanced',
-  120,2.6,-13,1.18,1.4,1.28,
+  121,2.6,-13,1.18,1.4,1.28,
   M(9,4,24,11,140,28,-7,-5,{k:'b',whip:1}),
   'Chain Hook','Lashes out with his old pit chain and drags the foe into arm’s reach.',70,0,
   'No one beats me.',
@@ -277,7 +277,7 @@ const CH=[
   ['The Kingpin confesses to buying off Brutus’s former manager years ago.','Having settled his debt in full, Brutus walks away from the pit—his honor untarnished.']
  ),
  mk('kira','KIRA','KIRA "FLASH" MORI','FLASH','Rushdown','#e91e8c','#ff44cc','#7d1050','Intermediate',
-  75,4.5,-16,.93,.72,.85,
+  76,4.5,-16,.93,.72,.85,
   M(9,2,22,9,50,22,5,-6,{t:'proj',vx:10,ret:1,k:'p'}),
   'Express Delivery','Hurls a parcel that boomerangs back. Hits going out and coming home.',50,6,
   'Too slow.',
@@ -293,7 +293,7 @@ const CH=[
   ['Kira outpaces even The Kingpin’s elite bodyguards on her way to the title.','Crowned the fastest fighter alive, she turns the Circuit’s arena rooftops into her personal playground.']
  ),
  mk('sensei','SENSEI','SENSEI "IRON PALM" TAKEDA','IRON PALM','Counter','#27ae60','#22ff66','#145a32','Advanced',
-  113,3.5,-15,1,1,1,
+  112,3.5,-15,1,1,1,
   M(2,24,22,0,38,0,0,0,{t:'ctr',k:'b'}),
   'Perfect Reversal','Enters a defensive stance that reverses incoming strikes.',65,3,
   'Discipline creates strength.',
@@ -308,7 +308,7 @@ const CH=[
   ['Confronting The Kingpin reveals the truth behind his ruined dojo.','With the Circuit shattered, Takeda rebuilds his school—welcoming new fighters seeking honor over greed.']
  ),
  mk('ember','EMBER','EMBER "WILDFIRE" CROSS','WILDFIRE','Zoner','#ffaa00','#ffdd33','#7d4500','Intermediate',
-  112,3.4,-15,.97,1.1,.9,
+  109,3.4,-15,.97,1.1,.9,
   M(13,2,28,8,50,20,5,-6,{t:'proj',vx:9,vy:-5.2,g:.28,k:'b',burst:1,bd:11}),
   'Fire Lob / Flame Burst','Arcs a fireball that detonates into an AoE Flame Burst.',72,1,
   'Burn it all.',
@@ -323,7 +323,7 @@ const CH=[
   ['Ember blasts open The Kingpin’s ledger vault and torches every blackmail file inside.','Free from her past, Wildfire becomes an untouchable legend of the city’s neon nights.']
  ),
  mk('shade','SHADE','SHADE "NIGHTSHADE" SABLE','NIGHTSHADE','Ninja','#8e44ad','#b967ff','#2a143d','Advanced',
-  71,4.4,-17,.95,.8,.9,
+  72,4.4,-17,.95,.8,.9,
   M(13,4,14,13,62,22,5,-9,{t:'tele',lau:1,k:'k'}),
   'Shadow Step','Vanishes into smoke and ambushes from behind.',65,1,
   "You can't see me.",
@@ -339,7 +339,7 @@ const CH=[
   ['The Kingpin turns out to be the syndicate client who ordered Shade’s final contract.','With the bounty erased in blood and smoke, Ghost vanishes into the city once more.']
  ),
  mk('titan','TITAN','TITAN "THE WALL" MORROW','THE WALL','Heavy','#dce8f5','#3aa8ff','#2b425c','Beginner',
-  120,2.4,-12,1.25,1.7,1.45,
+  113,2.4,-12,1.25,1.7,1.45,
   M(16,6,30,18,82,32,10,-11,{t:'dash',dx:6.2,lau:1,k:'b',arm:1}),
   'Wrecking Charge','Slow armored shoulder rush with crushing knockback.',75,2,
   'I never quit.',
@@ -371,7 +371,7 @@ const CH=[
   {arm:0}
  ),
  mk('tommy','TOMMY','TOMMY "TOMCAT" REYES','TOMCAT','Striker','#14b8a6','#5eead4','#0f4c47','Intermediate',
-  107,3.9,-15,1,.95,1.02,
+  106,3.9,-15,1,.95,1.02,
   M(6,3,26,16,70,34,10,-6,{t:'grab',k:'p'}),
   'Thai Clinch','Grabs the neck and drives knees in, then shoves the foe away.',60,10,
   'Eight limbs. Zero mercy.',
@@ -384,7 +384,7 @@ const CH=[
   ['Tommy wins the Circuit purse and buys back the family gym.','Kids from all over the city now train under the Tomcat, for free.']
  ),
  mk('danny','SKIES','SKIES "AIRBORNE" PARK','AIRBORNE','Aerial','#38bdf8','#e0f2fe','#0c4a6e','Advanced',
-  85,4.5,-17,.92,.85,.9,
+  96,4.5,-17,.92,.85,.9,
   M(7,14,22,12,66,24,5,-11,{t:'dash',dx:5,vy:-13,k:'k',lau:1}),
   'Sky Splitter','Rocketing flip kick straight into the sky. Launches on hit.',55,9,
   'Feel the rhythm.',
@@ -410,7 +410,7 @@ const CH=[
   ['Will hands the Kingpin\'s ledgers to an honest prosecutor.','The Circuit is shut down for good, and Ironclad finally takes off the shield.']
  ),
  mk('donna','DONNA','DONNA "VENOM" VALE','VENOM','Whip Zoner','#c026d3','#f0abfc','#581c87','Intermediate',
-  74,3.5,-15,.98,1.05,.95,
+  94,3.5,-15,.98,1.05,.95,
   M(11,4,24,11,150,30,5,-4,{k:'b',whip:1}),
   'Venom Lash','Long whip crack that reaches across half the stage. Long stun.',70,11,
   'One bite is all it takes.',
@@ -424,7 +424,7 @@ const CH=[
   {w:96}
  ),
  mk('ghost','GHOST','GHOST','PHANTOM','Phantom','#cbd5e1','#f8fafc','#334155','Advanced',
-  83,4.3,-16,.94,.85,.92,
+  82,4.3,-16,.94,.85,.92,
   M(12,2,22,10,50,24,4,-6,{t:'proj',vx:4.2,home:1,k:'p'}),
   'Wisp','Releases a slow spirit that drifts after the opponent.',75,6,
   'You never saw me.',
@@ -437,7 +437,7 @@ const CH=[
   ['Ghost takes the Circuit trophy and vanishes. Nobody is sure they were ever there.','Every arena in the city now keeps one seat empty, just in case.']
  ),
  mk('fortyoz','40OZ','EARL "40OZ" BANKS','40OZ','Bottle Brawler','#d97706','#fcd34d','#78350f','Intermediate',
-  95,3.0,-14,1.08,1.1,1.08,
+  92,3.0,-14,1.08,1.1,1.08,
   M(14,2,24,10,50,22,6,-7,{t:'proj',vx:7,vy:-6,g:.34,k:'b',bnc:1}),
   'Bottle Toss','Skips his bottle off the floor like a stone. Hard to read.',75,15,
   'Last call, buddy.',
@@ -450,7 +450,7 @@ const CH=[
   ['Earl wins the Circuit and buys the whole block a round.','40oz opens a bar with the prize money and names it after his bottle.']
  ),
  mk('charcoal','CHARCOAL','CHARCOAL "YARDIE" CAMPBELL','YARDIE','Rude Boy','#18181b','#fbbf24','#000000','Intermediate',
-  109,3.6,-15,1.06,1.15,1.05,
+  106,3.6,-15,1.06,1.15,1.05,
   M(12,2,24,9,50,34,3,-3,{t:'proj',vx:4.6,k:'p',smk:1}),
   'Smoke Signal','Blows a slow, thick smoke cloud. Victims choke and stay stunned longer.',68,10,
   'Wah gwaan? Yuh ready fi dis?',
@@ -499,7 +499,7 @@ const ULT={
  tommy:{n:'EIGHT LIMBS',t:'boss',s:5,a:30,r:22,d:5,hits:8,hi2:4,w:72,h:16,dx:5,k:'p'},
  danny:{n:'TORNADO HEADSPIN',t:'buff',vortex:4,s:6,a:60,r:20,d:0,w:30,h:0,k:'k'},
  will:{n:'LAST LINE',t:'dash',s:10,a:12,r:28,d:34,w:80,h:50,dx:10,kx:18,ky:-6,k:'b',arm:1},
- ghost:{n:'FORGOTTEN',t:'buff',invT:360,s:8,a:2,r:18,d:0,w:30,h:0,k:'b'},
+ ghost:{n:'FORGOTTEN',t:'buff',invT:200,s:8,a:2,r:18,d:0,w:30,h:0,k:'b'},
  fortyoz:{n:'LAST CALL MOLOTOV',t:'proj',s:10,a:2,r:26,d:10,w:50,h:30,vx:6,vy:-7,g:.3,k:'b',burst:1,bd:30,br:120,pil:1},
  charcoal:{n:'JERK PIT',t:'proj',s:10,a:2,r:24,d:14,w:60,h:30,vx:5,low:1,pl:120,k:'b',burn:360,kx:4,ky:-6},
  donna:{n:'BLACK WIDOW WEB',t:'proj',s:10,a:2,r:26,d:30,w:70,h:90,vx:4.5,pl:110,k:'b',kx:4,ky:-10}
@@ -528,14 +528,14 @@ const SUP={
  rex:{n:'SECOND WIND',t:'buff',heal:34,s:10,a:2,r:18,d:0,w:30,h:0,k:'b'},
  volt:{n:'SURGE TRAP',t:'proj',s:8,a:2,r:18,d:16,w:40,h:20,vx:.01,low:1,pl:300,k:'b',elec:1,kx:3,ky:-9},
  brutus:{n:'SHACKLE THROW',t:'proj',s:10,a:2,r:24,d:18,w:50,h:30,vx:7.5,vy:-6,g:.3,k:'b',burst:1,smk:1,bd:18,br:90},
- kira:{n:'PARKOUR SLIDE',t:'dash',s:5,a:6,r:20,d:16,w:70,h:20,dx:13,kx:3,ky:-12,k:'k',low:1,lau:1},
+ kira:{n:'PARKOUR SLIDE',t:'dash',s:5,a:6,r:20,d:16,w:70,h:20,dx:13,kx:3,ky:-12,k:'k',lo:1,lau:1},
  sensei:{n:'ECHO PALM',t:'proj',s:8,a:2,r:22,d:16,w:60,h:60,vx:5,pl:70,k:'p',kx:9,ky:-4},
  ember:{n:'C4 CHARGE',t:'proj',s:8,a:2,r:20,d:6,w:40,h:20,vx:.01,low:1,pl:70,k:'b',burst:1,bd:22,br:120,kx:8,ky:-10},
  shade:{n:'KUNAI FAN',t:'proj',s:6,a:2,r:18,d:16,w:50,h:26,vx:15,k:'b'},
  titan:{n:'HAIL MARY',t:'proj',s:10,a:2,r:24,d:18,w:50,h:30,vx:7,vy:-9,g:.32,k:'b',burst:1,smk:1,quake:1,bd:18,br:100},
  kingpin:{n:'BOUNTY',t:'buff',markFoe:300,s:8,a:2,r:18,d:0,w:30,h:0,k:'b'},
  tommy:{n:'WAI KHRU',t:'buff',armT:240,s:8,a:2,r:18,d:0,w:30,h:0,k:'b'},
- danny:{n:'WINDMILL',t:'dash',s:5,a:8,r:22,d:18,w:80,h:20,dx:6,kx:6,ky:-8,k:'k',low:1},
+ danny:{n:'WINDMILL',t:'dash',s:5,a:8,r:22,d:18,w:80,h:20,dx:6,kx:6,ky:-8,k:'k',lo:1},
  will:{n:'TASER',t:'proj',s:7,a:2,r:22,d:10,w:50,h:56,vx:11,k:'b',elec:1},
  donna:{n:'VENOM SPIT',t:'proj',s:8,a:2,r:20,d:12,w:50,h:44,vx:8,vy:-4,g:.25,k:'b'},
  ghost:{n:'POSSESS',t:'grab',s:6,a:4,r:26,d:20,w:80,h:44,kx:-8,ky:-8,k:'p'},
@@ -544,6 +544,7 @@ const SUP={
 };
 function goSup(f){
  const u=SUP[f.ch.id];if(!u)return;
+ if(u.heal&&f.hp>=f.maxHp){if(f===P1)f.fx=['FULL HP',20];return}
  f.mt-=50;f.ng=150;f.mv={ya:-4,yb:-4,...u,sup:1};f.st='atk';f.t=0;f.hit=0;f.bossHits=0;f.k='S';f.v='SUP';f.cn=0;f.chain=[];
  f.fx=[u.n+'!',50];hs=Math.max(hs,14);aud.voice(f.ch.id,'hvy');aud.sfx('ctr');addFx(f.x,f.y-60,f.ch.c2,90,'ring');
 }
@@ -585,7 +586,7 @@ function goUlt(f){
 const STAGES=[
  {id:'rooftops',name:'SKYLINE ROOFTOPS',lore:"Kira's Neon Parkour District",sky:'#160e33',accent:'#ff2e88',floor:'#141522',kind:'roof'},
  {id:'pit',name:'THE IRON PIT',lore:"Brutus's Bare-Knuckle Underground Cage",sky:'#220c08',accent:'#ff7722',floor:'#181414',kind:'pit'},
- {id:'garage',name:"DANNY'S BLACKOUT GARAGE",lore:'Stolen Prototype Workshop',sky:'#081928',accent:'#00e5ff',floor:'#101822',kind:'garage'},
+ {id:'garage',name:"STATIC'S BLACKOUT GARAGE",lore:'Stolen Prototype Workshop',sky:'#081928',accent:'#00e5ff',floor:'#101822',kind:'garage'},
  {id:'dojo',name:'ASHEN DOJO RUINS',lore:"Takeda's Burned Martial Arts School",sky:'#0b1c13',accent:'#2ecc71',floor:'#131915',kind:'dojo'},
  {id:'docks',name:'BLAST FURNACE DOCKS',lore:"Ember & Titan's Industrial Foundry",sky:'#241307',accent:'#ffaa22',floor:'#161518',kind:'docks'},
  {id:'penthouse',name:"KINGPIN'S PENTHOUSE",lore:'Summit of The Underground Circuit',sky:'#120d1d',accent:'#f5c542',floor:'#14121b',kind:'boss'}
@@ -870,6 +871,7 @@ function startMatch(){wins=[0,0];rd=1;stageRoll=(Math.random()*(STAGES.length-1)
 function resetPractice(q){
  P1.rec=[];P2.rec=[];P1.hq=P2.hq=null;P1.ng=P2.ng=P1.sg=P2.sg=0;P1.x=260;P1.y=G;P1.vx=0;P1.vy=0;P1.hp=P1.maxHp;P1.grd=100;P1.st='idle';P1.mv=null;P1.scd=0;P1.cmb=0;P1.cd=0;P1.jg=0;P1.face=1;P1.ih=[];P1.il=[];P1.aft=[];
  P2.x=700;P2.y=G;P2.vx=0;P2.vy=0;P2.hp=P2.maxHp;P2.grd=100;P2.st='idle';P2.mv=null;P2.scd=0;P2.cmb=0;P2.cd=0;P2.jg=0;P2.face=-1;P2.ih=[];P2.il=[];P2.aft=[];
+ for(const p of[P1,P2]){p.armT=p.invT=p.markT=p.slowT=p.confT=p.burnT=0;p.stun=0;p.bst=0;p.lz=0;p.grabbedBy=null;p.grabM=null}
  PJ=[];SP=[];EX=[];SL=[];DUST=[];PT=[];ST=[];pracLastDmg=0;pracIdleT=0;
  P1.rg=P2.rg=0;P1.rage=P2.rage=0;
  if(!q)aud.sfx('ok');
@@ -1160,7 +1162,7 @@ const DRILLS=[
   act:(t,dl)=>t===dl?{pH:1}:{},
   on:{hit:e=>e.f===P1?(e.ctr?'ok':null):'fail'},
   chk:(t,dl)=>t>dl+30&&P2.st==='idle'?'fail':null},
- {id:'cb',n:'COMBO EXECUTION',tier:1,dist:90,obj:'Land a combo of the target length.',tip:'Chain Light > Heavy > Special. Launch with Up after a hit.',
+ {id:'cb',n:'COMBO EXECUTION',tier:1,dist:90,obj:'Land a combo of the target length.',tip:'Chain Light > Heavy > Special (if your special hits). Launch with Up after a hit.',
   on:{hit:e=>e.f===P1&&P2.cmb>=[3,4,5][TR.diff]?'ok':null},
   chk:t=>(TR.cs&&P2.cmb===0)||t>600?'fail':null},
  {id:'ch',n:'COUNTER-HIT',tier:1,dist:140,obj:'Hit the dummy during its poke startup.',tip:'Counter-hits deal more damage and stun. Stick a fast button out.',
@@ -1364,7 +1366,7 @@ function detonateFire(p){
 function finishThrow(f,o,m){
  if(o===P1){mstC(P1,'thrown');ev('thrown',{})}
  const fc=f.face;
- const dm=m.d*(RULE()===5?2:1)*Math.max(m.ult?.6:.35,1-.12*o.cmb);
+ const dm=m.d*(RULE()===5?2:1)*Math.max(m.ult?.6:.35,1-.12*o.cmb)*(o.markT>0?1.4:1);
  if(m.slam){
   o.x=Math.max(40,Math.min(W-40,f.x+fc*46));
   o.y=G-92;
@@ -1383,6 +1385,8 @@ function finishThrow(f,o,m){
 }
 
 function connect(f,o,m,fc){
+ if(o.invT>0)return 0;
+ if(f.invT>0)f.invT=0;
  if(o.st==='ko'||o.st==='down'||o.st==='grabbed'||(o.y<floorOf(o)-5&&o.jg>4))return 0;
  const d=o.mv;
  if(o.st==='atk'&&d&&d.ult&&o.t<=d.s+2)return 0; // ultimate startup invulnerability
@@ -1436,7 +1440,7 @@ function connect(f,o,m,fc){
  }
  const dm=m.d*(RULE()===5?2:1)*Math.max(m.ult?.6:.35,1-.12*o.cmb)*(o.markT>0?1.4:1);
  // Iron body (Wai Khru): hits land but never flinch
- if(m.t!=='grab'&&o.armT>0&&o.st!=='ko'){o.hp=Math.max(0,o.hp-Math.max(1,R(dm*.7*cfg.dmgScale)));hs=3;spark(o,'#7ee8fa',2);aud.sfx('blk');if(o.hp<=0){o.st='ko';o.lz=1;o.vy=-9;o.vx=fc*6;aud.sfx('ko')}return 1}
+ if(m.t!=='grab'&&o.armT>0&&o.st!=='ko'){o.hp=Math.max(0,o.hp-Math.max(1,R(dm*.7*cfg.dmgScale)));hs=3;spark(o,'#7ee8fa',2);aud.sfx('blk');f.mt=Math.min(100,(f.mt||0)+3);ev('hit',{f,o,ctr:0,air:false});if(o.hp<=0){o.st='ko';o.lz=1;o.vy=-9;o.vx=fc*6;aud.sfx('ko')}return 1}
  // Armor check (Titan Wrecking Charge / H)
  if(m.t!=='grab'&&o.st==='atk'&&d&&d.arm&&o.t<=d.s+d.a){
   o.hp=Math.max(0,o.hp-Math.max(1,R(dm*.55*cfg.dmgScale)));
@@ -1558,7 +1562,7 @@ function upd(f,o,i){
    if(m.invT)f.invT=m.invT;
    if(m.markFoe){o.markT=m.markFoe;o.fx=['BOUNTY!',50];addFx(o.x,o.y-90,'#f5c542',60,'ring')}
    if(m.slowFoe){o.slowT=m.slowFoe;o.fx=['SLOWED',50];addFx(o.x,o.y-60,'#7ee8fa',80,'ring')}
-   if(m.drainAll){o.mt=0;o.rg=0;o.rage=0;addFx(o.x,o.y-60,'#00e5ff',90,'ring');if(o.st!=='ko'){o.st='hit';o.mv=null;o.bst=0;o.stun=40;o.lz=0;o.hflash=6}o.fx=['BLACKOUT!',55];aud.sfx('boom')}
+   if(m.drainAll){o.mt=0;o.rg=0;o.rage=0;addFx(o.x,o.y-60,'#00e5ff',90,'ring');if(o.st!=='ko'&&o.y>=floorOf(o)-3&&!(o.st==='atk'&&o.mv&&o.mv.ult)){o.st='hit';o.mv=null;o.bst=0;o.stun=26;o.lz=0;o.hflash=6}o.fx=['BLACKOUT!',55];aud.sfx('boom')}
    if(m.quakeAll){if(cfg.shake)shk=18;if(cfg.vfx>0)FLASH=8;for(let q=0;q<12;q++)addDust(q*80+40,floorOf(o),q%2?1:-1,'#9ab4cc99',8);
     if(o.y>=floorOf(o)-3&&o.st!=='ko')connect(f,o,{...m,t:'burst',d:m.quakeAll,kx:3,ky:-10,h:30,lo:1},o.x>=f.x?1:-1);else o.fx=['DODGED',30]}
   }
@@ -1594,7 +1598,6 @@ function upd(f,o,i){
    else if(ch.id==='shade'&&f.k==='S'&&f.b.H){f.b.H=0;go(f,'H',1,i)}
    else {const ii=f.bi?{...i,...f.bi}:i;for(const k of['S','H','L'])if(f.b[k]&&(O[k]>O[f.k]||(k!=='S'&&O[k]===O[f.k]&&dkey(f,k,ii)!==f.v&&f.cn<3)||comboNext(f,k,ii))){f.b[k]=0;go(f,k,1,i);break}}
   }
-  if(f.st==='atk'&&m.ult&&m.t==='ctr'&&f.t===m.s+m.a){f.mv={t:'dash',s:7,a:10,r:12,d:30,w:66,h:30,dx:4,vy:-12,kx:1.5,ky:-19,k:'p',upc:1,ya:12,yb:-58,n:'MIRROR PALM',ult:1,d:26,k:'p'};f.t=0;f.hit=0;f.fx=['MIRROR PALM!',45];aud.sfx('dash')}
   else if(f.st==='atk'&&f.t>=E+m.r){f.st='idle';f.mv=null}
  }
  else if(f.st==='idle'){
@@ -1650,7 +1653,9 @@ function ai(f,o){
  if(o.st==='atk'&&o.mv&&o.t>o.mv.s+o.mv.a+rf&&o.t<o.mv.s+o.mv.a+o.mv.r-3&&ad<f.ch.L.w+30&&Math.random()<.5*react*(SY.pun||1)){i.pL=1;return i}
  if(SY.rnd&&Math.random()<.03){i[Math.random()<.5?fw:bk]=1;if(Math.random()<.5)i.u=1;return i}
  if(SY.zone&&!air&&ad<170&&o.st!=='atk'&&Math.random()<.5){i[bk]=1;if(f.scd===0&&hasSp&&Math.random()<.05)i.pS=1;return i}
- if(f.mt>=100&&ad<190&&Math.random()<.025*react){i.pG=1;i.pS=1;return i}
+ {const U=ULT[f.ch.id],ur=U&&U.t==='buff'&&!U.vortex?999:U&&U.vortex?90:U&&U.t==='proj'?420:190;
+  if(f.mt>=100&&ad<ur&&Math.random()<.025*react){i.pG=1;i.pS=1;return i}}
+ if(f.mt>=50&&f.mt<100&&Math.random()<.015*react){const u=SUP[f.ch.id];if(u&&(!u.heal||f.hp<f.maxHp-u.heal)&&(u.t==='buff'||u.t==='proj'||ad<(u.w||60)+30)){i.pSU=1;return i}}
  if(f.rg>=100&&!f.rage&&ad<220&&Math.random()<.02*react){i.pH=1;i.pS=1;return i}
  for(const p of PJ)if(p.o===o&&!air&&Math.abs(p.x-f.x)<170&&(p.vx>0)===(f.x>p.x)&&Math.random()<.35*react){i.u=1;i[fw]=1;return i}
  if(air){
@@ -2765,6 +2770,7 @@ function drawDrill(){
 }
 function mvRow(m){
  if(!m)return null;const a=m.a||0,r=m.r||0,h=m.h||12,rem=a-1+r;
+ if(m.t==='buff'||m.t==='ctr')return {s:m.s,a,r,d:m.quakeAll||(m.vortex?m.vortex+'/tick':'—'),hit:'—',blk:'—',lv:m.t==='ctr'?'COUNTER':m.quakeAll?'LOW':'BUFF'};
  const proj=m.t==='proj'||m.t==='burst';
  return {s:m.s,a,r,d:m.d,hit:proj?'—':h-rem,blk:proj?'—':Math.max(8,R(h*.5))-rem,lv:m.t==='grab'?'THROW':m.lo?'LOW':m.ov?'OVERHEAD':m.hi?'HIGH':'MID'};
 }
