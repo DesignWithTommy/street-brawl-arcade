@@ -2030,14 +2030,14 @@ function drawAura(c,hy,cr,intense=false,front=0){
  if(cfg.vfx===0)return;
  if(front&&c.id!=='will'&&c.id!=='danny')return;
  const t=fr,P=Math.sin(t*.2),cy=hy-24,full=cfg.vfx===2,k=intense?1.25:1;
- const glow=(rx,ry,a1,a2,yy=cy)=>{a1=Math.min(255,parseInt(a1,16)*1.3|0).toString(16).padStart(2,'0');const g=X.createRadialGradient(0,yy,4,0,yy,Math.max(rx,ry)*k);g.addColorStop(0,c.c2+a1);g.addColorStop(.6,c.c+a2);g.addColorStop(1,'transparent');X.fillStyle=g;X.beginPath();X.ellipse(0,yy,rx*k,ry*k,0,0,7);X.fill()};
+ const glow=(rx,ry,a1,a2,yy=cy)=>{const g=X.createRadialGradient(0,yy,4,0,yy,Math.max(rx,ry)*k);g.addColorStop(0,c.c2+a1);g.addColorStop(.6,c.c+a2);g.addColorStop(1,'transparent');X.fillStyle=g;X.beginPath();X.ellipse(0,yy,rx*k,ry*k,0,0,7);X.fill()};
  const dot=(x,y,r,col)=>{X.fillStyle=col;X.beginPath();X.arc(x,y,Math.max(.1,r),0,7);X.fill()};
  const rise=(i,n,h,spd)=>((t*spd+i*h/n)%h);
- X.save();if(c.id!=='shade')X.globalCompositeOperation='lighter';
+ X.save();const AA=intense?.6:.38;X.globalAlpha=AA;
  switch(c.id){
   case 'rex':{ // Redline: heat haze + heartbeat pulse + embers
    glow(40,62,'44','22');
-   const beat=(t%50)/50;X.strokeStyle=c.c2;X.globalAlpha=(1-beat)*.6;X.lineWidth=3;X.beginPath();X.ellipse(0,-2,20+beat*40,5+beat*9,0,0,7);X.stroke();X.globalAlpha=1;
+   const beat=(t%50)/50;X.strokeStyle=c.c2;X.globalAlpha=AA*((1-beat)*.6);X.lineWidth=3;X.beginPath();X.ellipse(0,-2,20+beat*40,5+beat*9,0,0,7);X.stroke();X.globalAlpha=AA*(1);
    if(full)for(let i=0;i<6;i++){const y=-rise(i,6,95,1.6),x=Math.sin(t*.08+i*2)*18;dot(x,y,2.4*(1+y/95),i%2?'#ffb347':c.c2)}
    break}
   case 'volt':{ // Static: crackling bolts + orbiting sparks
@@ -2066,12 +2066,12 @@ function drawAura(c,hy,cr,intense=false,front=0){
   case 'shade':{ // Ninja: violet smoke puffs + orbiting spinning shuriken
    glow(42,64,'66','33');
    if(full)for(let i=0;i<6;i++){const y=-rise(i,6,100,1.1),x=Math.sin(t*.05+i*1.9)*22,s=1-(-y)/100;dot(x,y,6+8*(1-s),c.c2+Math.round(s*140+30).toString(16).padStart(2,'0'))}
-   for(let i=0;i<3;i++){const a=t*.05+i*2.09,x=Math.cos(a)*40,y=cy+Math.sin(a)*20,z=Math.sin(a);X.save();X.translate(x,y);X.rotate(t*.4);X.globalAlpha=.55+z*.4;X.fillStyle='#e9d5ff';X.strokeStyle=c.c2;X.lineWidth=1;X.beginPath();for(let q=0;q<8;q++){const r=q%2?2.2:8,an=q*.785;X.lineTo(Math.cos(an)*r,Math.sin(an)*r)}X.closePath();X.fill();X.stroke();X.restore()}
+   for(let i=0;i<3;i++){const a=t*.05+i*2.09,x=Math.cos(a)*40,y=cy+Math.sin(a)*20,z=Math.sin(a);X.save();X.translate(x,y);X.rotate(t*.4);X.globalAlpha=AA*(.55+z*.4);X.fillStyle='#e9d5ff';X.strokeStyle=c.c2;X.lineWidth=1;X.beginPath();for(let q=0;q<8;q++){const r=q%2?2.2:8,an=q*.785;X.lineTo(Math.cos(an)*r,Math.sin(an)*r)}X.closePath();X.fill();X.stroke();X.restore()}
    break}
   case 'titan':{ // The Wall: orbiting hex armor plates
    glow(42,64,'30','14');
-   for(let i=0;i<5;i++){const a=t*.025+i*1.256,x=Math.cos(a)*40,z=Math.sin(a),y=cy+Math.sin(a*2)*8;X.globalAlpha=.35+(z+1)*.25;X.strokeStyle=c.c2;X.fillStyle=c.c2+'33';X.lineWidth=1.5;X.beginPath();for(let q=0;q<6;q++){const an=q*1.047;X.lineTo(x+Math.cos(an)*7,y+Math.sin(an)*7)}X.closePath();X.fill();X.stroke()}
-   X.globalAlpha=1;break}
+   for(let i=0;i<5;i++){const a=t*.025+i*1.256,x=Math.cos(a)*40,z=Math.sin(a),y=cy+Math.sin(a*2)*8;X.globalAlpha=AA*(.35+(z+1)*.25);X.strokeStyle=c.c2;X.fillStyle=c.c2+'33';X.lineWidth=1.5;X.beginPath();for(let q=0;q<6;q++){const an=q*1.047;X.lineTo(x+Math.cos(an)*7,y+Math.sin(an)*7)}X.closePath();X.fill();X.stroke()}
+   X.globalAlpha=AA*(1);break}
   case 'kingpin':{ // Mastermind: orbiting gold coins + sparkles
    glow(46,68,'44','20');
    for(let i=0;i<6;i++){const a=t*.035+i*1.047,x=Math.cos(a)*42,y=cy+Math.sin(a)*14,w=Math.abs(Math.cos(t*.15+i))*5+1;X.fillStyle='#f5c542';X.beginPath();X.ellipse(x,y,w,5,0,0,7);X.fill()}
@@ -2079,32 +2079,32 @@ function drawAura(c,hy,cr,intense=false,front=0){
    break}
   case 'tommy':{ // Striker: teal spirit flames + ground stomp ripples
    glow(38,60,'55','22');
-   for(let i=0;i<2;i++){const p=((t+i*30)%60)/60;X.strokeStyle=c.c2;X.globalAlpha=(1-p)*.7;X.lineWidth=2.5;X.beginPath();X.ellipse(0,-1,16+p*46,4+p*9,0,0,7);X.stroke()}X.globalAlpha=1;
+   for(let i=0;i<2;i++){const p=((t+i*30)%60)/60;X.strokeStyle=c.c2;X.globalAlpha=AA*((1-p)*.7);X.lineWidth=2.5;X.beginPath();X.ellipse(0,-1,16+p*46,4+p*9,0,0,7);X.stroke()}X.globalAlpha=AA*(1);
    const n=full?8:4;for(let i=0;i<n;i++){const h=rise(i,n,96,2.2),x=Math.sin(i*1.9+t*.13)*20,y=-h,s=1.4*(1-h/96);X.fillStyle=s>.7?'#ccfbf1cc':c.c2+'aa';X.beginPath();X.moveTo(x,y-15*s);X.quadraticCurveTo(x+6*s,y,x,y+6*s);X.quadraticCurveTo(x-6*s,y,x,y-15*s);X.fill()}
    break}
   case 'danny':{ // Aerial: two loose wind ribbons wrapping around the body
    if(!front){glow(36,60,'40','16');for(let i=0;i<4;i++)dot(-30+i*20,-2+Math.sin(t*.1+i)*2,8,'#e0f2fe22')}
    X.lineCap='round';
    for(let i=0;i<2;i++){let px,py;for(let q=0;q<=20;q++){const y=-q*5.2,an=t*.13+q*.3+i*3.14,x=Math.cos(an)*(38-q*.6),zz=Math.sin(an),a=Math.sin(q/20*3.14);
-     if(q&&((zz>0)===!!front)){X.strokeStyle='#e0f2fe';X.globalAlpha=a*(front?.75:.3);X.lineWidth=front?2.2:1.4;X.beginPath();X.moveTo(px,py);X.lineTo(x,y);X.stroke()}px=x;py=y}}
-   X.globalAlpha=1;break}
+     if(q&&((zz>0)===!!front)){X.strokeStyle='#e0f2fe';X.globalAlpha=AA*(a*(front?.75:.3));X.lineWidth=front?2.2:1.4;X.beginPath();X.moveTo(px,py);X.lineTo(x,y);X.stroke()}px=x;py=y}}
+   X.globalAlpha=AA*(1);break}
   case 'will':{ // Guardian: shield crests orbiting around the body + spinning ground sigil
    if(!front){X.save();X.translate(0,-2);X.scale(1,.28);X.rotate(t*.03);X.strokeStyle=c.c2+'cc';X.lineWidth=3;X.beginPath();X.arc(0,0,44,0,7);X.stroke();X.lineWidth=2;
     X.beginPath();for(let q=0;q<=6;q++){const an=q*2.094*2;X.lineTo(Math.cos(an)*44,Math.sin(an)*44)}X.stroke();X.restore();glow(36,60,'30','12')}
-   for(let i=0;i<3;i++){const a=t*.035+i*2.094,x=Math.cos(a)*40,z=Math.sin(a);if((z>0)!==!!front)continue;const y=cy+z*6-4,w=Math.abs(Math.cos(a))*.6+.4;X.save();X.translate(x,y);X.scale(w,1);X.globalAlpha=front?.9:.5;
+   for(let i=0;i<3;i++){const a=t*.035+i*2.094,x=Math.cos(a)*40,z=Math.sin(a);if((z>0)!==!!front)continue;const y=cy+z*6-4,w=Math.abs(Math.cos(a))*.6+.4;X.save();X.translate(x,y);X.scale(w,1);X.globalAlpha=AA*(front?.9:.5);
     X.fillStyle=c.c2+'55';X.strokeStyle='#e0f2fe';X.lineWidth=2;X.beginPath();X.moveTo(0,-13);X.lineTo(10,-8);X.lineTo(8,5);X.lineTo(0,13);X.lineTo(-8,5);X.lineTo(-10,-8);X.closePath();X.fill();X.stroke();X.restore()}
    break}
   case 'donna':{ // Whip Zoner: a glowing whip lasso spinning around her waist + rising pink sparks
    glow(38,60,'50','1c');X.lineCap='round';
-   const a0=t*.14;for(let q=0;q<18;q++){const a1=a0-q*.2,a2=a1-.2,al=1-q/18;X.strokeStyle=c.c2;X.globalAlpha=al;X.lineWidth=3.5*al+.5;X.beginPath();X.moveTo(Math.cos(a1)*44,cy+14+Math.sin(a1)*12);X.lineTo(Math.cos(a2)*44,cy+14+Math.sin(a2)*12);X.stroke()}
-   X.globalAlpha=1;dot(Math.cos(a0)*44,cy+14+Math.sin(a0)*12,3.5,'#fff');
+   const a0=t*.14;for(let q=0;q<18;q++){const a1=a0-q*.2,a2=a1-.2,al=1-q/18;X.strokeStyle=c.c2;X.globalAlpha=AA*(al);X.lineWidth=3.5*al+.5;X.beginPath();X.moveTo(Math.cos(a1)*44,cy+14+Math.sin(a1)*12);X.lineTo(Math.cos(a2)*44,cy+14+Math.sin(a2)*12);X.stroke()}
+   X.globalAlpha=AA*(1);dot(Math.cos(a0)*44,cy+14+Math.sin(a0)*12,3.5,'#fff');
    if(full)for(let i=0;i<5;i++){const y=-rise(i,5,100,1.3);dot(Math.sin(i*2.7+t*.05)*22,y,2.2,'#f0abfc')}
    break}
   case 'ghost':{ // Phantom: glowing spirit wisps circling with long tails
    glow(42,66,'40','14');X.lineCap='round';
    for(let i=0;i<3;i++){const a=t*.05+i*2.09,P2_=b=>[Math.cos(b)*38,cy+Math.sin(b*1.5)*32];const [x,y]=P2_(a);
-    for(let q=1;q<10;q++){const [ax,ay]=P2_(a-(q-1)*.1),[bx,by]=P2_(a-q*.1);X.strokeStyle='#e0e7ff';X.globalAlpha=(1-q/10)*.6;X.lineWidth=7*(1-q/10)+1;X.beginPath();X.moveTo(ax,ay);X.lineTo(bx,by);X.stroke()}
-    X.globalAlpha=1;dot(x,y,9,'#e0e7ff33');dot(x,y,5,'#ffffff')}
+    for(let q=1;q<10;q++){const [ax,ay]=P2_(a-(q-1)*.1),[bx,by]=P2_(a-q*.1);X.strokeStyle='#e0e7ff';X.globalAlpha=AA*((1-q/10)*.6);X.lineWidth=7*(1-q/10)+1;X.beginPath();X.moveTo(ax,ay);X.lineTo(bx,by);X.stroke()}
+    X.globalAlpha=AA*(1);dot(x,y,9,'#e0e7ff33');dot(x,y,5,'#ffffff')}
    break}
   case 'fortyoz':{ // 40oz: rising foam bubbles
    glow(38,58,'38','18');
