@@ -2232,12 +2232,12 @@ function fig(f,idleAnim=true,showAura=true){
  const legW=c.id==='brutus'||c.id==='titan'?14:11;
 
  // Articulated Back & Front Legs
- limb(-3,hy,-17+w,air?-18:0,-11,legW,dk(legCol),c.c+'55');
+ limb(-3,hy,-20+w,air?-18:0,air?-11:5,legW,dk(legCol),c.c+'55');
  if(m&&m.k==='k'){
   tx=22+e*(m.w*.92-22);ty=hy+m.ya+(m.yb-m.ya)*cl;
   limb(0,hy,tx,ty,-7,legW,legCol,rim);
  }else{
-  limb(3,hy,20-w,air?-26:0,-12,legW,legCol,c.c+'88');
+  limb(3,hy,24-w,air?-26:0,air?-12:-7,legW,legCol,c.c+'88');
  }
 
  // Arms: far arm behind the torso from the rear shoulder, near arm drawn after it
