@@ -501,7 +501,7 @@ const ULT={
  will:{n:'LAST LINE',t:'proj',s:10,a:2,r:28,d:10,w:50,h:40,vx:.01,k:'b',burst:1,bd:30,br:175,pl:6,flash:1},
  ghost:{n:'HAUNTING',t:'proj',s:12,a:2,r:26,d:30,w:50,h:44,vx:5,home:2,k:'p',kx:6,ky:-11,lau:1},
  fortyoz:{n:'LAST CALL',t:'proj',s:10,a:2,r:28,d:28,w:50,h:36,vx:8,vy:-8,g:.32,k:'b',bnc:3,kx:9,ky:-10},
- charcoal:{n:'KINGSTON SMOKEOUT',t:'tele',s:14,a:6,r:26,d:32,w:80,h:46,kx:6,ky:-13,k:'k',lau:1,smk:1},
+ charcoal:{n:'KINGSTON SMOKEOUT',t:'boss',tb:1,s:10,a:34,r:24,d:6,hits:7,hi2:4,w:84,h:18,dx:2,k:'k',smk:1},
  donna:{n:'BLACK WIDOW',t:'grab',s:8,a:6,r:28,d:32,w:180,h:50,kx:-6,ky:-9,k:'b'}
 };
 // 4 airborne moves each: air Light, air Heavy, air Down+Heavy, air Special (AS table)
@@ -1516,9 +1516,11 @@ function upd(f,o,i){
    if(cfg.vfx>0&&f.t%2===0&&f.aft)f.aft.push({x:f.x,y:f.y,face:f.face,cr:!!m.cr,l:9,max:9});
    if(m.t==='dash'&&ch.id==='rex'&&f.t%3===0)spark(f,ch.c2,1);
    if(m.t==='dash'&&ch.id==='kira'&&f.t%2===0)spark(f,ch.c2,1);
-   if(m.t==='boss'&&f.t%3===0)addFx(f.x+f.face*24,f.y-58,'#f5c542',42,'ring');
+   if(m.t==='boss'&&f.t%3===0)addFx(f.x+f.face*24,f.y-58,m.smk?'#9ca3af':'#f5c542',m.smk?60:42,m.smk?'smoke':'ring');
+   if(m.smk&&f.t%5===0)addFx(f.x+f.face*24,f.y-50,'#f97316',30,'fire');
   }
   if(m.adv&&f.t<=E)f.vx=f.face*m.adv;
+  if(m.tb&&f.t===m.s){addFx(f.x,f.y-55,'#9ca3af',150,'smoke');addFx(o.x,o.y-55,'#9ca3af',150,'smoke');f.x=Math.max(40,Math.min(W-40,o.x+f.face*50));f.face*=-1;addFx(f.x,f.y-55,'#f97316',70,'fire');if(cfg.shake)shk=8}
   if(m.t==='tele'&&f.t===m.s){
    addFx(f.x,f.y-55,ch.c,52,'smoke');
    if(m.shadeDir===4){f.x=Math.max(40,Math.min(W-40,f.x-f.face*110))}
@@ -1537,7 +1539,7 @@ function upd(f,o,i){
      if(dx>-18&&dx<m.w+30&&Math.abs(o.y-f.y)<90){
       const fin=f.bossHits===nh-1;
       const bm={...m,d:fin?R(m.d*1.5):m.d,kx:fin?11:3,ky:fin?-10:-2,h:fin?28:14};
-      if(connect(f,o,bm,f.face)){f.bossHits++;f.hit=1;if(fin)addFx(o.x,o.y-55,'#f5c542',75,'ring')}
+      if(connect(f,o,bm,f.face)){f.bossHits++;f.hit=1;if(fin){addFx(o.x,o.y-55,m.smk?'#f97316':'#f5c542',m.smk?120:75,m.smk?'fire':'ring');if(m.smk){addFx(o.x,o.y-55,'#9ca3af',170,'smoke');if(cfg.shake)shk=14}}}
      }
     }
    }else if(!f.hit){
