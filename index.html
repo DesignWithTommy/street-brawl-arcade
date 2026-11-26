@@ -2267,6 +2267,9 @@ function fig(f,idleAnim=true,showAura=true){
  const torsoW=c.id==='titan'?28:c.id==='brutus'?27:20;
  X.lineCap='round';X.strokeStyle=bodyDark;X.lineWidth=torsoW;
  X.beginPath();X.moveTo(0,hy);X.lineTo(bk,hy-36);X.stroke();
+ // Hips/pants: a pelvis in the leg colour so the legs grow out of the body instead of hiding behind it
+ if(c.id!=='sensei'&&c.id!=='ghost'){X.fillStyle=legCol;X.beginPath();const pw=torsoW+4;X.roundRect?X.roundRect(-pw/2,hy-7,pw,13,5):X.rect(-pw/2,hy-7,pw,13);X.fill();
+  X.strokeStyle=legCol;X.lineWidth=legW;X.lineCap='round';X.beginPath();X.moveTo(-3,hy+2);X.lineTo(-5,hy+8);X.moveTo(3,hy+2);X.lineTo(5,hy+8);X.stroke()}
  // Character Torso Gear
  if(c.id==='rex'){
   X.fillStyle='#f5c542';X.fillRect(-13,hy-6,26,7);X.fillStyle='#c0392b';X.beginPath();X.arc(0,hy-2.5,5,0,7);X.fill();
