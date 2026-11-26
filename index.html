@@ -2152,6 +2152,17 @@ function drawKingpinSky(x,y,sc=1,alpha=.35){
  X.restore();
 }
 
+// Body palettes [torso, legs, arms, head]. Charcoal stays jet black.
+const SK={
+ rex:['#991b1b','#1f2937','#c68642','#c68642'],volt:['#0e7490','#164e63','#e0ac69','#e0ac69'],
+ brutus:['#78350f','#292524','#8d5524','#8d5524'],kira:['#9d174d','#1e1b4b','#f1c27d','#f1c27d'],
+ sensei:['#15803d','#154e2c','#d4a373','#d4a373'],ember:['#b45309','#422006','#e0ac69','#e0ac69'],
+ shade:['#3b0764','#1e1b2e','#2e1065','#3b0764'],titan:['#dce8f5','#b5cce0','#c9ddf0','#e6f0fa'],
+ kingpin:['#854d0e','#292524','#854d0e','#8d5524'],tommy:['#0f766e','#134e4a','#c68642','#c68642'],
+ danny:['#475569','#334155','#f1c27d','#f1c27d'],will:['#1e3a8a','#172554','#1e3a8a','#e0ac69'],
+ donna:['#701a75','#2e1065','#ffdbac','#ffdbac'],ghost:['#94a3b8','#64748b','#cbd5e1','#e2e8f0'],
+ fortyoz:['#a16207','#3f2a14','#c68642','#c68642'],charcoal:['#0d0f18','#0e101a','#0d0f18','#0a0b12']};
+const skin=(c,i)=>(SK[c.id]||SK.charcoal)[i];
 function fig(f,idleAnim=true,showAura=true){
  const c=f.ch,m=f.st==='atk'?f.mv:null,z=c.z,air=f.y<floorOf(f)-3,dn=f.st==='down'||f.st==='ko';
  let e=0,tx=0,ty=0;
@@ -2209,9 +2220,9 @@ function fig(f,idleAnim=true,showAura=true){
  }
 
  const flash=f.hflash>0;
- const bodyDark=flash?'#ffffff':c.id==='titan'?'#dce8f5':'#0d0f18';
+ const bodyDark=flash?'#ffffff':skin(c,0);
  const rim=flash?'#ffffff':c.c2;
- const legCol=flash?'#ffffff':c.id==='titan'?'#b5cce0':c.id==='sensei'?'#154e2c':'#0e101a';
+ const legCol=flash?'#ffffff':skin(c,1);
  const legW=c.id==='brutus'||c.id==='titan'?14:11;
 
  // Articulated Back & Front Legs
@@ -2256,7 +2267,7 @@ function fig(f,idleAnim=true,showAura=true){
 
  // Articulated Arms + Weapons / Gloves / Flames
  const sy=hy-32,armW=c.id==='brutus'||c.id==='titan'?12:9.5;
- const armCol=flash?'#ffffff':c.id==='titan'?'#c9ddf0':c.id==='sensei'?c.c:'#0d0f18';
+ const armCol=flash?'#ffffff':skin(c,2);
  if(f.blk){
   limb(bk,sy,24,sy-16,-7,armW,armCol,rim);
   limb(bk,sy,20,sy-2,-5,armW,armCol);
@@ -2333,7 +2344,7 @@ function fig(f,idleAnim=true,showAura=true){
 
  // Head Silhouette & Glowing Poster Eyes
  const hx=bk*1.3,headY=hy-50;
- X.fillStyle=flash?'#ffffff':c.id==='titan'?'#e6f0fa':'#0a0b12';
+ X.fillStyle=flash?'#ffffff':skin(c,3);
  X.beginPath();X.arc(hx,headY,13,0,7);X.fill();
  X.strokeStyle=rim;X.lineWidth=1.6;X.stroke();
 
