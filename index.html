@@ -1691,8 +1691,12 @@ function handleClicks(){
  mClick=0;
  for(let i=UI_HITS.length-1;i>=0;i--){
   const h=UI_HITS[i];
-  if(mx>=h.x&&mx<=h.x+h.w&&my>=h.y&&my<=h.y+h.h){h.fn();break}
+  if(mx>=h.x&&mx<=h.x+h.w&&my>=h.y&&my<=h.y+h.h){h.fn();return}
  }
+ // tap-to-continue for screens with no buttons (touch / mouse)
+ if(S==='story'){if(mx<110&&my<70)pr.Escape=1;else if(SM.ph==='pre'&&mx<W*.25)pr.ArrowLeft=1;else if(SM.ph==='pre'&&mx>W*.75)pr.ArrowRight=1;else pr.Enter=1}
+ else if(S==='end'||S==='ladder'||S==='clear')pr.Enter=1;
+ else if(S==='netwait')pr.Escape=1;
 }
 
 // --- Screen Updaters ---
