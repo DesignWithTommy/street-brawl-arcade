@@ -41,7 +41,7 @@ const DEF_CFG={
  fdHud:0,       // frame data HUD
  aiSty:0,       // CPU personality
  keys:[
-  {l:'KeyA',r:'KeyD',u:'KeyW',d:'KeyS',L:'KeyJ',H:'KeyK',S:'KeyL',G:'KeyI'},
+  {l:'KeyA',r:'KeyD',u:'KeyW',d:'KeyS',L:'KeyJ',H:'KeyK',S:'KeyL',G:'KeyI',SU:'KeyU',UL:'KeyO',RG:'Space'},
   {l:'ArrowLeft',r:'ArrowRight',u:'ArrowUp',d:'ArrowDown',L:'Comma',H:'Period',S:'Slash',G:'Semicolon'}
  ],
  pauseKey:'Escape'
@@ -65,7 +65,7 @@ function keyLabel(code){
 }
 function applyDisplay(){
  C.className=cfg.scale===1?'stretch':cfg.scale===2?'compact':'';
- HINT.innerHTML=`${keyLabel(cfg.keys[0].l)}/${keyLabel(cfg.keys[0].r)} move, ${keyLabel(cfg.keys[0].u)} jump (again in air = double jump), ${keyLabel(cfg.keys[0].d)} crouch / fast-fall, back to block, <b>${keyLabel(cfg.keys[0].L)}</b> light, <b>${keyLabel(cfg.keys[0].H)}</b> heavy, <b>${keyLabel(cfg.keys[0].S)}</b> special, <b>${keyLabel(cfg.keys[0].G)}</b> grab, <b>${keyLabel(cfg.keys[0].L)}+${keyLabel(cfg.keys[0].S)}</b> super, <b>${keyLabel(cfg.keys[0].G)}+${keyLabel(cfg.keys[0].S)}</b> ultimate, <b>${keyLabel(cfg.keys[0].H)}+${keyLabel(cfg.keys[0].S)}</b> rage | <b>${keyLabel(cfg.pauseKey)}</b> Pause | Controllers supported`;
+ HINT.innerHTML=`${keyLabel(cfg.keys[0].l)}/${keyLabel(cfg.keys[0].r)} move, ${keyLabel(cfg.keys[0].u)} jump (again in air = double jump), ${keyLabel(cfg.keys[0].d)} crouch / fast-fall, back to block, <b>${keyLabel(cfg.keys[0].L)}</b> light, <b>${keyLabel(cfg.keys[0].H)}</b> heavy, <b>${keyLabel(cfg.keys[0].S)}</b> special, <b>${keyLabel(cfg.keys[0].G)}</b> grab, <b>${keyLabel(cfg.keys[0].SU)}</b> super, <b>${keyLabel(cfg.keys[0].UL)}</b> ultimate, <b>${keyLabel(cfg.keys[0].RG)}</b> rage | <b>${keyLabel(cfg.pauseKey)}</b> Pause | Controllers supported`;
  if(cfg.full&&!document.fullscreenElement&&document.documentElement.requestFullscreen){document.documentElement.requestFullscreen().catch(()=>{})}
  else if(!cfg.full&&document.fullscreenElement&&document.exitFullscreen){document.exitFullscreen().catch(()=>{})}
 }
@@ -668,6 +668,10 @@ const inp=id=>{
   const alt=id===1&&!p1Used(NUM_ALT[k])?pr[NUM_ALT[k]]:0;
   i['p'+k]=pr[m[k]]||alt||(g&&g['p'+k]);
  }
+ // dedicated one-key Super / Ultimate / Rage (same as the button combos)
+ if(m.SU&&pr[m.SU]){i.pL=1;i.pS=1}
+ if(m.UL&&pr[m.UL]){i.pG=1;i.pS=1}
+ if(m.RG&&pr[m.RG]){i.pH=1;i.pS=1}
  return i;
 };
 const dir9=(f,i)=>{
@@ -2924,9 +2928,9 @@ function howtoD(){
    ['Heavy',[a('H')],[b('H'),'Num2'],['Y','B']],
    ['Special',[a('S')],[b('S'),'Num3'],['RB','RT']],
    ['Grab',[a('G')],[b('G'),'Num4'],['LB','LT']],
-   ['Super',[a('L')+'+'+a('S')],[b('L')+'+'+b('S')],['X+RB']],
-   ['Ultimate',[a('G')+'+'+a('S')],[b('G')+'+'+b('S')],['LB+RB']],
-   ['Rage',[a('H')+'+'+a('S')],[b('H')+'+'+b('S')],['Y+RB']],
+   ['Super',[a('SU')],[b('L')+'+'+b('S')],['X+RB']],
+   ['Ultimate',[a('UL')],[b('G')+'+'+b('S')],['LB+RB']],
+   ['Rage',[a('RG')],[b('H')+'+'+b('S')],['Y+RB']],
    ['Pause',[keyLabel(cfg.pauseKey)],[keyLabel(cfg.pauseKey)],['Start']]
   ];
   rows.forEach(r=>{if(typeof r[1]!=='string')r.splice(2,1)});
@@ -2980,9 +2984,9 @@ function howtoD(){
   X.fillStyle='#f5c542';X.font='bold 16px Impact,sans-serif';X.fillText('METER, SUPER, ULTIMATE & RAGE',100,156);
   const tips=[
    `• Meter fills as you deal and take damage (bar under your health).`,
-   `• SUPER — ${K2('L')}+${K2('S')} together · costs ½ bar · fast, strong signature attack.`,
-   `• ULTIMATE — ${K2('G')}+${K2('S')} together · costs a full bar · cinematic finisher, huge damage.`,
-   `• RAGE — ${K2('H')}+${K2('S')} together · +30% damage for 6 seconds.`,
+   `• SUPER — ${K2('SU')} · costs ½ bar · fast, strong signature attack.`,
+   `• ULTIMATE — ${K2('UL')} · costs a full bar · cinematic finisher, huge damage.`,
+   `• RAGE — ${K2('RG')} · +30% damage for 6 seconds.`,
    '• Controller: Super = X/A + RB · Ultimate = LB + RB · Rage = Y/B + RB.',
    '• Training mode: [7] Move List · [8] Combo Trials · [9] Input Display.'
   ];
