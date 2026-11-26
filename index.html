@@ -2936,17 +2936,21 @@ function howtoD(){
    ['Pause',[keyLabel(cfg.pauseKey)],[keyLabel(cfg.pauseKey)],['Start']]
   ];
   rows.forEach(r=>{if(typeof r[1]!=='string')r.splice(2,1)});
+  const TOUCH=('ontouchstart' in window)||navigator.maxTouchPoints>0;
+  if(TOUCH){const T={Move:['Joystick ←/→'],Jump:['Stick up'],Crouch:['Stick down'],Light:['LIGHT'],Heavy:['HEAVY'],Special:['SPEC'],Grab:['GRAB'],Super:['SUPER'],Ultimate:['ULT'],Rage:['RAGE'],Pause:['II']};
+   rows.forEach(r=>{if(T[r[0]])r[1]=T[r[0]]});const dr=rows.find(r=>r[0]==='Drop down');if(dr)dr[1]='Flick the stick down twice while on a platform';
+   const bl=rows.find(r=>r[0]==='Block');if(bl)bl[1]='Hold stick away from foe · down-away = low block';const ds=rows.find(r=>r[0]==='Dash');if(ds)ds[1]='Flick the stick forward or back twice'}
   const C=[120,330,600];X.font='bold 14px Impact,sans-serif';
-  [['',''],['KEYBOARD','#ff5ca8'],['CONTROLLER','#f5c542']].forEach(([t,c],i)=>{X.fillStyle=c||'#fff';X.fillText(t,C[i],142)});
+  [['',''],[TOUCH?'TOUCH SCREEN':'KEYBOARD','#ff5ca8'],['CONTROLLER','#f5c542']].forEach(([t,c],i)=>{X.fillStyle=c||'#fff';X.fillText(t,C[i],142)});
   const cap=(t,x,y)=>{X.font='bold 12px monospace';const w=Math.max(22,X.measureText(t).width+12);X.fillStyle='#262a45';X.fillRect(x,y-14,w,19);X.strokeStyle='#4a5080';X.lineWidth=1;X.strokeRect(x,y-14,w,19);X.fillStyle='#fff';X.textAlign='center';X.fillText(t,x+w/2,y);X.textAlign='left';return w};
-  rows.forEach((r,ri)=>{const y=172+ri*22.5;if(ri%2){X.fillStyle='#ffffff08';X.fillRect(80,y-16,800,22)}
+  rows.forEach((r,ri)=>{const y=166+ri*20.6;if(ri%2){X.fillStyle="#ffffff08";X.fillRect(80,y-15,800,20)}
    X.fillStyle='#dce2f5';X.font='bold 13px system-ui,sans-serif';X.fillText(r[0],C[0],y);
    if(typeof r[1]==='string'){X.fillStyle='#b7c2df';X.font='13px system-ui,sans-serif';X.fillText(r[1],C[1],y);return}
    for(let c=1;c<3;c++){let x=C[c];r[c].forEach((t,k)=>{if(k){X.fillStyle='#8b93b5';X.font='11px system-ui';X.fillText('or',x+2,y);x+=18}x+=cap(t,x,y)+4})}
   });
   const padInfo=PD[0]||PD[1]?`Controller detected: ${PD[0]?'P1 ready ':''}${PD[1]?'P2 ready':''}`:'Using a controller? Press any button so the browser detects it.';
   X.fillStyle=PD[0]||PD[1]?'#2ecc71':'#8b93b5';X.font='bold 12px system-ui,sans-serif';X.textAlign='center';
-  X.fillText(padInfo,480,458);X.textAlign='left';
+  X.fillText(padInfo,480,459);X.textAlign='left';
  }else if(howtoTab===1){
   X.fillStyle='#f5c542';X.font='bold 16px Impact,sans-serif';X.fillText('NUMPAD DIRECTIONAL NOTATION (FACING RIGHT)',96,154);
   const grid=[['7 ↖','8 ↑','9 ↗'],['4 ←','5 ·','6 →'],['1 ↙','2 ↓','3 ↘']];
@@ -2982,7 +2986,7 @@ function howtoD(){
   X.fillStyle='#e2e6f5';X.font='14px system-ui,sans-serif';
   tips.forEach((t,i)=>X.fillText(t,100,190+i*38));
  }else if(howtoTab===3){
-  const k=cfg.keys[0],K2=a=>keyLabel(k[a]);
+  const k=cfg.keys[0],TC=('ontouchstart' in window)||navigator.maxTouchPoints>0,K2=a=>TC?({SU:'SUPER button',UL:'ULT button',RG:'RAGE button'}[a]):keyLabel(k[a]);
   X.fillStyle='#f5c542';X.font='bold 16px Impact,sans-serif';X.fillText('METER, SUPER, ULTIMATE & RAGE',100,156);
   const tips=[
    `• Meter fills as you deal and take damage (bar under your health).`,
@@ -2990,7 +2994,7 @@ function howtoD(){
    `• ULTIMATE — ${K2('UL')} · costs a full bar · cinematic finisher, huge damage.`,
    `• RAGE — ${K2('RG')} · +30% damage for 6 seconds.`,
    '• Controller: Super = X/A + RB · Ultimate = LB + RB · Rage = Y/B + RB.',
-   '• Training mode: [7] Move List · [8] Combo Trials · [9] Input Display.'
+   TC?'• Move List: pause (II) → MOVE LIST.':'• Training mode: [7] Move List · [8] Combo Trials · [9] Input Display.'
   ];
   X.fillStyle='#e2e6f5';X.font='14px system-ui,sans-serif';
   tips.forEach((t,i)=>X.fillText(t,100,196+i*40));
