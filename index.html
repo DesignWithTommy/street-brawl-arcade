@@ -41,8 +41,8 @@ const DEF_CFG={
  fdHud:0,       // frame data HUD
  aiSty:0,       // CPU personality
  keys:[
-  {l:'KeyA',r:'KeyD',u:'KeyW',d:'KeyS',L:'KeyJ',H:'KeyK',S:'KeyL',G:'KeyI',SU:'KeyU',UL:'KeyO',RG:'Space'},
-  {l:'ArrowLeft',r:'ArrowRight',u:'ArrowUp',d:'ArrowDown',L:'Comma',H:'Period',S:'Slash',G:'Semicolon'}
+  {l:'KeyA',r:'KeyD',u:'KeyW',d:'KeyS',L:'KeyJ',H:'KeyK',S:'KeyL',G:'KeyI',SU:'KeyU',UL:'KeyO',RG:'Space',DS:'ShiftLeft'},
+  {l:'ArrowLeft',r:'ArrowRight',u:'ArrowUp',d:'ArrowDown',L:'Comma',H:'Period',S:'Slash',G:'Semicolon',DS:'ShiftRight'}
  ],
  pauseKey:'Escape'
 };
@@ -61,11 +61,11 @@ function saveCfg(){try{localStorage.setItem('sba_cfg_v1',JSON.stringify(cfg))}ca
 function unlockKingpin(){kingpinUnlocked=true;try{localStorage.setItem('sba_unlock_kingpin','1')}catch(_){}}
 function keyLabel(code){
  if(!code)return '?';
- return code.replace(/^Key/,'').replace(/^Digit/,'').replace('ArrowLeft','LEFT').replace('ArrowRight','RIGHT').replace('ArrowUp','UP').replace('ArrowDown','DOWN').replace('Comma',',').replace('Period','.').replace('Slash','/').replace('Semicolon',';').replace('Escape','ESC').replace('Space','SPACE').replace('Numpad','NUM ');
+ return code.replace(/^Shift(Left|Right)$/,'SHIFT').replace(/^Key/,'').replace(/^Digit/,'').replace('ArrowLeft','LEFT').replace('ArrowRight','RIGHT').replace('ArrowUp','UP').replace('ArrowDown','DOWN').replace('Comma',',').replace('Period','.').replace('Slash','/').replace('Semicolon',';').replace('Escape','ESC').replace('Space','SPACE').replace('Numpad','NUM ');
 }
 function applyDisplay(){
  C.className=cfg.scale===1?'stretch':cfg.scale===2?'compact':'';
- HINT.innerHTML=`${keyLabel(cfg.keys[0].l)}/${keyLabel(cfg.keys[0].r)} move, ${keyLabel(cfg.keys[0].u)} jump (again in air = double jump), ${keyLabel(cfg.keys[0].d)} crouch / fast-fall, back to block, <b>${keyLabel(cfg.keys[0].L)}</b> light, <b>${keyLabel(cfg.keys[0].H)}</b> heavy, <b>${keyLabel(cfg.keys[0].S)}</b> special, <b>${keyLabel(cfg.keys[0].G)}</b> grab, <b>${keyLabel(cfg.keys[0].SU)}</b> super, <b>${keyLabel(cfg.keys[0].UL)}</b> ultimate, <b>${keyLabel(cfg.keys[0].RG)}</b> rage | <b>${keyLabel(cfg.pauseKey)}</b> Pause | Controllers supported`;
+ HINT.innerHTML=`${keyLabel(cfg.keys[0].l)}/${keyLabel(cfg.keys[0].r)} move, ${keyLabel(cfg.keys[0].u)} jump (again in air = double jump), ${keyLabel(cfg.keys[0].d)} crouch / fast-fall, back to block, <b>${keyLabel(cfg.keys[0].DS)}</b> dash, <b>${keyLabel(cfg.keys[0].L)}</b> light, <b>${keyLabel(cfg.keys[0].H)}</b> heavy, <b>${keyLabel(cfg.keys[0].S)}</b> special, <b>${keyLabel(cfg.keys[0].G)}</b> grab, <b>${keyLabel(cfg.keys[0].SU)}</b> super, <b>${keyLabel(cfg.keys[0].UL)}</b> ultimate, <b>${keyLabel(cfg.keys[0].RG)}</b> rage | <b>${keyLabel(cfg.pauseKey)}</b> Pause | Controllers supported`;
  if(cfg.full&&!document.fullscreenElement&&document.documentElement.requestFullscreen){document.documentElement.requestFullscreen().catch(()=>{})}
  else if(!cfg.full&&document.fullscreenElement&&document.exitFullscreen){document.exitFullscreen().catch(()=>{})}
 }
@@ -674,6 +674,9 @@ const inp=id=>{
  if(m.SU&&pr[m.SU])i.pSU=1;
  if(m.UL&&pr[m.UL])i.pUL=1;
  if(m.RG&&pr[m.RG])i.pRG=1;
+ // Shift dashes; keyboard arrows no longer dash on double-tap (pads and touch still do)
+ if(m.DS&&pr[m.DS])i.pDS=1;
+ if(K[m.l]||K[m.r])i.kb=1;
  return i;
 };
 const dir9=(f,i)=>{
@@ -875,8 +878,8 @@ function resetPractice(q){
 // --- Online 1v1: WebRTC peer-to-peer, copy/paste codes, deterministic lockstep ---
 const NET={on:0,live:0,host:0,pc:null,dc:null,delay:3,frame:0,sent:0,loc:{},rem:{},cur:[{},{}],rng:null,myPick:-1,opPick:-1,wantR:0,opR:0,ping:0,toast:null,ck:{},desync:0};
 function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
-const pk=i=>(i.l?1:0)|(i.r?2:0)|(i.u?4:0)|(i.d?8:0)|(i.pL?16:0)|(i.pH?32:0)|(i.pS?64:0)|(i.pG?128:0)|(i.pSU?256:0)|(i.pUL?512:0)|(i.pRG?1024:0);
-const upk=n=>({l:n&1,r:n&2,u:n&4,d:n&8,pL:n&16,pH:n&32,pS:n&64,pG:n&128,pSU:n&256,pUL:n&512,pRG:n&1024});
+const pk=i=>(i.l?1:0)|(i.r?2:0)|(i.u?4:0)|(i.d?8:0)|(i.pL?16:0)|(i.pH?32:0)|(i.pS?64:0)|(i.pG?128:0)|(i.pSU?256:0)|(i.pUL?512:0)|(i.pRG?1024:0)|(i.pDS?2048:0)|(i.kb?4096:0);
+const upk=n=>({l:n&1,r:n&2,u:n&4,d:n&8,pL:n&16,pH:n&32,pS:n&64,pG:n&128,pSU:n&256,pUL:n&512,pRG:n&1024,pDS:n&2048,kb:n&4096});
 function netSend(m){try{if(NET.dc&&NET.dc.readyState==='open')NET.dc.send(JSON.stringify(m))}catch(_){}}
 function seeded(fn){const MR=Math.random;Math.random=NET.rng;try{fn()}finally{Math.random=MR}}
 function simHash(o){const a=o?o.P1:P1,b=o?o.P2:P2,q=o?o.rt:rt,pj=o?o.PJ:PJ;return R(a.x*7+b.x*13+a.hp*31+b.hp*17+a.y*3+b.y*5+q+(a.mt+b.mt*3)+(a.rg*5+b.rg*7)+a.t*11+b.t*13+pj.length*101+a.cmb*17+b.cmb*19)}
@@ -933,7 +936,7 @@ function netTick(){
  if(!inFight()&&NET.chk>=NET.frame){NET.live=0;step();return}
  if(NET.lf===NET.frame){if(++NET.stall>420){netClose('Opponent stopped responding');return}}else NET.stall=0;NET.lf=NET.frame;
  while(NET.sent<=NET.frame+NET.delay){
-  padU();const i=pk(inp(0));for(const k of['L','H','S','G','SU','UL','RG'])delete pr[cfg.keys[0][k]];
+  padU();const i=pk(inp(0));for(const k of['L','H','S','G','SU','UL','RG','DS'])delete pr[cfg.keys[0][k]];
   NET.loc[NET.sent]=i;NET.hist[NET.sent]=i;NET.sent++;
  }
  // confirm frames whose real remote input is now known; find the first wrong guess
@@ -1153,7 +1156,7 @@ const DRILLS=[
   act:(t,dl,tw)=>{if(t!==dl)return {};const q=Math.random();return q<.36?{pH:1,d:1}:q<.72?{pH:1,[tw]:1}:{pG:1}},
   on:{block:e=>e.o===P1?'ok':null,parry:'ok',tb:'ok',hit:e=>e.o===P1?'fail':null,thrown:'fail'},
   chk:(t,dl)=>t>dl+50?'ok':null},
- {id:'wp',n:'WHIFF PUNISH',tier:1,dist:175,obj:'The dummy whiffs a heavy. Dash in and punish it.',tip:'Watch the recovery, then dash (double-tap) and strike.',
+ {id:'wp',n:'WHIFF PUNISH',tier:1,dist:175,obj:'The dummy whiffs a heavy. Dash in and punish it.',tip:'Watch the recovery, then dash (Shift) and strike.',
   act:(t,dl)=>t===dl?{pH:1}:{},
   on:{hit:e=>e.f===P1?(e.ctr?'ok':null):'fail'},
   chk:(t,dl)=>t>dl+30&&P2.st==='idle'?'fail':null},
@@ -1574,7 +1577,8 @@ function upd(f,o,i){
   f.face=o.x>f.x?1:-1;
   const dir=(i.r?1:0)-(i.l?1:0),back=dir*f.face<0;
   f.cr=!air&&!!i.d;f.blk=!air&&back;
-  if(dir&&dir!==f.pd){if(fr-f.lt<14&&dir===f.ld&&f.dscd===0){if(!air){f.ds=10;f.dscd=20;aud.sfx('dash');addDust(f.x,G,-dir*2,ch.c2+'66',4)}else if(ADASH[ch.id]&&!f.adu){f.adu=1;f.adT=14;f.dscd=20;f.vx=dir*ch.sp*2.7;f.vy=Math.min(f.vy,-1.5);aud.sfx('dash');if(f.aft)f.aft.push({x:f.x,y:f.y,face:f.face,cr:0,l:9,max:9})}}f.lt=fr;f.ld=dir}
+  const dsh=i.pDS&&f.dscd===0?(dir||f.face):0;if(dsh){f.ld=dsh;f.lt=-99}
+  if(dsh||(dir&&dir!==f.pd&&!i.kb)){const dd=dsh||dir;if(dsh||(fr-f.lt<14&&dir===f.ld&&f.dscd===0)){const dir=dd;if(!air){f.ds=10;f.dscd=20;aud.sfx('dash');addDust(f.x,G,-dir*2,ch.c2+'66',4)}else if(ADASH[ch.id]&&!f.adu){f.adu=1;f.adT=14;f.dscd=20;f.vx=dir*ch.sp*2.7;f.vy=Math.min(f.vy,-1.5);aud.sfx('dash');if(f.aft)f.aft.push({x:f.x,y:f.y,face:f.face,cr:0,l:9,max:9})}}f.lt=fr;f.ld=dd}
   f.pd=dir;
   if(!air){
    if(f.ds>0){f.ds--;f.vx=f.ld*ch.sp*(f.ld===f.face?2.6:2.2);f.blk=0;if(cfg.vfx>0&&f.ds%2===0&&f.aft)f.aft.push({x:f.x,y:f.y,face:f.face,cr:0,l:8,max:8})}
@@ -2781,7 +2785,7 @@ function drawCombos(){
   X.fillStyle='#ff4d6d';X.font='bold 13px system-ui,sans-serif';X.textAlign='left';
   X.fillText('STALE MOVES: using the same move 3+ times in your last 6 attacks (outside a string) does less damage,',50,400);
   X.fillText('less hitstun and has longer recovery — up to -55% and very punishable. Mix it up.',50,418);
-  X.fillStyle='#9fb3d9';X.fillText('BLOCK: hold back (←), walking away from your opponent.   DASH: double-tap → or ←.',50,442);
+  X.fillStyle='#9fb3d9';X.fillText('BLOCK: hold back (←), walking away from your opponent.   DASH: SHIFT (hold ← for a backdash).',50,442);
  }
  X.textAlign='center';X.fillStyle='#8892b0';X.font='11px system-ui,sans-serif';
  X.fillText('Frame data at full damage. Green = plus, orange = minus, red = punishable (-6 or worse). Advantage assumes a hit on the first active frame.',480,488);
@@ -3038,7 +3042,7 @@ function howtoD(){
    ['Move',['Joystick ← →'],['D-Pad','Stick']],['Jump',['Stick up'],['Up']],['Crouch',['Stick down'],['Down']],
    ['Block','Hold the stick away from your foe'],['Dash','Flick the stick forward or back twice'],['Drop down','Flick the stick down twice on a platform']]:[
    ['Move',[a('l'),a('r')],['D-Pad','Stick']],['Jump',[a('u')],['Up']],['Crouch',[a('d')],['Down']],
-   ['Block','Hold back, away from your foe'],['Dash','Double-tap forward or back'],['Drop down','Double-tap down while on a platform']]);
+   ['Block','Hold back, away from your foe'],['Dash','Shift (hold back to backdash) · pad: double-tap the stick'],['Drop down','Double-tap down while on a platform']]);
   const padInfo=PD[0]||PD[1]?'Controller detected':'Using a controller? Press any button so the browser detects it.';
   X.fillStyle=PD[0]||PD[1]?'#2ecc71':'#8b93b5';X.font='bold 13px system-ui,sans-serif';X.textAlign='center';X.fillText(padInfo,480,450);X.textAlign='left';
  }else if(howtoTab===1){
