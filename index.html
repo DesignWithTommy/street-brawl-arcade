@@ -488,20 +488,20 @@ const ROSTER=[0,1,2,3,4,5,6,7,9,10,11,12,13,14,15];   // selectable (Kingpin = 8
 // Ultimates: G+S with a FULL special meter. Super-freeze, startup invulnerable, high min damage scaling.
 const ULT={
  rex:{n:'FLATLINE',t:'proj',s:8,a:2,r:26,d:10,w:50,h:30,vx:.01,pl:4,k:'b',burst:1,elec:1,bd:30,br:140,kx:6,ky:-14},
- volt:{n:'LIGHTNING ROD',t:'proj',march:6,s:14,a:30,r:26,d:7,w:50,h:30,vx:.01,pl:1,k:'b',burst:1,bd:8,br:70,elec:1},
- brutus:{n:'RIP THE WALLS',t:'proj',march:5,s:16,a:24,r:26,d:9,w:50,h:30,vx:.01,pl:1,k:'b',burst:1,smk:1,quake:1,bd:10,br:80,hop:-8},
- kira:{n:'SPECIAL DELIVERY',t:'proj',s:10,a:2,r:26,d:10,w:50,h:30,vx:.01,at:'o',pl:30,k:'b',burst:1,flash:1,bd:32,br:110},
- sensei:{n:'ASHES OF THE DOJO',t:'proj',march:5,s:16,a:24,r:26,d:8,w:50,h:30,vx:.01,pl:1,k:'b',burst:1,smk:1,pil:1,bd:9,br:70},
+ volt:{n:'BLACKOUT',t:'buff',drainAll:1,s:10,a:2,r:24,d:0,w:30,h:0,k:'b',elec:1},
+ brutus:{n:'RIP THE WALLS',t:'buff',quakeAll:30,s:14,a:2,r:28,d:0,w:30,h:0,k:'b'},
+ kira:{n:'GRAPPLE LINE',grapple:1,s:8,a:14,r:22,d:30,w:70,h:30,kx:6,ky:-14,lau:1,k:'k'},
+ sensei:{n:'STILL WATER',t:'buff',slowFoe:300,s:8,a:2,r:20,d:0,w:30,h:0,k:'b'},
  ember:{n:'INFERNO',t:'proj',s:12,a:2,r:30,d:10,w:50,h:30,vx:.01,at:'o',pl:26,k:'b',burst:1,bd:30,br:80,pil:1},
- shade:{n:'SHADOW EXECUTION',t:'boss',s:6,a:28,r:24,d:6,hits:6,hi2:5,w:80,h:16,dx:15,k:'k',tb:1},
+ shade:{n:'BLOOD CONTRACT',t:'dash',s:6,a:10,r:22,d:30,w:70,h:30,dx:14,kx:8,ky:-8,k:'k',steal:.8},
  titan:{n:'FINAL DRIVE',t:'proj',s:20,a:4,r:30,d:10,w:50,h:40,vx:.01,at:'s',pl:1,hop:-9,k:'b',burst:1,bd:32,br:185,quake:1,arm:1},
  kingpin:{n:'GOLD STANDARD',t:'proj',march:5,s:16,a:24,r:26,d:8,w:50,h:30,vx:.01,pl:1,k:'b',burst:1,bd:9,br:70,pil:1,hop:-7},
  tommy:{n:'EIGHT LIMBS',t:'boss',s:5,a:30,r:22,d:5,hits:8,hi2:4,w:72,h:16,dx:5,k:'p'},
- danny:{n:'HEADSPIN',t:'boss',s:5,a:30,r:22,d:5,hits:8,hi2:4,w:70,h:14,dx:2,k:'k',low:1,lau:1},
+ danny:{n:'TORNADO HEADSPIN',t:'buff',vortex:4,s:6,a:60,r:20,d:0,w:30,h:0,k:'k'},
  will:{n:'LAST LINE',t:'dash',s:10,a:12,r:28,d:34,w:80,h:50,dx:10,kx:18,ky:-6,k:'b',arm:1},
- ghost:{n:'FORGOTTEN',t:'proj',s:14,a:2,r:26,d:10,w:50,h:30,vx:.01,at:'o',pl:20,k:'b',burst:1,smk:1,bd:32,br:110},
+ ghost:{n:'FORGOTTEN',t:'buff',invT:360,s:8,a:2,r:18,d:0,w:30,h:0,k:'b'},
  fortyoz:{n:'LAST CALL MOLOTOV',t:'proj',s:10,a:2,r:26,d:10,w:50,h:30,vx:6,vy:-7,g:.3,k:'b',burst:1,bd:30,br:120,pil:1},
- charcoal:{n:'JERK PIT ERUPTION',t:'proj',march:4,s:16,a:24,r:26,d:8,w:50,h:30,vx:.01,pl:1,k:'b',burst:1,bd:9,br:70,pil:1,hop:-7},
+ charcoal:{n:'JERK PIT',t:'proj',s:10,a:2,r:24,d:14,w:60,h:30,vx:5,low:1,pl:120,k:'b',burn:360,kx:4,ky:-6},
  donna:{n:'BLACK WIDOW WEB',t:'proj',s:10,a:2,r:26,d:30,w:70,h:90,vx:4.5,pl:110,k:'b',kx:4,ky:-10}
 };
 // 4 airborne moves each: air Light, air Heavy, air Down+Heavy, air Special (AS table)
@@ -525,7 +525,7 @@ const AIR={
 };
 // Super: LIGHT + SPECIAL with half meter (50)
 const SUP={
- rex:{n:'ROPE-A-DOPE',t:'ctr',s:2,a:30,r:20,d:0,w:38,h:0,rv:24,cn:'ROPE-A-DOPE!',k:'b'},
+ rex:{n:'SECOND WIND',t:'buff',heal:28,s:10,a:2,r:18,d:0,w:30,h:0,k:'b'},
  volt:{n:'SURGE TRAP',t:'proj',s:8,a:2,r:18,d:16,w:40,h:20,vx:.01,low:1,pl:300,k:'b',elec:1,kx:3,ky:-9},
  brutus:{n:'SHACKLE THROW',t:'proj',s:10,a:2,r:24,d:18,w:50,h:30,vx:7.5,vy:-6,g:.3,k:'b',burst:1,smk:1,bd:18,br:90},
  kira:{n:'PARKOUR SLIDE',t:'dash',s:5,a:6,r:20,d:16,w:70,h:20,dx:13,kx:3,ky:-12,k:'k',low:1,lau:1},
@@ -533,13 +533,13 @@ const SUP={
  ember:{n:'C4 CHARGE',t:'proj',s:8,a:2,r:20,d:6,w:40,h:20,vx:.01,low:1,pl:70,k:'b',burst:1,bd:22,br:120,kx:8,ky:-10},
  shade:{n:'KUNAI FAN',t:'proj',s:6,a:2,r:18,d:16,w:50,h:26,vx:15,k:'b'},
  titan:{n:'HAIL MARY',t:'proj',s:10,a:2,r:24,d:18,w:50,h:30,vx:7,vy:-9,g:.32,k:'b',burst:1,smk:1,quake:1,bd:18,br:100},
- kingpin:{n:'RIGGED MATCH',t:'ctr',s:2,a:30,r:20,d:0,w:38,h:0,rv:26,cn:'RIGGED!',k:'b'},
- tommy:{n:'WAI KHRU',t:'buff',buff:220,s:8,a:2,r:18,d:0,w:30,h:0,k:'b'},
+ kingpin:{n:'BOUNTY',t:'buff',markFoe:300,s:8,a:2,r:18,d:0,w:30,h:0,k:'b'},
+ tommy:{n:'WAI KHRU',t:'buff',armT:240,s:8,a:2,r:18,d:0,w:30,h:0,k:'b'},
  danny:{n:'WINDMILL',t:'dash',s:5,a:8,r:22,d:18,w:80,h:20,dx:6,kx:6,ky:-8,k:'k',low:1},
  will:{n:'TASER',t:'proj',s:7,a:2,r:22,d:10,w:50,h:56,vx:11,k:'b',elec:1},
  donna:{n:'VENOM SPIT',t:'proj',s:8,a:2,r:20,d:12,w:50,h:44,vx:8,vy:-4,g:.25,k:'b'},
  ghost:{n:'POSSESS',t:'grab',s:6,a:4,r:26,d:20,w:80,h:44,kx:-8,ky:-8,k:'p'},
- fortyoz:{n:'LIQUID COURAGE',t:'buff',buff:200,s:10,a:2,r:18,d:0,w:30,h:0,k:'b'},
+ fortyoz:{n:'BEER BURP',t:'proj',s:8,a:2,r:20,d:6,w:50,h:20,vx:3.2,pl:40,k:'b',conf:240,kx:2,ky:-3},
  charcoal:{n:'SCOTCH BONNET BREATH',t:'proj',s:7,a:2,r:22,d:8,w:50,h:30,vx:6,pl:22,k:'p',burst:1,bd:16,br:70}
 };
 function goSup(f){
@@ -1434,7 +1434,9 @@ function connect(f,o,m,fc){
   ev('block',{o,pb,adv});
   return 1;
  }
- const dm=m.d*(RULE()===5?2:1)*Math.max(m.ult?.6:.35,1-.12*o.cmb);
+ const dm=m.d*(RULE()===5?2:1)*Math.max(m.ult?.6:.35,1-.12*o.cmb)*(o.markT>0?1.4:1);
+ // Iron body (Wai Khru): hits land but never flinch
+ if(m.t!=='grab'&&o.armT>0&&o.st!=='ko'){o.hp=Math.max(0,o.hp-Math.max(1,R(dm*.7*cfg.dmgScale)));hs=3;spark(o,'#7ee8fa',2);aud.sfx('blk');if(o.hp<=0){o.st='ko';o.lz=1;o.vy=-9;o.vx=fc*6;aud.sfx('ko')}return 1}
  // Armor check (Titan Wrecking Charge / H)
  if(m.t!=='grab'&&o.st==='atk'&&d&&d.arm&&o.t<=d.s+d.a){
   o.hp=Math.max(0,o.hp-Math.max(1,R(dm*.55*cfg.dmgScale)));
@@ -1458,12 +1460,19 @@ function connect(f,o,m,fc){
  recFD(f,o,m,hst,ctr===1?'COUNTER':ctr===2?'PUNISH':'HIT',sc);
  if(f===P1){mstC(P1,'hits');if(ctr===1)mstC(P1,'counters');if(ctr===2)mstC(P1,'punishes');if(air0)mstC(P1,'aaHits')}
  ev('hit',{f,o,ctr,air:air0});
+ if(m.burn){o.burnT=m.burn;o.fx=['ON FIRE!',40]}
+ if(m.conf){o.confT=m.conf;o.fx=['DIZZY!',45]}
+ if(m.steal&&f.hp>0){f.hp=Math.min(f.maxHp,f.hp+R(dm*m.steal));f.fx=['+'+R(dm*m.steal)+' HP',35]}
  if(m.swp&&!ctr)o.fx=['SWEEP!',28];
  if(m.back)o.x=Math.max(30,Math.min(W-30,f.x-fc*50));
  return 1;
 }
 
 function upd(f,o,i){
+ // status effects from the reworked supers / ultimates
+ for(const k of['armT','invT','markT','slowT','confT'])if(f[k]>0)f[k]--;
+ if(f.burnT>0){f.burnT--;if(f.burnT%15===0&&f.hp>1&&f.st!=='ko'){f.hp=Math.max(1,f.hp-1);f.hflash=2}}
+ if(f.confT>0&&i)i={...i,l:i.r,r:i.l};
  pDrop(f,i);const G=floorOf(f);
  if(RULE()===4&&f.st!=='ko')f.mt=Math.min(100,(f.mt||0)+.28);
  const ch=f.ch,air=f.y<G;
@@ -1542,7 +1551,21 @@ function upd(f,o,i){
   if(m.t==='proj'&&f.t===m.s&&!m.march){
    PJ.push({x:m.at==='o'?o.x:m.at==='s'?f.x:f.x+f.face*30,y:m.at?G-40:m.low?f.y-14:f.y-70*ch.z,vx:f.face*m.vx,vy:m.vy||0,g:m.g||0,o:f,m,l:m.pl||(m.burst?58:m.ret?80:m.home?150:95),burst:!!m.burst,bn:0});
   }
-  if(m.buff&&f.t===m.s){f.rage=Math.max(f.rage||0,m.buff);f.fx=[(m.n||'REDLINE')+'!',45];addFx(f.x,f.y-55,ch.c2,110,'ring');aud.sfx('ctr')}
+  if(m.t==='buff'&&f.t===m.s){f.fx=[(m.n||'REDLINE')+'!',45];addFx(f.x,f.y-55,ch.c2,110,'ring');aud.sfx('ctr');
+   if(m.buff)f.rage=Math.max(f.rage||0,m.buff);
+   if(m.heal)f.hp=Math.min(f.maxHp,f.hp+m.heal);
+   if(m.armT)f.armT=m.armT;
+   if(m.invT)f.invT=m.invT;
+   if(m.markFoe){o.markT=m.markFoe;o.fx=['BOUNTY!',50];addFx(o.x,o.y-90,'#f5c542',60,'ring')}
+   if(m.slowFoe){o.slowT=m.slowFoe;o.fx=['SLOWED',50];addFx(o.x,o.y-60,'#7ee8fa',80,'ring')}
+   if(m.drainAll){o.mt=0;o.rg=0;o.rage=0;addFx(o.x,o.y-60,'#00e5ff',90,'ring');if(o.st!=='ko'){o.st='hit';o.mv=null;o.bst=0;o.stun=40;o.lz=0;o.hflash=6}o.fx=['BLACKOUT!',55];aud.sfx('boom')}
+   if(m.quakeAll){if(cfg.shake)shk=18;if(cfg.vfx>0)FLASH=8;for(let q=0;q<12;q++)addDust(q*80+40,floorOf(o),q%2?1:-1,'#9ab4cc99',8);
+    if(o.y>=floorOf(o)-3&&o.st!=='ko')connect(f,o,{...m,t:'burst',d:m.quakeAll,kx:3,ky:-10,h:30,lo:1},o.x>=f.x?1:-1);else o.fx=['DODGED',30]}
+  }
+  // Grapple: Kira reels herself in on a hook line before the kick lands
+  if(m.grapple&&f.t>=m.s-4&&f.t<m.s+m.a&&Math.abs(o.x-f.x)>58){const sg=Math.sign(o.x-f.x)||f.face;f.x=Math.max(30,Math.min(W-30,f.x+sg*Math.min(26,Math.abs(o.x-f.x)-56)));f.vy=Math.min(f.vy,0)}
+  // Vortex: spins in place dragging the foe in and chipping them
+  if(m.vortex&&f.t>=m.s&&f.t<m.s+m.a&&o.st!=='ko'){o.x+=Math.sign(f.x-o.x)*Math.min(4,Math.abs(f.x-o.x));if(Math.abs(o.x-f.x)<78&&(f.t-m.s)%9===0)connect(f,o,{...m,t:'burst',d:m.vortex,kx:-1,ky:-3,h:14},o.x>=f.x?1:-1)}
   if(f.t>m.s&&f.t<=E&&m.t!=='ctr'&&m.t!=='proj'&&m.t!=='buff'){
    if(m.t==='boss'){
     const nh=m.hits||3;
@@ -1596,7 +1619,7 @@ function upd(f,o,i){
   for(const k of['G','S','H','L'])if(f.b[k]&&!(k==='G'&&f.mt>=100&&f.b.G>5&&!f.b.S)&&!(k==='L'&&f.mt>=50&&f.b.L>5&&!f.b.S)){f.b[k]=0;go(f,k,0,i);break}
  }
  const dash=f.st==='atk'&&(f.mv.t==='dash'||f.mv.t==='boss')&&f.t>f.mv.s&&f.t<=f.mv.s+f.mv.a;
- f.x=Math.max(30,Math.min(W-30,f.x+f.vx));f.y+=f.vy;
+ f.x=Math.max(30,Math.min(W-30,f.x+f.vx*(f.slowT>0?.5:1)));f.y+=f.vy*(f.slowT>0?.7:1);
  if((f.st==='hit'||f.st==='ko')&&f.lz&&!f.wb&&(f.x<=30||f.x>=W-30)&&Math.abs(f.vx)>4.5){f.wb=1;f.vx=-f.vx*.5;f.vy=Math.min(f.vy,-7);f.fx=['WALL BOUNCE!',40];addFx(f.x,f.y-50,'#fff',70,'ring');if(cfg.shake)shk=Math.max(shk,9);hs=Math.max(hs,6);aud.sfx('slam')}
  if(f.y<G||f.vy<0)f.vy+=RULE()===3?.42:.8;
  if(f.y<G-2&&f.lz&&(f.st==='hit'||f.st==='ko'))f.rot=(f.rot||0)+(f.sp||-.2);else if(f.st==='down'||f.st==='ko')f.rot=-1.55;else f.rot=(f.rot||0)*.6;
@@ -2192,6 +2215,11 @@ function fig(f,idleAnim=true,showAura=true){
  }
 
  X.save();X.translate(f.x,f.y);
+ if(f.invT>0)X.globalAlpha=f.invT<30&&fr%4<2?.5:.1;
+ {const ic=[];if(f.markT>0)ic.push(['$','#f5c542']);if(f.burnT>0)ic.push(['*','#ff6a00']);if(f.confT>0)ic.push(['?','#d8b4fe']);if(f.slowT>0)ic.push(['~','#7ee8fa']);if(f.armT>0)ic.push(['+','#5dade2']);
+  if(ic.length&&!(f.invT>0)){X.font='22px Impact';X.textAlign='center';ic.forEach(([t,c],q)=>{X.fillStyle=c;X.fillText(t,(q-(ic.length-1)/2)*18,-150*f.ch.z+Math.sin(fr*.2+q)*3)})}
+  if(f.armT>0&&!(f.invT>0)){X.strokeStyle='#5dade288';X.lineWidth=3;X.beginPath();X.ellipse(0,-60*f.ch.z,40,80*f.ch.z,0,0,7);X.stroke()}
+  if(f.st==='atk'&&f.mv&&f.mv.grapple&&f.t>=f.mv.s-4&&f.t<f.mv.s+f.mv.a){const o=f===P1?P2:P1;if(o){X.strokeStyle='#e5e7eb';X.lineWidth=2;X.beginPath();X.moveTo(0,-80*f.ch.z);X.lineTo(o.x-f.x,o.y-f.y-70);X.stroke();X.fillStyle='#9ca3af';X.beginPath();X.arc(o.x-f.x,o.y-f.y-70,5,0,7);X.fill()}}}
  X.fillStyle='#0007';X.beginPath();X.ellipse(0,2,34*z,7,0,0,7);X.fill();
  X.scale(f.face*z,z);
  {const q=(f.sq||0)*.8+(f.lsq||0);if(q>.01)X.scale(1+q*.16,1-q*.16);if(f.imp)X.translate(f.imp*1.5,0);
