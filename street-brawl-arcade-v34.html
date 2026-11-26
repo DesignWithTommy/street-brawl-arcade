@@ -2030,20 +2030,20 @@ function drawAura(c,hy,cr,intense=false,front=0){
  if(cfg.vfx===0)return;
  if(front&&c.id!=='will'&&c.id!=='danny')return;
  const t=fr,P=Math.sin(t*.2),cy=hy-24,full=cfg.vfx===2,k=intense?1.25:1;
- const glow=(rx,ry,a1,a2,yy=cy)=>{const g=X.createRadialGradient(0,yy,4,0,yy,Math.max(rx,ry)*k);g.addColorStop(0,c.c2+a1);g.addColorStop(.6,c.c+a2);g.addColorStop(1,'transparent');X.fillStyle=g;X.beginPath();X.ellipse(0,yy,rx*k,ry*k,0,0,7);X.fill()};
+ const glow=(rx,ry,a1,a2,yy=cy)=>{a1=Math.min(255,parseInt(a1,16)*1.3|0).toString(16).padStart(2,'0');const g=X.createRadialGradient(0,yy,4,0,yy,Math.max(rx,ry)*k);g.addColorStop(0,c.c2+a1);g.addColorStop(.6,c.c+a2);g.addColorStop(1,'transparent');X.fillStyle=g;X.beginPath();X.ellipse(0,yy,rx*k,ry*k,0,0,7);X.fill()};
  const dot=(x,y,r,col)=>{X.fillStyle=col;X.beginPath();X.arc(x,y,Math.max(.1,r),0,7);X.fill()};
  const rise=(i,n,h,spd)=>((t*spd+i*h/n)%h);
- X.save();
+ X.save();if(c.id!=='shade')X.globalCompositeOperation='lighter';
  switch(c.id){
   case 'rex':{ // Redline: heat haze + heartbeat pulse + embers
    glow(40,62,'44','22');
    const beat=(t%50)/50;X.strokeStyle=c.c2;X.globalAlpha=(1-beat)*.6;X.lineWidth=3;X.beginPath();X.ellipse(0,-2,20+beat*40,5+beat*9,0,0,7);X.stroke();X.globalAlpha=1;
    if(full)for(let i=0;i<6;i++){const y=-rise(i,6,95,1.6),x=Math.sin(t*.08+i*2)*18;dot(x,y,2.4*(1+y/95),i%2?'#ffb347':c.c2)}
    break}
-  case 'volt':{ // Static: electric field + arcs
-   glow(38,60,'40','18');
-   if(full){for(let i=0;i<2;i++)drawBolt((VR()-.5)*30,hy+6,(VR()-.5)*36,hy-62,c.c2,1.5);
-    X.strokeStyle=c.c2+'99';X.lineWidth=1.5;X.beginPath();for(let a=0;a<=24;a++){const an=a/24*6.283,r=36+(VR()-.5)*6;X.lineTo(Math.cos(an)*r*.7,cy+Math.sin(an)*r)}X.stroke()}
+  case 'volt':{ // Static: crackling bolts + orbiting sparks
+   glow(40,62,'55','22');
+   const nb=full?3:1;for(let i=0;i<nb;i++)drawBolt((VR()-.5)*40,4,(VR()-.5)*44,hy-58,i?c.c2:'#e0ffff',2.2);
+   for(let i=0;i<5;i++){const a=t*.12+i*1.256,x=Math.cos(a)*34,y=cy+Math.sin(a*1.3)*44;dot(x,y,2.6,'#e0ffff');dot(x,y,6,c.c2+'44')}
    break}
   case 'brutus':{ // The Beast: ground dust + hopping rubble
    const g=X.createRadialGradient(0,0,4,0,0,60*k);g.addColorStop(0,c.c2+'55');g.addColorStop(1,'transparent');X.fillStyle=g;X.beginPath();X.ellipse(0,-6,62*k,22*k,0,0,7);X.fill();
@@ -2059,9 +2059,9 @@ function drawAura(c,hy,cr,intense=false,front=0){
    X.strokeStyle=c.c2+'77';X.lineWidth=2;for(let i=0;i<3;i++){const a=t*.04*(i%2?-1:1)+i*2;X.beginPath();X.arc(0,cy,34+i*7,a,a+1.6);X.stroke()}
    if(full)for(let i=0;i<4;i++){const y=-110+rise(i,4,110,.9),x=Math.sin(t*.05+i*1.7)*30;X.save();X.translate(x,y);X.rotate(t*.05+i);X.fillStyle=i%2?'#4ade80':'#86efac';X.beginPath();X.ellipse(0,0,5,2.4,0,0,7);X.fill();X.restore()}
    break}
-  case 'ember':{ // Wildfire: flame tongues
-   glow(38,58,'55','28');
-   if(full)for(let i=0;i<7;i++){const h=rise(i,7,70,1.8),x=Math.sin(i*2.3+t*.1)*20,y=-h,s=(1-h/70);X.fillStyle=s>.5?'#ffdd33cc':'#ff6a00aa';X.beginPath();X.moveTo(x,y-14*s);X.quadraticCurveTo(x+7*s,y,x,y+6*s);X.quadraticCurveTo(x-7*s,y,x,y-14*s);X.fill()}
+  case 'ember':{ // Wildfire: big flame tongues licking up the body
+   glow(42,62,'66','30');
+   const nf2=full?9:4;for(let i=0;i<nf2;i++){const h=rise(i,nf2,90,1.9),x=Math.sin(i*2.3+t*.1)*22,y=-h,s=1.7*(1-h/90);X.fillStyle=s>.8?'#ffdd33dd':'#ff6a00bb';X.beginPath();X.moveTo(x,y-16*s);X.quadraticCurveTo(x+8*s,y,x,y+7*s);X.quadraticCurveTo(x-8*s,y,x,y-16*s);X.fill()}
    break}
   case 'shade':{ // Ninja: violet smoke puffs + orbiting spinning shuriken
    glow(42,64,'66','33');
@@ -2077,36 +2077,34 @@ function drawAura(c,hy,cr,intense=false,front=0){
    for(let i=0;i<6;i++){const a=t*.035+i*1.047,x=Math.cos(a)*42,y=cy+Math.sin(a)*14,w=Math.abs(Math.cos(t*.15+i))*5+1;X.fillStyle='#f5c542';X.beginPath();X.ellipse(x,y,w,5,0,0,7);X.fill()}
    if(full&&t%30<6){const x=(VR()-.5)*60,y=cy+(VR()-.5)*80;X.strokeStyle='#fff';X.lineWidth=1.5;X.beginPath();X.moveTo(x-5,y);X.lineTo(x+5,y);X.moveTo(x,y-5);X.lineTo(x,y+5);X.stroke()}
    break}
-  case 'tommy':{ // Striker: crescent shockwaves blasting forward + energy on the fists
-   glow(34,56,'40','18');
-   for(let i=0;i<3;i++){const p=((t*1.4+i*20)%60)/60,x=10+p*55,h=10+p*26;X.globalAlpha=(1-p)*.85;X.strokeStyle=c.c2;X.lineWidth=3*(1-p)+1;X.beginPath();X.ellipse(x,hy+14,6+p*4,h,0,-1.3,1.3);X.stroke()}
-   X.globalAlpha=1;
-   if(full)for(let i=0;i<6;i++){const a=t*.3+i*1.05,r=6+Math.sin(t*.5+i)*3;dot(14+Math.cos(a)*r,hy+14+Math.sin(a)*r,1.8,'#ccfbf1')}
+  case 'tommy':{ // Striker: teal spirit flames + ground stomp ripples
+   glow(38,60,'55','22');
+   for(let i=0;i<2;i++){const p=((t+i*30)%60)/60;X.strokeStyle=c.c2;X.globalAlpha=(1-p)*.7;X.lineWidth=2.5;X.beginPath();X.ellipse(0,-1,16+p*46,4+p*9,0,0,7);X.stroke()}X.globalAlpha=1;
+   const n=full?8:4;for(let i=0;i<n;i++){const h=rise(i,n,96,2.2),x=Math.sin(i*1.9+t*.13)*20,y=-h,s=1.4*(1-h/96);X.fillStyle=s>.7?'#ccfbf1cc':c.c2+'aa';X.beginPath();X.moveTo(x,y-15*s);X.quadraticCurveTo(x+6*s,y,x,y+6*s);X.quadraticCurveTo(x-6*s,y,x,y-15*s);X.fill()}
    break}
-  case 'danny':{ // Aerial: wind ribbons wrapping around the body (back half behind, front half in front)
-   if(!front){glow(34,58,'30','12');for(let i=0;i<4;i++)dot(-30+i*20,-2+Math.sin(t*.1+i)*2,9,'#e0f2fe33')}
+  case 'danny':{ // Aerial: two loose wind ribbons wrapping around the body
+   if(!front){glow(36,60,'40','16');for(let i=0;i<4;i++)dot(-30+i*20,-2+Math.sin(t*.1+i)*2,8,'#e0f2fe22')}
    X.lineCap='round';
-   for(let i=0;i<3;i++){let px,py;for(let q=0;q<=24;q++){const y=-q*4.4,an=t*.15+q*.45+i*2.1,x=Math.cos(an)*(30-q*.5),zz=Math.sin(an);
-     if(q&&((zz>0)===!!front)){X.strokeStyle='#e0f2fe'+(front?'dd':'66');X.lineWidth=front?2.4:1.6;X.beginPath();X.moveTo(px,py);X.lineTo(x,y);X.stroke()}px=x;py=y}}
-   break}
+   for(let i=0;i<2;i++){let px,py;for(let q=0;q<=20;q++){const y=-q*5.2,an=t*.13+q*.3+i*3.14,x=Math.cos(an)*(38-q*.6),zz=Math.sin(an),a=Math.sin(q/20*3.14);
+     if(q&&((zz>0)===!!front)){X.strokeStyle='#e0f2fe';X.globalAlpha=a*(front?.75:.3);X.lineWidth=front?2.2:1.4;X.beginPath();X.moveTo(px,py);X.lineTo(x,y);X.stroke()}px=x;py=y}}
+   X.globalAlpha=1;break}
   case 'will':{ // Guardian: shield crests orbiting around the body + spinning ground sigil
    if(!front){X.save();X.translate(0,-2);X.scale(1,.28);X.rotate(t*.03);X.strokeStyle=c.c2+'cc';X.lineWidth=3;X.beginPath();X.arc(0,0,44,0,7);X.stroke();X.lineWidth=2;
     X.beginPath();for(let q=0;q<=6;q++){const an=q*2.094*2;X.lineTo(Math.cos(an)*44,Math.sin(an)*44)}X.stroke();X.restore();glow(36,60,'30','12')}
    for(let i=0;i<3;i++){const a=t*.035+i*2.094,x=Math.cos(a)*40,z=Math.sin(a);if((z>0)!==!!front)continue;const y=cy+z*6-4,w=Math.abs(Math.cos(a))*.6+.4;X.save();X.translate(x,y);X.scale(w,1);X.globalAlpha=front?.9:.5;
     X.fillStyle=c.c2+'55';X.strokeStyle='#e0f2fe';X.lineWidth=2;X.beginPath();X.moveTo(0,-13);X.lineTo(10,-8);X.lineTo(8,5);X.lineTo(0,13);X.lineTo(-8,5);X.lineTo(-10,-8);X.closePath();X.fill();X.stroke();X.restore()}
    break}
-  case 'donna':{ // Whip Zoner: two glowing thorn-vines spiraling up around her
-   glow(38,60,'44','1c');X.lineCap='round';
-   for(let s2=0;s2<2;s2++){let px,py;for(let q=0;q<=22;q++){const y=-q*4.6,an=t*.08+q*.42+s2*3.14,x=Math.cos(an)*(26-q*.4),z=Math.sin(an);
-     if(q){X.strokeStyle=z>0?c.c2:c.c2+'55';X.lineWidth=z>0?3:2;X.beginPath();X.moveTo(px,py);X.lineTo(x,y);X.stroke();
-      if(q%4===0&&z>0){X.fillStyle='#fff';X.beginPath();X.moveTo(x,y);X.lineTo(x+4*Math.sign(x||1),y-4);X.lineTo(x,y-2);X.fill()}}
-     px=x;py=y}}
-   if(full)for(let i=0;i<4;i++){const y=-100+rise(i,4,100,1.3);dot(Math.sin(i*2.7)*20,y,2.2,'#f0abfc')}
+  case 'donna':{ // Whip Zoner: a glowing whip lasso spinning around her waist + rising pink sparks
+   glow(38,60,'50','1c');X.lineCap='round';
+   const a0=t*.14;for(let q=0;q<18;q++){const a1=a0-q*.2,a2=a1-.2,al=1-q/18;X.strokeStyle=c.c2;X.globalAlpha=al;X.lineWidth=3.5*al+.5;X.beginPath();X.moveTo(Math.cos(a1)*44,cy+14+Math.sin(a1)*12);X.lineTo(Math.cos(a2)*44,cy+14+Math.sin(a2)*12);X.stroke()}
+   X.globalAlpha=1;dot(Math.cos(a0)*44,cy+14+Math.sin(a0)*12,3.5,'#fff');
+   if(full)for(let i=0;i<5;i++){const y=-rise(i,5,100,1.3);dot(Math.sin(i*2.7+t*.05)*22,y,2.2,'#f0abfc')}
    break}
-  case 'ghost':{ // Phantom: circling wisps with tails, cold mist
-   glow(40,66,'30','10');
-   for(let i=0;i<3;i++){const a=t*.05+i*2.09,x=Math.cos(a)*36,y=cy+Math.sin(a*1.5)*30;X.fillStyle='#f8fafccc';X.beginPath();X.arc(x,y,5,0,7);X.fill();
-    X.strokeStyle='#f8fafc55';X.lineWidth=4;X.lineCap='round';X.beginPath();X.moveTo(x,y);for(let q=1;q<6;q++){const b=a-q*.12;X.lineTo(Math.cos(b)*36,cy+Math.sin(b*1.5)*30)}X.stroke()}
+  case 'ghost':{ // Phantom: glowing spirit wisps circling with long tails
+   glow(42,66,'40','14');X.lineCap='round';
+   for(let i=0;i<3;i++){const a=t*.05+i*2.09,P2_=b=>[Math.cos(b)*38,cy+Math.sin(b*1.5)*32];const [x,y]=P2_(a);
+    for(let q=1;q<10;q++){const [ax,ay]=P2_(a-(q-1)*.1),[bx,by]=P2_(a-q*.1);X.strokeStyle='#e0e7ff';X.globalAlpha=(1-q/10)*.6;X.lineWidth=7*(1-q/10)+1;X.beginPath();X.moveTo(ax,ay);X.lineTo(bx,by);X.stroke()}
+    X.globalAlpha=1;dot(x,y,9,'#e0e7ff33');dot(x,y,5,'#ffffff')}
    break}
   case 'fortyoz':{ // 40oz: rising foam bubbles
    glow(38,58,'38','18');
