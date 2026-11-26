@@ -228,8 +228,8 @@ const mk=(id,n,full,nick,st,c,c2,a,diff,hp,sp,jp,z,f,q,S,sn,sd,scdMax,rival,quot
 
 const CH=[
  mk('rex','REX','REX "REDLINE" VEGA','REDLINE','Brawler','#e74c3c','#ff4422','#7b241c','Beginner',
-  100,3.6,-15,1,1,1,
-  M(6,2,20,0,30,0,0,0,{t:'buff',buff:150,k:'b'}),
+  118,3.6,-15,1,1,1,
+  M(6,2,20,0,30,0,0,0,{t:'buff',buff:210,k:'b'}),
   'Redline','Cranks his pacemaker into the red: faster, harder-hitting fists for a few seconds.',55,7,
   "I'm not done... not yet.",
   'Champ whose heart stopped when he refused to take a dive. Came back on a pacemaker tuned to redline.',
@@ -244,7 +244,7 @@ const CH=[
   ['With The Kingpin defeated, Rex exposes the rigged Underground Circuit to the city press.','His boxing license is restored—and every fighter in the Circuit knows nobody owns Redline Vega.']
  ),
  mk('volt','DANNY','DANNY "STATIC" KANE','STATIC','Ranged','#0088ff','#00f0ff','#0e3660','Intermediate',
-  91,3.4,-15,1,1.05,.95,
+  94,3.4,-15,1,1.05,.95,
   M(13,2,26,9,50,20,7,-5,{t:'proj',vx:7.4,k:'b'}),
   'Energy Orb','Launches a high-voltage electric orb across the arena.',50,6,
   'Power never lies.',
@@ -261,12 +261,12 @@ const CH=[
   {w:84}
  ),
  mk('brutus','BRUTUS','BRUTUS "THE BEAST" COLE','THE BEAST','Grappler','#e67e22','#ff7700','#6e2c00','Advanced',
-  124,2.6,-13,1.18,1.4,1.28,
+  120,2.6,-13,1.18,1.4,1.28,
   M(9,4,24,11,140,28,-7,-5,{k:'b',whip:1}),
   'Chain Hook','Lashes out with his old pit chain and drags the foe into arm’s reach.',70,0,
   'No one beats me.',
   'Ten years chained in the Kingpin’s pit. He ripped the shackles out of the wall and kept them.',
-  'Command grabs, slams, heavy punishment, high HP.',
+  'Chain pulls, thrown shackles, heavy punishment, high HP.',
   'Brutal, quiet, intimidating, surprisingly honorable.',
   ['Step into arm’s reach. I dare you.','No manager. No rigging. Just bone and concrete.'],
   {
@@ -277,7 +277,7 @@ const CH=[
   ['The Kingpin confesses to buying off Brutus’s former manager years ago.','Having settled his debt in full, Brutus walks away from the pit—his honor untarnished.']
  ),
  mk('kira','KIRA','KIRA "FLASH" MORI','FLASH','Rushdown','#e91e8c','#ff44cc','#7d1050','Intermediate',
-  81,4.5,-16,.93,.72,.85,
+  75,4.5,-16,.93,.72,.85,
   M(9,2,22,9,50,22,5,-6,{t:'proj',vx:10,ret:1,k:'p'}),
   'Express Delivery','Hurls a parcel that boomerangs back. Hits going out and coming home.',50,6,
   'Too slow.',
@@ -293,7 +293,7 @@ const CH=[
   ['Kira outpaces even The Kingpin’s elite bodyguards on her way to the title.','Crowned the fastest fighter alive, she turns the Circuit’s arena rooftops into her personal playground.']
  ),
  mk('sensei','SENSEI','SENSEI "IRON PALM" TAKEDA','IRON PALM','Counter','#27ae60','#22ff66','#145a32','Advanced',
-  106,3.5,-15,1,1,1,
+  113,3.5,-15,1,1,1,
   M(2,24,22,0,38,0,0,0,{t:'ctr',k:'b'}),
   'Perfect Reversal','Enters a defensive stance that reverses incoming strikes.',65,3,
   'Discipline creates strength.',
@@ -308,8 +308,8 @@ const CH=[
   ['Confronting The Kingpin reveals the truth behind his ruined dojo.','With the Circuit shattered, Takeda rebuilds his school—welcoming new fighters seeking honor over greed.']
  ),
  mk('ember','EMBER','EMBER "WILDFIRE" CROSS','WILDFIRE','Zoner','#ffaa00','#ffdd33','#7d4500','Intermediate',
-  102,3.4,-15,.97,1.1,.9,
-  M(13,2,28,8,50,20,5,-6,{t:'proj',vx:9,vy:-5.2,g:.28,k:'b',burst:1}),
+  112,3.4,-15,.97,1.1,.9,
+  M(13,2,28,8,50,20,5,-6,{t:'proj',vx:9,vy:-5.2,g:.28,k:'b',burst:1,bd:11}),
   'Fire Lob / Flame Burst','Arcs a fireball that detonates into an AoE Flame Burst.',72,1,
   'Burn it all.',
   'Fugitive demolition expert. The Circuit is the only place she can blow things up in public.',
@@ -323,7 +323,7 @@ const CH=[
   ['Ember blasts open The Kingpin’s ledger vault and torches every blackmail file inside.','Free from her past, Wildfire becomes an untouchable legend of the city’s neon nights.']
  ),
  mk('shade','SHADE','SHADE "NIGHTSHADE" SABLE','NIGHTSHADE','Ninja','#8e44ad','#b967ff','#2a143d','Advanced',
-  78,4.4,-17,.95,.8,.9,
+  71,4.4,-17,.95,.8,.9,
   M(13,4,14,13,62,22,5,-9,{t:'tele',lau:1,k:'k'}),
   'Shadow Step','Vanishes into smoke and ambushes from behind.',65,1,
   "You can't see me.",
@@ -360,7 +360,7 @@ const CH=[
   'Hush Money','Flicks a stack of gold coins at the foe. Everyone has a price.',70,0,
   'Fight. Survive. Become legend.',
   'The crime boss who built and rigged the Circuit. Every road ends at his throne.',
-  'Boss-grade pressure, balanced speed & heavy power, multi-hit flurry.',
+  'Boss-grade pressure, bribes, bounties and gold eruptions.',
   'Ruthless, calculating, regal, commanding.',
   ['Every betrayal, every scar led you to my throne.','Show me if you are worthy of my Circuit—or merely fodder.'],
   {
@@ -371,7 +371,7 @@ const CH=[
   {arm:0}
  ),
  mk('tommy','TOMMY','TOMMY "TOMCAT" REYES','TOMCAT','Striker','#14b8a6','#5eead4','#0f4c47','Intermediate',
-  110,3.9,-15,1,.95,1.02,
+  107,3.9,-15,1,.95,1.02,
   M(6,3,26,16,70,34,10,-6,{t:'grab',k:'p'}),
   'Thai Clinch','Grabs the neck and drives knees in, then shoves the foe away.',60,10,
   'Eight limbs. Zero mercy.',
@@ -397,7 +397,7 @@ const CH=[
   ['Skies wins back his crew\'s spot and turns the Kingpin\'s penthouse into a block party.','Skies\'s battles become the most watched streams in the city.']
  ),
  mk('will','WILL','WILL "IRONCLAD" HART','IRONCLAD','Guardian','#3b6ea5','#93c5fd','#1e3a5f','Beginner',
-  109,3.0,-13,1.12,1.15,1.12,
+  102,3.0,-13,1.12,1.15,1.12,
   M(12,2,26,6,50,46,2,-3,{t:'proj',vx:5,vy:-5,g:.45,k:'p',burst:1,flash:1,bd:7,br:95}),
   'Flashbang','Tosses a flashbang. Anyone caught in the blast is stunned for ages.',70,12,
   'Nobody gets through.',
@@ -410,7 +410,7 @@ const CH=[
   ['Will hands the Kingpin\'s ledgers to an honest prosecutor.','The Circuit is shut down for good, and Ironclad finally takes off the shield.']
  ),
  mk('donna','DONNA','DONNA "VENOM" VALE','VENOM','Whip Zoner','#c026d3','#f0abfc','#581c87','Intermediate',
-  81,3.5,-15,.98,1.05,.95,
+  74,3.5,-15,.98,1.05,.95,
   M(11,4,24,11,150,30,5,-4,{k:'b',whip:1}),
   'Venom Lash','Long whip crack that reaches across half the stage. Long stun.',70,11,
   'One bite is all it takes.',
@@ -437,7 +437,7 @@ const CH=[
   ['Ghost takes the Circuit trophy and vanishes. Nobody is sure they were ever there.','Every arena in the city now keeps one seat empty, just in case.']
  ),
  mk('fortyoz','40OZ','EARL "40OZ" BANKS','40OZ','Bottle Brawler','#d97706','#fcd34d','#78350f','Intermediate',
-  98,3.0,-14,1.08,1.1,1.08,
+  95,3.0,-14,1.08,1.1,1.08,
   M(14,2,24,10,50,22,6,-7,{t:'proj',vx:7,vy:-6,g:.34,k:'b',bnc:1}),
   'Bottle Toss','Skips his bottle off the floor like a stone. Hard to read.',75,15,
   'Last call, buddy.',
@@ -450,7 +450,7 @@ const CH=[
   ['Earl wins the Circuit and buys the whole block a round.','40oz opens a bar with the prize money and names it after his bottle.']
  ),
  mk('charcoal','CHARCOAL','CHARCOAL "YARDIE" CAMPBELL','YARDIE','Rude Boy','#18181b','#fbbf24','#000000','Intermediate',
-  108,3.6,-15,1.06,1.15,1.05,
+  109,3.6,-15,1.06,1.15,1.05,
   M(12,2,24,9,50,34,3,-3,{t:'proj',vx:4.6,k:'p',smk:1}),
   'Smoke Signal','Blows a slow, thick smoke cloud. Victims choke and stay stunned longer.',68,10,
   'Wah gwaan? Yuh ready fi dis?',
@@ -525,7 +525,7 @@ const AIR={
 };
 // Super: LIGHT + SPECIAL with half meter (50)
 const SUP={
- rex:{n:'SECOND WIND',t:'buff',heal:28,s:10,a:2,r:18,d:0,w:30,h:0,k:'b'},
+ rex:{n:'SECOND WIND',t:'buff',heal:34,s:10,a:2,r:18,d:0,w:30,h:0,k:'b'},
  volt:{n:'SURGE TRAP',t:'proj',s:8,a:2,r:18,d:16,w:40,h:20,vx:.01,low:1,pl:300,k:'b',elec:1,kx:3,ky:-9},
  brutus:{n:'SHACKLE THROW',t:'proj',s:10,a:2,r:24,d:18,w:50,h:30,vx:7.5,vy:-6,g:.3,k:'b',burst:1,smk:1,bd:18,br:90},
  kira:{n:'PARKOUR SLIDE',t:'dash',s:5,a:6,r:20,d:16,w:70,h:20,dx:13,kx:3,ky:-12,k:'k',low:1,lau:1},
@@ -550,11 +550,11 @@ function goSup(f){
 // Combo strings: chain these buttons on HIT (2 = hold down). Last hit becomes a named finisher.
 const CB=(a,n,e)=>({seq:a.split(' '),n,e});
 const COMBOS={
- rex:[CB('L L H','ONE-TWO HOOK','knock'),CB('L L6 H H','SOUTHPAW SWITCH','stun'),CB('L2 L2 H6','BODY BREAKER','stun'),CB('L H L H S','REDLINE RUSH','launch'),CB('L L L H6 H S','TITLE DEFENSE','wall')],
+ rex:[CB('L L H','ONE-TWO HOOK','knock'),CB('L L6 H H','SOUTHPAW SWITCH','stun'),CB('L2 L2 H6','BODY BREAKER','stun'),CB('L H L H H6','REDLINE RUSH','launch'),CB('L L L H6 H H2','TITLE DEFENSE','wall')],
  volt:[CB('L L S','SHORT CIRCUIT','stun'),CB('L H6 H','OVERCLOCK','wall'),CB('L2 H2 S','GROUND WIRE','knock'),CB('H L L S','FEEDBACK LOOP','launch'),CB('L L6 L H H S','FULL VOLTAGE','wall')],
  brutus:[CB('H H H','PIT FURY','knock'),CB('L L H6','DIRTY BOXING','stun'),CB('L H H6 H','BONE CRUSHER','wall'),CB('L2 H2 H S','BEAST MODE','launch'),CB('H6 H H H S','CHAIN BREAKER','wall')],
  kira:[CB('L L L H','FLASH FLURRY','launch'),CB('L H S','SKYLINE','wall'),CB('L2 L L6 H','ROOFTOP RUN','knock'),CB('H L H L','AFTERIMAGE','stun'),CB('L L L6 L H S','TEN MINUTE RUSH','launch')],
- sensei:[CB('L L H','IRON PALM','wall'),CB('L2 H2 H','ROOTED TREE','knock'),CB('H L L','CRANE STEP','stun'),CB('L H6 H S','DRAGON RISE','launch'),CB('L L H L H6 S','SEVEN YEARS','wall')],
+ sensei:[CB('L L H','IRON PALM','wall'),CB('L2 H2 H','ROOTED TREE','knock'),CB('H L L','CRANE STEP','stun'),CB('L H6 H H2','DRAGON RISE','launch'),CB('L L H L H6 H','SEVEN YEARS','wall')],
  ember:[CB('L L H','SPARK CHAIN','stun'),CB('L H S','FLASHPOINT','wall'),CB('L2 L2 H2','SCORCHED EARTH','knock'),CB('H6 H L S','BACKDRAFT','launch'),CB('L L L H6 H S','DETONATOR','launch')],
  shade:[CB('L L L L','THOUSAND CUTS','stun'),CB('L H S','GHOST STEP','launch'),CB('L2 H H','NIGHTFALL','knock'),CB('H L H','SILENT BLADE','wall'),CB('L L6 L L6 H S','DEATH BY PAPERCUTS','wall')],
  titan:[CB('H H S','GOAL LINE','wall'),CB('L H6 H','BLITZ','knock'),CB('L2 H2 S','SACK','launch'),CB('L L H6','STIFF ARM','stun'),CB('H6 H6 H H S','FOURTH AND ONE','wall')],
@@ -3094,7 +3094,7 @@ function howtoD(){
   lines(['Hold away from your foe to block.  Hold down + away to block low.','Crouching attacks hit foes blocking high.','Forward Heavy (H6) is an overhead: it hits foes blocking low.','Grabs beat blocking, so don\'t just turtle.','Blocking drains your Guard. Empty Guard = GUARD BREAK, you\'re stunned.']);
  }else if(howtoTab===5){
   title('TIPS','#3fc1d9');
-  lines(['Chain attacks on hit: Light → Heavy → Special.','Launchers knock foes into the air. Jump after them and keep hitting.','Rex\'s Ultimate is an uppercut: chase it with air attacks.','Combos get weaker the longer they go, so there are no infinites.','Dash in to close the gap, dash back to escape pressure.']);
+  lines(['Chain attacks on hit: Light → Heavy → Special.','Launchers knock foes into the air. Jump after them and keep hitting.','Kira\'s Grapple Line launches: chase it with air attacks.','Combos get weaker the longer they go, so there are no infinites.','Dash in to close the gap, dash back to escape pressure.']);
  }else{
   const p=howtoTab-6;title('FIGHTERS '+(p?'9–16':'1–8'));
   X.font='bold 13px system-ui,sans-serif';[['SPECIAL','#d2d8ef',260],['SUPER','#3fc1d9',460],['ULTIMATE','#f5c542',660]].forEach(([t,c,x])=>{X.fillStyle=c;X.fillText(t,x,156)});
