@@ -1,5 +1,11 @@
 # Changelog
 
+## v87
+- Punches look like punches: fist starts at the chin guard, cocks back on heavies, snaps out to a fully straight arm with the shoulder driving forward, then returns to the guard
+- Rear hand stays home at the chin during punches
+- Boxing gloves sit on the hand: cuff at the wrist, padded fist past it, lined up with the forearm; Rex wears both gloves
+- Removed the big expanding circles on hits and the circles around fighters during counter, armor and boss moves
+
 ## v86
 - Held props (bottle, dynamite, parcel, spray can, shield, cane, gloves) follow the real hand in every pose instead of floating at a fixed spot
 - Thrown props leave the hand on release and come back only once the projectile is gone (40oz bottle, Ember dynamite, Kira parcel, Charcoal's coal)

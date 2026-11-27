@@ -727,7 +727,7 @@ const MENU_ITEMS=[
  {id:'howto',label:'HOW TO PLAY',sub:'Controls and mechanics'},
  {id:'clog',label:'CHANGELOG',sub:'Every update, newest first'}
 ];
-const CLOG=[["v86", "Held props (bottle, dynamite, parcel, spray can, shield, cane, gloves) follow the real hand in every pose instead of floating at a fixed spot", "Thrown props leave the hand on release and come back only once the projectile is gone (40oz bottle, Ember dynamite, Kira parcel, Charcoal's coal)"], ["v85", "Natural fighting stance: both knees bend forward, guard hands up at the chin with elbows tucked (boxing stance)", "Punches and kicks lunge the hips forward with the back foot planted instead of stretching the arm or leg", "Limbs never stretch past their real length (projectile pushes, uppercuts, blockstun)", "Runner's arm swing: hand forward, elbow driven back", "Elbows bend downward on punches, blocks and victory flex", "Swing arcs removed; strikes leave faint shadow frames instead"], ["v84", "Fix: fighters could sink below the floor after a wall bounce near the ground", "Fix: Restart Match in Survival restarts the whole run (no free full heal)", "Fix: Esc on character select goes back to the Training menu from Training, Combo Trials and Survival", "Combo Trials text moved down so it no longer overlaps the combo counter", "Audit: 256 CPU matchups, rollback replay and every mode checked with no errors"], ["v83", "Knees and elbows really bend: two-part limbs fold when crouching, jumping and guarding, and straighten on full punches and kicks", "Smoother jump legs, proper legs during air attacks, knocked-down legs lie flat", "Hit shake only during hit-stop instead of the whole hitstun", "Arcade stage screen never shows a knocked-out fighter or an empty quote box", "Version number (v0.083) shown at the top of every menu"], ["v82", "Training is now a tabbed menu: Training, Combo Trials, Survival", "Combo Trials: 12 saved challenges from a 3-hit combo up to 25 hits, air and wall juggles, damage combos", "Survival: one life against endless random CPUs, one round each, heal 30% per win, best run saved", "UI audit: joke toasts no longer cover menus and buttons", "Title outlines no longer spike; overhead callouts are outlined and no longer overlap", "Frame-advantage popups only in training", "Softer screen flashes (supers, ultimates, big hits); low-health bar pulses instead of strobing", "Floor stains fade out; K.O. text gets a dark band; combo trial list aligned"], ["v81", "Story doubled to 32 chapters: the Kingpin escapes at Chapter 16, a second act against the Board, and a final crown rematch", "Red health: 40% of each hit can heal back after 2s without being hit", "Air tech: press Grab once launched hitstun ends; mashing early locks you out for 40 frames", "Combo breaker: S+G during a 3+ hit combo, costs 50 meter (free in training)", "Training hitbox viewer (key 0)", "Super defence scaling: hits after a super/ultimate in the same combo do 70%", "Hard knockdowns: supers, ultimates and big launchers can't be ground-teched (50f down)", "Tech roll: hold left/right while teching on landing to roll", "DI: hold up/down/away while launched to change your trajectory", "Training: - freeze, = frame step, [ save state, ] load state", "In-game CHANGELOG screen on the main menu", "Air combos: juggle points (20 per combo; light 1, heavy 2, special 3, supers free) replace the 5-hit air cap", "Air hits float the opponent and hang you in the air; juggle gravity gets heavier as the combo grows", "Air jump-cancel: press up on hit in the air to chase the juggle (once per jump)", "Juggles hang longer, and longer still near the wall (wall juggles)", "Long-combo damage decay so 25–30 hit combos land 30–50%, not a kill", "Removed the green heal rings", "Frame data HUD names the move in startup/active/recovery", "Fix: moves stuck in recovery after landing a hit"], ["v80", "Story expanded to 16 chapters; roster unlocks through story mode (5 starters)"], ["v79", "Charcoal recoloured green with gold accents"], ["v78", "Balance pass: Tommy grab 16→13, Forgotten 150f, Blackout stun 18f, HP retune (CPU win rates 46–55%)"], ["v77", "Slow-motion instant replay kill cam after every KO (offline, skippable)"], ["v76", "Audit fixes: netplay determinism for samples and hit text, rollback no longer replays hit sounds or sprites, sprites follow camera, supers on platforms, round reset clears effects"], ["v75", "Hit sprites fade to soft glows, never square boxes"], ["v74", "Kenney CC0 hit/UI sounds, jingles and particle sprites; Bangers title font (credited)"], ["v73", "Super cut-ins, visuals and sounds for every new mechanic"], ["v72", "Audit fixes (Ghost invisibility, training resets, CPU supers, honest move list, low slides) and rebalance"], ["v71", "Balance pass from CPU sims; combos and fighter text match the new moves"], ["v70", "Every super and ultimate has its own mechanic: heal, bounty, armor, confuse, blackout, quake, slow, burn, grapple, invisibility, lifesteal, vortex"], ["v69", "Backstory moves for Skies, Donna, Ghost, 40oz and Charcoal; move-list text matches the new specials"], ["v68", "Backstory moves for Ember, Titan, Kingpin and Tommy"], ["v67", "Backstory moves for Rex, Danny, Brutus, Kira and Sensei"], ["v66", "Shift dashes (keyboard double-tap removed); How to Play updated"], ["v65", "Kick lean, two-hand projectile push, victory pose, flat waistband"], ["v64", "Run cycle, guard stance, jump tuck, hit recoil, grabbed and KO poses"], ["v63", "Hips so legs join the body"], ["v62", "Wider stance; back knee no longer bends forward"], ["v61", "Far arm from the rear shoulder behind the torso; legs in a front/back stance"], ["v60", "One input tracker in training, arrows and buttons only"], ["v59", "Clean text (no fake-bold Impact, kerning on), labels fit their boxes, aura particles in front of every fighter, ladder layout fix"], ["v58", "Outfit detail pass: torso shading, vests, belts, badges, aprons, sashes"], ["v57", "Every fighter gets their own body colours"], ["v56", "How to Play split into 8 short tabs that fit on one screen"], ["v55", "game-icons.net touch icons; plain-language combo key tab"], ["v54", "Special, super and ultimate are distinct for every fighter; bigger touch icons, no outline"], ["v53", "Touch buttons with dark outlines and filled icons"], ["v52", "Line-art icons on touch buttons; buttons more transparent"], ["v51", "Touch buttons: two big attack buttons, smaller icon buttons in a thumb arc"], ["v50", "Wide phone screens keep the game's shape; sides extended instead of stretched"], ["v49", "Fill the whole phone screen; auto fullscreen + landscape on first tap"], ["v48", "Tap to advance story and other button-less screens"], ["v47", "Any connected controller drives P1 (fixes ghost pad in slot 0 stealing input)"], ["v46", "How to Play shows touch controls on phones"], ["v45", "Touch controls for phones (floating joystick + action buttons)"], ["v44", "Super/Ult/Rage keys never fall back to attacks; double-tap down drops through platforms"], ["v42", "One-key Super (U), Ultimate (O), Rage (Space)"], ["v41", "Removed local Versus mode and P2 keyboard controls"], ["v40", "Clear controls table in How to Play"], ["v39", "Story props in every fighter's hand + story-matched projectiles"], ["v38", "Charcoal ultimate is now Jerk Pit Eruption (marching fire geysers)"], ["v37", "Charcoal ultimate reworked into smoke-teleport 7-hit flurry; game served directly at index.html, old links redirect to latest"], ["v36", "Updated How to Play (meter tab, full roster, super/ult/rage keys)"], ["v35", "Subtler auras"], ["v34", "Distinct per-fighter auras, Rex uppercut ult, Ember fire-pillar Inferno, Titan ground-smash Final Drive"], ["v33", "First tracked release; Pages launcher and README"]];let clogY=0;
+const CLOG=[["v87", "Punches look like punches: fist starts at the chin guard, cocks back on heavies, snaps out to a fully straight arm with the shoulder driving forward, then returns to the guard", "Rear hand stays home at the chin during punches", "Boxing gloves sit on the hand: cuff at the wrist, padded fist past it, lined up with the forearm; Rex wears both gloves", "Removed the big expanding circles on hits and the circles around fighters during counter, armor and boss moves"], ["v86", "Held props (bottle, dynamite, parcel, spray can, shield, cane, gloves) follow the real hand in every pose instead of floating at a fixed spot", "Thrown props leave the hand on release and come back only once the projectile is gone (40oz bottle, Ember dynamite, Kira parcel, Charcoal's coal)"], ["v85", "Natural fighting stance: both knees bend forward, guard hands up at the chin with elbows tucked (boxing stance)", "Punches and kicks lunge the hips forward with the back foot planted instead of stretching the arm or leg", "Limbs never stretch past their real length (projectile pushes, uppercuts, blockstun)", "Runner's arm swing: hand forward, elbow driven back", "Elbows bend downward on punches, blocks and victory flex", "Swing arcs removed; strikes leave faint shadow frames instead"], ["v84", "Fix: fighters could sink below the floor after a wall bounce near the ground", "Fix: Restart Match in Survival restarts the whole run (no free full heal)", "Fix: Esc on character select goes back to the Training menu from Training, Combo Trials and Survival", "Combo Trials text moved down so it no longer overlaps the combo counter", "Audit: 256 CPU matchups, rollback replay and every mode checked with no errors"], ["v83", "Knees and elbows really bend: two-part limbs fold when crouching, jumping and guarding, and straighten on full punches and kicks", "Smoother jump legs, proper legs during air attacks, knocked-down legs lie flat", "Hit shake only during hit-stop instead of the whole hitstun", "Arcade stage screen never shows a knocked-out fighter or an empty quote box", "Version number (v0.083) shown at the top of every menu"], ["v82", "Training is now a tabbed menu: Training, Combo Trials, Survival", "Combo Trials: 12 saved challenges from a 3-hit combo up to 25 hits, air and wall juggles, damage combos", "Survival: one life against endless random CPUs, one round each, heal 30% per win, best run saved", "UI audit: joke toasts no longer cover menus and buttons", "Title outlines no longer spike; overhead callouts are outlined and no longer overlap", "Frame-advantage popups only in training", "Softer screen flashes (supers, ultimates, big hits); low-health bar pulses instead of strobing", "Floor stains fade out; K.O. text gets a dark band; combo trial list aligned"], ["v81", "Story doubled to 32 chapters: the Kingpin escapes at Chapter 16, a second act against the Board, and a final crown rematch", "Red health: 40% of each hit can heal back after 2s without being hit", "Air tech: press Grab once launched hitstun ends; mashing early locks you out for 40 frames", "Combo breaker: S+G during a 3+ hit combo, costs 50 meter (free in training)", "Training hitbox viewer (key 0)", "Super defence scaling: hits after a super/ultimate in the same combo do 70%", "Hard knockdowns: supers, ultimates and big launchers can't be ground-teched (50f down)", "Tech roll: hold left/right while teching on landing to roll", "DI: hold up/down/away while launched to change your trajectory", "Training: - freeze, = frame step, [ save state, ] load state", "In-game CHANGELOG screen on the main menu", "Air combos: juggle points (20 per combo; light 1, heavy 2, special 3, supers free) replace the 5-hit air cap", "Air hits float the opponent and hang you in the air; juggle gravity gets heavier as the combo grows", "Air jump-cancel: press up on hit in the air to chase the juggle (once per jump)", "Juggles hang longer, and longer still near the wall (wall juggles)", "Long-combo damage decay so 25–30 hit combos land 30–50%, not a kill", "Removed the green heal rings", "Frame data HUD names the move in startup/active/recovery", "Fix: moves stuck in recovery after landing a hit"], ["v80", "Story expanded to 16 chapters; roster unlocks through story mode (5 starters)"], ["v79", "Charcoal recoloured green with gold accents"], ["v78", "Balance pass: Tommy grab 16→13, Forgotten 150f, Blackout stun 18f, HP retune (CPU win rates 46–55%)"], ["v77", "Slow-motion instant replay kill cam after every KO (offline, skippable)"], ["v76", "Audit fixes: netplay determinism for samples and hit text, rollback no longer replays hit sounds or sprites, sprites follow camera, supers on platforms, round reset clears effects"], ["v75", "Hit sprites fade to soft glows, never square boxes"], ["v74", "Kenney CC0 hit/UI sounds, jingles and particle sprites; Bangers title font (credited)"], ["v73", "Super cut-ins, visuals and sounds for every new mechanic"], ["v72", "Audit fixes (Ghost invisibility, training resets, CPU supers, honest move list, low slides) and rebalance"], ["v71", "Balance pass from CPU sims; combos and fighter text match the new moves"], ["v70", "Every super and ultimate has its own mechanic: heal, bounty, armor, confuse, blackout, quake, slow, burn, grapple, invisibility, lifesteal, vortex"], ["v69", "Backstory moves for Skies, Donna, Ghost, 40oz and Charcoal; move-list text matches the new specials"], ["v68", "Backstory moves for Ember, Titan, Kingpin and Tommy"], ["v67", "Backstory moves for Rex, Danny, Brutus, Kira and Sensei"], ["v66", "Shift dashes (keyboard double-tap removed); How to Play updated"], ["v65", "Kick lean, two-hand projectile push, victory pose, flat waistband"], ["v64", "Run cycle, guard stance, jump tuck, hit recoil, grabbed and KO poses"], ["v63", "Hips so legs join the body"], ["v62", "Wider stance; back knee no longer bends forward"], ["v61", "Far arm from the rear shoulder behind the torso; legs in a front/back stance"], ["v60", "One input tracker in training, arrows and buttons only"], ["v59", "Clean text (no fake-bold Impact, kerning on), labels fit their boxes, aura particles in front of every fighter, ladder layout fix"], ["v58", "Outfit detail pass: torso shading, vests, belts, badges, aprons, sashes"], ["v57", "Every fighter gets their own body colours"], ["v56", "How to Play split into 8 short tabs that fit on one screen"], ["v55", "game-icons.net touch icons; plain-language combo key tab"], ["v54", "Special, super and ultimate are distinct for every fighter; bigger touch icons, no outline"], ["v53", "Touch buttons with dark outlines and filled icons"], ["v52", "Line-art icons on touch buttons; buttons more transparent"], ["v51", "Touch buttons: two big attack buttons, smaller icon buttons in a thumb arc"], ["v50", "Wide phone screens keep the game's shape; sides extended instead of stretched"], ["v49", "Fill the whole phone screen; auto fullscreen + landscape on first tap"], ["v48", "Tap to advance story and other button-less screens"], ["v47", "Any connected controller drives P1 (fixes ghost pad in slot 0 stealing input)"], ["v46", "How to Play shows touch controls on phones"], ["v45", "Touch controls for phones (floating joystick + action buttons)"], ["v44", "Super/Ult/Rage keys never fall back to attacks; double-tap down drops through platforms"], ["v42", "One-key Super (U), Ultimate (O), Rage (Space)"], ["v41", "Removed local Versus mode and P2 keyboard controls"], ["v40", "Clear controls table in How to Play"], ["v39", "Story props in every fighter's hand + story-matched projectiles"], ["v38", "Charcoal ultimate is now Jerk Pit Eruption (marching fire geysers)"], ["v37", "Charcoal ultimate reworked into smoke-teleport 7-hit flurry; game served directly at index.html, old links redirect to latest"], ["v36", "Updated How to Play (meter tab, full roster, super/ult/rage keys)"], ["v35", "Subtler auras"], ["v34", "Distinct per-fighter auras, Rex uppercut ult, Ember fire-pillar Inferno, Titan ground-smash Final Drive"], ["v33", "First tracked release; Pages launcher and README"]];let clogY=0;
 // ---------- STORY MODE ----------
 // CH idx: rex0 danny(volt)1 brutus2 kira3 sensei4 ember5 shade6 titan7 kingpin8 tommy9 skies10 will11 donna12 ghost13 40oz14 charcoal15
 const STORY=[
@@ -2203,7 +2203,10 @@ function limb(x1,y1,x2,y2,bend,w,col,col2=null){
  X.lineCap='round';X.lineJoin='round';
  X.strokeStyle=col;X.lineWidth=w;X.beginPath();X.moveTo(x1,y1);X.lineTo(jx,jy);X.lineTo(x2,y2);X.stroke();
  if(col2){X.strokeStyle=col2;X.lineWidth=Math.max(2,w*.26);X.beginPath();X.moveTo(x1,y1);X.lineTo(jx,jy);X.lineTo(x2,y2);X.stroke()}
+ return[x2,y2,Math.atan2(y2-jy,x2-jx)];
 }
+// Boxing glove: cuff at the wrist, padded fist past it, thumb on top, all lined up with the forearm
+function glove(x,y,a,dark){X.save();X.translate(x,y);X.rotate(a);X.fillStyle=dark?'#9b1c1c':'#d62828';X.strokeStyle='#5c0f0f';X.lineWidth=1.5;X.beginPath();X.ellipse(7,0,9,7.5,0,0,7);X.fill();X.stroke();X.beginPath();X.ellipse(4,-6,4.5,3,-.3,0,7);X.fill();X.stroke();if(!dark){X.fillStyle='#ff6b6b';X.beginPath();X.ellipse(9,-3,3,2,0,0,7);X.fill()}X.fillStyle=dark?'#b8bec6':'#f1f5f9';X.fillRect(-4,-5.5,5,11);X.restore()}
 
 let AUD=0;
 function drawAura(c,hy,cr,intense=false,front=0){
@@ -2367,7 +2370,7 @@ function fig(f,idleAnim=true,showAura=true){
  if(m&&m.t==='tele'&&f.t<m.s)X.globalAlpha=.25;
  const cr=(f.cr&&f.st==='idle')||(m&&m.cr),hy=cr?-30:-54;
  const w=f.st==='idle'&&!air&&idleAnim?Math.sin(fr*.35)*Math.min(14,Math.abs(f.vx)*5):0;
- const bk=f.st==='hit'?(f.bst?-6:-12-(f.sq||0)*16):m?(m.lean?m.lean*cl:m.k==='k'?-10*cl:(f.t<=m.s?-5*Math.sin(Math.PI*f.t/m.s):7*cl)):air?Math.max(-6,Math.min(6,f.vx*1.4)):f.st==='idle'?Math.max(-5,Math.min(5,f.vx*1.6)):0;
+ const bk=f.st==='hit'?(f.bst?-6:-12-(f.sq||0)*16):m?(m.lean?m.lean*cl:m.k==='k'?-10*cl:(f.t<=m.s?-5*Math.sin(Math.PI*f.t/m.s):10*cl)):air?Math.max(-6,Math.min(6,f.vx*1.4)):f.st==='idle'?Math.max(-5,Math.min(5,f.vx*1.6)):0;
 
  // Charcoal smoke wisps
  if(c.id==='charcoal'&&cfg.vfx>0&&!dn){for(let q=0;q<4;q++){const ph=(fr*.6+q*25)%100;X.fillStyle='rgba(156,163,175,'+(.4*(1-ph/100))+')';X.beginPath();X.arc(Math.sin(q*2+fr*.03)*14,hy-20-ph*.9,6+ph*.14,0,7);X.fill()}}
@@ -2378,13 +2381,10 @@ function fig(f,idleAnim=true,showAura=true){
  // Special Active Rings
  if(m&&m.whip&&f.t>m.s-2&&f.t<=m.s+m.a+2){X.strokeStyle=c.c2;X.lineWidth=3;X.beginPath();X.moveTo(18,hy-30);X.quadraticCurveTo(m.w*.5,hy-60+Math.sin(f.t)*8,m.w,hy-26);X.stroke();X.fillStyle='#fff';X.beginPath();X.arc(m.w,hy-26,3,0,7);X.fill()}
  if(m&&m.t==='ctr'&&f.t<=m.s+m.a){
-  X.strokeStyle=c.c2;X.lineWidth=3.5;X.beginPath();X.arc(0,hy-22,52+Math.sin(fr*.45)*4,0,7);X.stroke();
  }
  if(m&&m.arm&&f.t<=m.s+m.a){
-  X.strokeStyle='#5dade2';X.lineWidth=4.5;X.beginPath();X.arc(8,hy-26,48,0,7);X.stroke();
  }
  if(c.id==='kingpin'&&m&&m.t==='boss'){
-  X.strokeStyle='#f5c542';X.lineWidth=4;X.beginPath();X.arc(0,hy-26,52,0,7);X.stroke();
  }
 
  const flash=f.hflash>0;
@@ -2399,8 +2399,10 @@ function fig(f,idleAnim=true,showAura=true){
  const AL=PS==='air'||(PS==='atk'&&air),fa=Math.max(0,Math.min(1,(f.vy+3)/6)),LP=(a,b)=>a+(b-a)*fa;
  // Lunge: on long punches and kicks the hips travel toward the target (back foot stays planted) instead of the limb stretching
  const eAt=t=>t<=m.s?-.22*Math.sin(Math.PI*Math.min(1,t/m.s))+Math.pow(t/m.s,3)*.5:t<=m.s+m.a?1:Math.cos(Math.min(1,(t-m.s-m.a)/m.r)*1.57);
- let lx=0,ly=0;
- if(m&&(m.k==='p'||m.k==='b'||m.k==='k')&&m.t!=='proj'&&m.t!=='tele'&&m.t!=='boss'){
+ let lx=0,ly=0,Lm=0;
+ if(m&&(m.k==='p'||m.k==='b')&&m.t!=='proj'&&m.t!=='tele'&&m.t!=='boss'){
+  Lm=Math.max(0,Math.min(26,m.w-(bk+52)));lx=Lm*cl;ly=air?0:lx*.3;X.translate(lx,ly);
+ }else if(m&&m.k==='k'&&m.t!=='tele'){
   const K=m.k==='k',px=K?22+e*(m.w*.92-22):24+e*(m.w-24),dy=K?m.ya+(m.yb-m.ya)*cl:m.ya+(m.yb-m.ya)*cl,R=K?58:46,ox=K?0:bk;
   lx=Math.max(0,Math.min(26,px-ox-Math.sqrt(Math.max(0,R*R-dy*dy))));ly=K||air?0:lx*.3;
   X.translate(lx,ly);
@@ -2432,51 +2434,56 @@ function fig(f,idleAnim=true,showAura=true){
  LL=24;
  const sy=hy-32,armW=c.id==='brutus'||c.id==='titan'?12:9.5;
  const armCol=flash?'#ffffff':skin(c,2),FA=[];
- let NH=[22,sy-5]; // where the near hand really is, so held props follow it
- const NA=(x,y,...r)=>{const d=Math.hypot(x-bk,y-sy);if(d>48){x=bk+(x-bk)*48/d;y=sy+(y-sy)*48/d}NH=[x,y];limb(bk,sy,x,y,...r)};
+ let NH=[22,sy-5,0],nsx=bk; // where the near hand really is (props follow it); nsx = near shoulder x
+ const NA=(x,y,...r)=>{const d=Math.hypot(x-nsx,y-sy);if(d>48){x=nsx+(x-nsx)*48/d;y=sy+(y-sy)*48/d}NH=limb(nsx,sy,x,y,...r)};
+ const FL=(...q)=>{const h=limb(...q);if(c.id==='rex'&&!dn)glove(h[0],h[1],h[2],1);return h};
  if(f.blk){
   FA.push(()=>NA(bk+22,sy-16,7,armW,armCol,rim));
-  limb(bk-5,sy+1,bk+16,sy-12,5,armW,dk(armCol));
+  FL(bk-5,sy+1,bk+16,sy-12,5,armW,dk(armCol));
  }else if(m&&(m.k==='p'||m.k==='b')){
-  let x=24+e*(m.w-24)-lx,y=sy+m.ya+(m.yb-m.ya)*cl-ly;{const d=Math.hypot(x-bk,y-sy);if(d>48){x=bk+(x-bk)*48/d;y=sy+(y-sy)*48/d}}
+  if(m.t!=='grab')nsx=bk+6*cl; // punching shoulder drives forward (torso turn)
+  const Fx=m.t==='grab'?Math.max(26,Math.min(nsx+46,m.w-Lm)):nsx+46, // punches always snap to a straight arm
+   Ty=sy+m.ya,Tz=sy+m.yb;
+  const pp=t=>{const q=eAt(Math.max(0,t)),qc=Math.max(0,Math.min(1,q)),wq=q<0?q*(m.s>=7?2.4:1.2):q;return[22+wq*(Fx-22),sy-5+qc*(Ty+(Tz-Ty)*qc-(sy-5))]};
+  let [x,y]=pp(f.t);{const d=Math.hypot(x-nsx,y-sy);if(d>48){x=nsx+(x-nsx)*48/d;y=sy+(y-sy)*48/d}}
   if(m.t!=='grab'){tx=x;ty=y}
   if(m.t==='grab'){
    FA.push(()=>NA(x,sy+8,6,armW,armCol,rim));
-   limb(bk-5,sy+1,x,sy-12,-6,armW,dk(armCol),rim);
+   FL(bk-5,sy+1,x,sy-12,-6,armW,dk(armCol),rim);
   }else{
-   if(m.k==='p'&&m.t!=='proj'&&m.t!=='boss'&&cfg.vfx>0&&f.t>m.s-3&&f.t<=m.s+m.a)FA.push(()=>{X.save();for(const[d,a]of[[4,.08],[2,.15]]){const q=eAt(Math.max(0,f.t-d)),qc=Math.max(0,Math.min(1,q));X.globalAlpha=a;limb(bk,sy,24+q*(m.w-24)-lx,sy+m.ya+(m.yb-m.ya)*qc-ly,5,armW,c.c2)}X.restore()});
+   if(m.k==='p'&&m.t!=='proj'&&m.t!=='boss'&&cfg.vfx>0&&f.t>m.s-3&&f.t<=m.s+m.a)FA.push(()=>{X.save();for(const[d,a]of[[4,.08],[2,.15]]){const[gx,gy]=pp(f.t-d);X.globalAlpha=a;limb(nsx,sy,gx,gy,5,armW,c.c2)}X.restore()});
    FA.push(()=>NA(x,y,5,armW,armCol,rim));
-   if(m.k==='b')limb(bk-5,sy+1,x,y-7,5,armW,dk(armCol),rim);
-   else if(m.t==='proj'||m.t==='boss')limb(bk-5,sy+1,x-4,y+6,-4,armW,dk(armCol),rim);
-   else limb(bk-5,sy+1,bk+12,sy-10,5,armW,dk(armCol));
+   if(m.k==='b')FL(bk-5,sy+1,x,y-7,5,armW,dk(armCol),rim);
+   else if(m.t==='proj'||m.t==='boss')FL(bk-5,sy+1,x-4,y+6,-4,armW,dk(armCol),rim);
+   else FL(bk-5-4*cl,sy+1,bk+12,sy-10,5,armW,dk(armCol)); // rear hand stays home at the chin
   }
  }else if(m&&m.k==='k'){
   FA.push(()=>NA(22,sy-5,8,armW,armCol,rim));
-  limb(bk-5,sy+1,bk-26,sy-4+cl*6,-6,armW,dk(armCol));
+  FL(bk-5,sy+1,bk-26,sy-4+cl*6,-6,armW,dk(armCol));
  }else if(PS==='win'){
   FA.push(()=>NA(bk+16,sy-34,6,armW,armCol,rim));
-  limb(bk-5,sy+1,bk-20,sy-32,-6,armW,dk(armCol));
+  FL(bk-5,sy+1,bk-20,sy-32,-6,armW,dk(armCol));
  }else if(PS==='hit'){
   FA.push(()=>NA(bk+6,sy-30,-8,armW,armCol,rim));
-  limb(bk-5,sy+1,bk-24,sy-20,6,armW,dk(armCol));
+  FL(bk-5,sy+1,bk-24,sy-20,6,armW,dk(armCol));
  }else if(PS==='grab'){
   FA.push(()=>NA(18,sy-26,-6,armW,armCol,rim));
-  limb(bk-5,sy+1,-14,sy-26,6,armW,dk(armCol));
+  FL(bk-5,sy+1,-14,sy-26,6,armW,dk(armCol));
  }else if(PS==='down'){
   FA.push(()=>NA(16,sy+26,5,armW,armCol,rim));
-  limb(bk-5,sy+1,-12,sy+24,-5,armW,dk(armCol));
+  FL(bk-5,sy+1,-12,sy+24,-5,armW,dk(armCol));
  }else if(PS==='air'){
   FA.push(()=>NA(24,sy-14,7,armW,armCol,rim));
-  limb(bk-5,sy+1,-20,sy-12,-6,armW,dk(armCol));
+  FL(bk-5,sy+1,-20,sy-12,-6,armW,dk(armCol));
  }else if(PS==='run'){
   const un=(1-sw)/2,uf=(1+sw)/2; // runner's swing: hand forward at the chest, elbow driven back on the backswing
   FA.push(()=>NA(bk+16-34*un,sy+10+20*un,9,armW,armCol,rim));
-  limb(bk-5,sy+1,bk+11-34*uf,sy+11+20*uf,9,armW,dk(armCol));
+  FL(bk-5,sy+1,bk+11-34*uf,sy+11+20*uf,9,armW,dk(armCol));
  }else{
-  if(c.id==='rex'){FA.push(()=>NA(22,sy-6,8,armW,armCol,c.c));limb(bk-5,sy+1,15,sy-13,6,armW,dk(armCol),c.c)}
-  else if(c.id==='sensei'){FA.push(()=>NA(24,sy-6,7,armW,armCol,rim));limb(bk-5,sy+1,-12,sy+6,5,armW,dk(armCol))}
-  else if(c.id==='ember'){FA.push(()=>NA(22,sy-10,7,armW,armCol,rim));limb(bk-5,sy+1,-10,sy+10,4,armW,dk(armCol))}
-  else{FA.push(()=>NA(22,sy-5,7,armW,armCol,rim));limb(bk-5,sy+1,bk+13,sy-9,5,armW,dk(armCol))}
+  if(c.id==='rex'){FA.push(()=>NA(22,sy-6,8,armW,armCol,c.c));FL(bk-5,sy+1,15,sy-13,6,armW,dk(armCol),c.c)}
+  else if(c.id==='sensei'){FA.push(()=>NA(24,sy-6,7,armW,armCol,rim));FL(bk-5,sy+1,-12,sy+6,5,armW,dk(armCol))}
+  else if(c.id==='ember'){FA.push(()=>NA(22,sy-10,7,armW,armCol,rim));FL(bk-5,sy+1,-10,sy+10,4,armW,dk(armCol))}
+  else{FA.push(()=>NA(22,sy-5,7,armW,armCol,rim));FL(bk-5,sy+1,bk+13,sy-9,5,armW,dk(armCol))}
  }
  // Torso
  const torsoW=c.id==='titan'?28:c.id==='brutus'?27:20;
@@ -2559,13 +2566,12 @@ function fig(f,idleAnim=true,showAura=true){
  FA.forEach(g=>g());LL=0;
 
  // Hand Gear Details (Rex wraps, Danny lightning, Brutus chains, Ember palm fire, Shade katana)
- const [gx,gy]=NH;
+ const [gx,gy,ga]=NH;
  // thrown props leave the hand from release until the projectile is gone
  const thrown=(m&&m.t==='proj'&&f.t>m.s)||PJ.some(p=>p.o===f);
  if(c.id==='rex'){
   // Champ's red boxing glove with white cuff
-  X.fillStyle='#d62828';X.strokeStyle='#7b1414';X.lineWidth=1.5;X.beginPath();X.ellipse(gx+1,gy,9,7.5,0,0,7);X.fill();X.stroke();
-  X.fillStyle='#ff6b6b';X.beginPath();X.ellipse(gx+3,gy-3,3,2,0,0,7);X.fill();X.fillStyle='#f1f5f9';X.fillRect(gx-11,gy-5,4,10);
+  glove(gx,gy,ga,0);
  }else if(c.id==='volt'){
   // Car-battery jumper clamp, sparking
   X.strokeStyle='#111';X.lineWidth=2;X.beginPath();X.moveTo(gx-4,gy+2);X.quadraticCurveTo(gx-22,gy+20,gx-30,gy-8);X.stroke();
@@ -3485,11 +3491,11 @@ function VXtick(){
    const dir=f.x>o.x?1:-1,cx=f.x-dir*10,cy=f.y-62,n=au?36:big?18:9;
    if(hi)for(let i=0;i<n;i++){const a=(VR()-.5)*2.4+(dir>0?0:Math.PI),s=(au?10:6.5)*(.35+VR());vxP(cx,cy,Math.cos(a)*s,Math.sin(a)*s-1,au?26:15,i%3?o.ch.c2:'#fff',au?3.2:2.2,'streak')}
    if(au){
-    VX.imp=Math.max(VX.imp,dmg>=12?4:2);VX.ring.push({x:cx,y:cy,r:12,l:32,m:32,c:o.ch.c2,w:10},{x:cx,y:cy,r:4,l:22,m:22,c:'#fff',w:5});
+    VX.imp=Math.max(VX.imp,dmg>=12?4:2);
     if(cfg.shake)shk=Math.max(shk,dmg>=12?20:9);
     if(hi){for(let i=0;i<16;i++)vxP(f.x+(VR()-.5)*44,gy-4,(VR()-.5)*10,-4-VR()*8,46,i%2?'#78716c':'#57534e',3+VR()*4,'rock',gy);
      VX.slash.push({x:f.x,y:f.y-60,a:VR()*3.14,l:10,m:10,c:o.ch.c2})}
-   }else if(big&&hi)VX.ring.push({x:cx,y:cy,r:6,l:16,m:16,c:'#fff',w:4});
+   }
   }
   const sp=!!(m&&m.sup);if(sp&&!pv.sp&&!VX.cut)VX.cut={f,sup:1,c:f.ch.c2,c1:f.ch.c,n:m.n,l:28,m:28,snap:vxSnap(f,{st:'idle',mv:null,x:0,y:0,vx:0,vy:0,rot:0,face:1,rage:0,sq:0,lsq:0,imp:0,cr:0,fx:null})};
   if(u&&!pv.u)VX.cut={f,c:f.ch.c2,c1:f.ch.c,n:m.n,l:42,m:42,snap:vxSnap(f,{st:'idle',mv:null,x:0,y:0,vx:0,vy:0,rot:0,face:1,rage:0,sq:0,lsq:0,imp:0,cr:0,fx:null})};
@@ -3498,7 +3504,7 @@ function VXtick(){
    if((m.t==='dash'||m.t==='boss')&&fr%2===0)vxP(f.x-f.face*30,f.y-30-VR()*70,-f.face*(8+VR()*6),0,12,f.ch.c2,2+VR()*2,'streak');
    if(m.t==='boss'&&f.t>m.s&&fr%4===0)VX.slash.push({x:o.x+(VR()-.5)*30,y:o.y-50-VR()*40,a:VR()*3.14,l:9,m:9,c:VR()<.5?'#fff':f.ch.c2});
    if(m.t==='tele'&&f.t===1)VX.ring.push({x:f.x,y:f.y-55,r:70,l:24,m:24,c:'#000',w:26,shr:1});
-   if(m.t==='grab'&&f.t===m.s)VX.ring.push({x:f.x+f.face*30,y:f.y-55,r:8,l:20,m:20,c:f.ch.c2,w:8});
+   
   }
   if(hi){
    const bx=f.x,by=f.y-60*f.ch.z,vis=!(f.invT>0);
