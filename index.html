@@ -2716,7 +2716,7 @@ function hud(){
   const hg=X.createLinearGradient(0,30,0,48);
   const hc=r>.3?f.ch.c:(fr%20<10?'#ff2244':'#aa1122');
   hg.addColorStop(0,'#ffffff88');hg.addColorStop(.25,hc);hg.addColorStop(1,'#00000088');
-  {const rr=Math.min(1-r,(f.red||0)/f.maxHp);if(rr>0){X.fillStyle='#ff5a5a99';X.fillRect(k?x+w*(1-r-rr):x+w*r,30,w*rr,18)}}
+  {const rr=Math.min(1-r,(f.red||0)/f.maxHp);if(rr>0){const rx=k?x+w*(1-r-rr):x+w*r,rg=fr-(f.lhT??-999)>120;X.save();X.globalAlpha=rg?.45+.15*Math.sin(fr*.15):.35;X.fillStyle='#c0303a';X.fillRect(rx,30,w*rr,18);X.globalAlpha*=.6;X.fillStyle='#ff9aa2';X.fillRect(rx,30,w*rr,4);X.restore()}}
   X.fillStyle=hc;X.fillRect(k?x+w*(1-r):x,30,w*r,18);
   X.fillStyle=hg;X.globalAlpha=.6;X.fillRect(k?x+w*(1-r):x,30,w*r,18);X.globalAlpha=1;
   X.fillStyle='#0006';for(let q=1;q<10;q++)X.fillRect(x+w*q/10,30,1,18);
@@ -3421,7 +3421,7 @@ function VXtick(){
   if(hi){
    const bx=f.x,by=f.y-60*f.ch.z,vis=!(f.invT>0);
    // heal: green crosses float up whenever health goes back up
-   if(pv.hp!==undefined&&f.hp>pv.hp&&S==='fight'&&!KC.play){for(let i=0;i<14;i++)vxP(bx+(VR()-.5)*50,by+(VR()-.5)*60,(VR()-.5)*1.2,-1.5-VR()*2.5,34,i%3?'#4ade80':'#fff',2.5+VR()*2.5,'spark');VX.ring.push({x:bx,y:by,r:10,l:22,m:22,c:'#4ade80',w:6});
+   if(pv.hp!==undefined&&f.hp>pv.hp+1&&S==='fight'&&!KC.play){for(let i=0;i<14;i++)vxP(bx+(VR()-.5)*50,by+(VR()-.5)*60,(VR()-.5)*1.2,-1.5-VR()*2.5,34,i%3?'#4ade80':'#fff',2.5+VR()*2.5,'spark');VX.ring.push({x:bx,y:by,r:10,l:22,m:22,c:'#4ade80',w:6});
     if(o.st==='hit'&&m&&m.steal)for(let i=0;i<10;i++){const t=VR();vxP(o.x+(f.x-o.x)*t,o.y-60+(VR()-.5)*30,(f.x-o.x)*.04,(VR()-.5),18,'#ef4444',3+VR()*3,'spark')}}
    // bounty: gold coins orbit the marked fighter
    if(f.markT>0&&vis&&fr%3===0){const a=fr*.15;vxP(bx+Math.cos(a)*34,by-50+Math.sin(a)*8,0,-.2,10,'#f5c542',3.5,'spark')}
