@@ -8,3 +8,4 @@ Single-file HTML5 canvas fighting game. Or download `street-brawl-arcade-v74.htm
 
 ## Credits
 Touch button icons from [game-icons.net](https://game-icons.net) by Lorc, Carl Olsen and sbed, licensed CC BY 3.0.
+Sound effects, jingles and particle sprites from [Kenney](https://kenney.nl) (CC0). Bangers font by Vernon Adams (SIL Open Font License 1.1).
