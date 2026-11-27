@@ -1,6 +1,6 @@
 # Changelog
 
-## v81 (unreleased, live on index.html)
+## v81
 - Story doubled to 32 chapters: the Kingpin escapes at Chapter 16, a second act against the Board, and a final crown rematch
 - Red health: 40% of each hit can heal back after 2s without being hit
 - Air tech: press Grab once launched hitstun ends; mashing early locks you out for 40 frames
