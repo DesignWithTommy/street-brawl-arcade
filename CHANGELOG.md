@@ -1,5 +1,11 @@
 # Changelog
 
+## v89
+- Hits make a small pop right at the point of contact instead of big circles and spark sprites
+- The fist or foot that lands catches fire for a moment (longer on heavy hits and counters)
+- Parry, guard break and other event rings are now small bursts, no circles
+- Fewer, shorter hit streaks from the contact point
+
 ## v88
 - Body-part hit zones: head hits do +25% damage, body hits normal, leg hits -15% (HEAD/LEGS callout on hit)
 - Training hitbox viewer (key 0) shows the head, body and leg hurtboxes and the strike height of each attack
