@@ -85,7 +85,7 @@ const aud=(()=>{
  }
  const BUF={};let bufOk=0;
  function loadSmp(){if(bufOk||!ctx)return;bufOk=1;for(const[k,a]of Object.entries(SMP))BUF[k]=[],a.forEach(b=>{const u=Uint8Array.from(atob(b),c=>c.charCodeAt(0));try{ctx.decodeAudioData(u.buffer,d=>BUF[k].push(d),()=>{})}catch(_){}})}
- function smp(id,v){const a=BUF[id];if(!a||!a.length)return 0;const s=ctx.createBufferSource(),g=ctx.createGain();s.buffer=a[Math.floor(Math.random()*a.length)];s.playbackRate.value=.92+Math.random()*.16;g.gain.value=v*(cfg.master/10);s.connect(g);g.connect(ctx.destination);s.start();return 1}
+ function smp(id,v){const a=BUF[id];if(!a||!a.length)return 0;const s=ctx.createBufferSource(),g=ctx.createGain();s.buffer=a[Math.floor(VR()*a.length)];s.playbackRate.value=.92+VR()*.16;g.gain.value=v*(cfg.master/10);s.connect(g);g.connect(ctx.destination);s.start();return 1}
  function unlock(){init();loadSmp();if(ctx&&ctx.state==='suspended')ctx.resume().catch(()=>{})}
  function tone(freq,dur,type,vol,endFreq,delay=0){
   if(!ctx||cfg.master<=0)return;
@@ -791,7 +791,7 @@ const spark=(v,c,n=1)=>{
  if(cfg.vfx===0)return;
  const cnt=cfg.vfx===1?1:n;
  for(let i=0;i<cnt;i++)SP.push({x:v.x+(VR()-.5)*16,y:v.y-60*v.ch.z+(VR()-.5)*16,l:11,c});
- IMF.push({x:v.x,y:v.y-60*v.ch.z,l:14,m:14,c,k:n>2?'star':'spark',r:VR()*6.28});if(IMF.length>40)IMF.shift();
+ if(!RBM)IMF.push({x:v.x,y:v.y-60*v.ch.z,l:14,m:14,c,k:n>2?'star':'spark',r:VR()*6.28});if(IMF.length>40)IMF.shift();
 };
 const addFx=(x,y,c,rMax,kind='burst')=>{
  if(cfg.vfx===0)return;
@@ -865,7 +865,7 @@ function newRound(){
  if(mode!==3){TR.on=0;REC.play=0;REC.rec=0}
  P1=nf(CH[pick[0]],0,260,false);
  P2=nf(CH[pick[1]],1,700,bossMode);
- PJ=[];SP=[];EX=[];SL=[];DUST=[];PT=[];ST=[];DN=[];slo=0;kof=0;camZ=1;
+ PJ=[];SP=[];EX=[];SL=[];DUST=[];PT=[];ST=[];DN=[];slo=0;kof=0;camZ=1;hs=0;FLASH=0;VX.cut=null;VX.p.length=VX.ring.length=VX.slash.length=0;IMF.length=0;
  rt=mode===3||cfg.timer===0?Infinity:cfg.timer*60;
  {const ru=RULE();
   if(ru===1){P1.rg=P2.rg=100;P1.mt=P2.mt=100}
@@ -942,7 +942,7 @@ function rbRng(){let a=NET.rs|0;a=a+0x6D2B79F5|0;NET.rs=a;let t=Math.imul(a^a>>>
 const inFight=()=>S==='intro'||S==='fight'||S==='end';
 function rbSim(g,quiet){
  NET.snap[g]=rbSave();
- const rv=NET.rem[g]!==undefined?NET.rem[g]:(NET.lrv&15);NET.pred[g]=rv;
+ const rv=NET.rem[g]!==undefined?NET.rem[g]:NET.lrv;NET.pred[g]=rv;
  const l=upk(NET.loc[g]),o=upk(rv);NET.cur=NET.host?[l,o]:[o,l];
  RBM=quiet?1:0;try{seeded(step)}finally{RBM=0}slo=0;
 }
@@ -1337,7 +1337,7 @@ function take(a,v,dm,st,kx,ky,fc){
  aud.hitFx(a.ch.id,scaled>9);if(v.hp<=0)aud.voice(v.ch.id,'ko');else if(!v.cmb||VR()<.5)aud.voice(v.ch.id,'hurt');
  if(!v.cmb){v.cd=0;v.wb=0;if(v===P1)mstC(P1,'opened');else if(v===P2)mstC(P1,'won')}
  v.cmb++;v.cd+=scaled;
- if(v.cmb===10)meme((v.ch.n)+' IS IN THE SHADOW REALM NOW','#c9f');else if(VR()<.03)v.fx=[MEMEHIT[(VR()*MEMEHIT.length)|0]+'!',45];v.cpop=10;if(cfg.vfx>0)DN.push({x:v.x+(VR()-.5)*30,y:v.y-120*v.ch.z,n:scaled,l:40,c:scaled>9?'#ffdd33':'#fff',big:scaled>9});pracLastDmg=scaled;pracIdleT=0;
+ if(v.cmb===10)meme((v.ch.n)+' IS IN THE SHADOW REALM NOW','#c9f');else if(Math.random()<.03)v.fx=[MEMEHIT[(Math.random()*MEMEHIT.length)|0]+'!',45];v.cpop=10;if(cfg.vfx>0)DN.push({x:v.x+(VR()-.5)*30,y:v.y-120*v.ch.z,n:scaled,l:40,c:scaled>9?'#ffdd33':'#fff',big:scaled>9});pracLastDmg=scaled;pracIdleT=0;
  if(v.y<floorOf(v)-5){v.jg++;v.lz=1;v.vy=ky<0?ky*.85:-4}
  else if(ky<0){v.lz=1;v.vy=ky;v.y=G-1}
  else v.lz=0;
@@ -1503,8 +1503,8 @@ function upd(f,o,i){
  if(f.st==='idle'&&!f.blk)f.grd=Math.min(100,f.grd+.35);
  f.blk=0;
  if(f.rage>0&&--f.rage===0)f.fx=['RAGE FADES',30];
- if(f.mt>=100&&((f.b.G&&f.b.S)||i.pUL)&&f.y>=G-3&&(f.st==='idle'||(f.st==='atk'&&(f.hit||fr-(f.phit??-99)<20)&&f.mv&&!f.mv.ult))){f.b.G=f.b.S=0;goUlt(f)}
- if(f.mt>=50&&((f.b.L&&f.b.S&&!f.b.G)||i.pSU)&&f.y>=G-3&&(f.st==='idle'||(f.st==='atk'&&f.hit&&f.mv&&!f.mv.ult&&!f.mv.sup))){f.b.L=f.b.S=0;goSup(f)}
+ if(f.mt>=100&&((f.b.G&&f.b.S)||i.pUL)&&f.y>=floorOf(f)-3&&(f.st==='idle'||(f.st==='atk'&&(f.hit||fr-(f.phit??-99)<20)&&f.mv&&!f.mv.ult))){f.b.G=f.b.S=0;goUlt(f)}
+ if(f.mt>=50&&((f.b.L&&f.b.S&&!f.b.G)||i.pSU)&&f.y>=floorOf(f)-3&&(f.st==='idle'||(f.st==='atk'&&f.hit&&f.mv&&!f.mv.ult&&!f.mv.sup))){f.b.L=f.b.S=0;goSup(f)}
  if(f.rg>=100&&((f.b.H&&f.b.S)||i.pRG)&&(f.st==='idle'||(f.st==='atk'&&f.hit))){f.rg=0;f.rage=360;f.b.H=f.b.S=0;f.fx=['RAGE MODE!',60];aud.sfx('boom');addFx(f.x,f.y-55,f.ch.c2,120,'ring');addFx(f.x,f.y-55,'#fff',80,'ring');if(cfg.shake)shk=12;hs=8}
  {const rd=((i.r?1:0)-(i.l?1:0))*f.face;
   if(rd<0&&(f.prd||0)>=0&&fr-(f.bkL??-99)>15){f.bkT=fr;f.bkL=fr}
@@ -3434,11 +3434,11 @@ function VXworld(){
   else{if(q.k==='spark')X.globalCompositeOperation='lighter';X.fillStyle=q.c;X.beginPath();X.arc(q.x,q.y,q.r*(q.k==='spark'?a:1),0,7);X.fill();X.globalCompositeOperation='source-over'}}
  for(const r of VX.ring){X.globalAlpha=r.l/r.m;X.strokeStyle=r.c;X.lineWidth=r.w*(r.l/r.m)+1;X.beginPath();X.arc(r.x,r.y,r.r,0,7);X.stroke()}
  for(const s of VX.slash){const a=s.l/s.m,L=90*(1.2-a*.4);X.globalAlpha=a;X.strokeStyle=s.c;X.lineCap='round';X.lineWidth=7*a+1;X.beginPath();X.moveTo(s.x-Math.cos(s.a)*L,s.y-Math.sin(s.a)*L);X.lineTo(s.x+Math.cos(s.a)*L,s.y+Math.sin(s.a)*L);X.stroke();X.strokeStyle='#fff';X.lineWidth=2;X.stroke()}
+ for(let i=IMF.length-1;i>=0;i--){const p=IMF[i],t=1-p.l/p.m,im=tintImg(p.k,p.c);if(im){const z=(p.k==='star'?110:80)*(.4+t*.9);X.save();X.globalCompositeOperation='lighter';X.globalAlpha=Math.max(0,1-t);X.translate(p.x,p.y);X.rotate(p.r+t);X.drawImage(im,-z/2,-z/2,z,z);X.restore()}if(--p.l<=0)IMF.splice(i,1)}
  X.restore();
 }
 function VXscreen(){
- ULTF=null;
- X.save();X.globalCompositeOperation='lighter';for(let i=IMF.length-1;i>=0;i--){const p=IMF[i],t=1-p.l/p.m,im=tintImg(p.k,p.c);if(im){const z=(p.k==='star'?110:80)*(.4+t*.9);X.globalAlpha=Math.max(0,1-t);X.translate(p.x,p.y);X.rotate(p.r+t);X.drawImage(im,-z/2,-z/2,z,z);X.setTransform(1,0,0,1,0,0)}if(--p.l<=0)IMF.splice(i,1)}X.restore();
+
  if(VX.imp>0){X.save();X.globalCompositeOperation='difference';X.fillStyle='#fff';X.fillRect(0,0,W,H);X.restore();VX.imp--}
  const k=VX.cut;if(!k)return;
  const e=k.m-k.l,out=Math.min(1,k.l/10),inn=Math.min(1,e/7),a=inn*out;
@@ -3465,7 +3465,7 @@ function VXscreen(){
  if(--k.l<=0)VX.cut=null;
 }
 
-for(const k of['sfx','voice','musicTick'])if(typeof aud[k]==='function'){const o=aud[k].bind(aud);aud[k]=(...a)=>RBM?undefined:o(...a)}
+for(const k of['sfx','voice','musicTick','hitFx'])if(typeof aud[k]==='function'){const o=aud[k].bind(aud);aud[k]=(...a)=>RBM?undefined:o(...a)}
 
 // ---- Training extras: combo trials [8] and input display [9] (practice mode, display only) ----
 const TRL={on:0,i:0,done:0,ok:0,best:0};
