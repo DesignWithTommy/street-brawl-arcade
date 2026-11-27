@@ -3421,7 +3421,7 @@ function VXtick(){
   if(hi){
    const bx=f.x,by=f.y-60*f.ch.z,vis=!(f.invT>0);
    // heal: green crosses float up whenever health goes back up
-   if(pv.hp!==undefined&&f.hp>pv.hp+1&&S==='fight'&&!KC.play){for(let i=0;i<14;i++)vxP(bx+(VR()-.5)*50,by+(VR()-.5)*60,(VR()-.5)*1.2,-1.5-VR()*2.5,34,i%3?'#4ade80':'#fff',2.5+VR()*2.5,'spark');VX.ring.push({x:bx,y:by,r:10,l:22,m:22,c:'#4ade80',w:6});
+   if(pv.hp!==undefined&&f.hp>pv.hp+1&&S==='fight'&&!KC.play){
     if(o.st==='hit'&&m&&m.steal)for(let i=0;i<10;i++){const t=VR();vxP(o.x+(f.x-o.x)*t,o.y-60+(VR()-.5)*30,(f.x-o.x)*.04,(VR()-.5),18,'#ef4444',3+VR()*3,'spark')}}
    // bounty: gold coins orbit the marked fighter
    if(f.markT>0&&vis&&fr%3===0){const a=fr*.15;vxP(bx+Math.cos(a)*34,by-50+Math.sin(a)*8,0,-.2,10,'#f5c542',3.5,'spark')}
