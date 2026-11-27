@@ -1,5 +1,12 @@
 # Changelog
 
+## v83
+- Knees and elbows really bend: two-part limbs fold when crouching, jumping and guarding, and straighten on full punches and kicks
+- Smoother jump legs, proper legs during air attacks, knocked-down legs lie flat
+- Hit shake only during hit-stop instead of the whole hitstun
+- Arcade stage screen never shows a knocked-out fighter or an empty quote box
+- Version number (v0.083) shown at the top of every menu
+
 ## v82
 - Training is now a tabbed menu: Training, Combo Trials, Survival
 - Combo Trials: 12 saved challenges from a 3-hit combo up to 25 hits, air and wall juggles, damage combos
