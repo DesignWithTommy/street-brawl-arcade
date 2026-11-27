@@ -724,8 +724,10 @@ const MENU_ITEMS=[
  {id:'online',label:'ONLINE',sub:'Play a friend with a room code'},
  {id:'practice',label:'TRAINING',sub:'Drills, frame data, recording'},
  {id:'settings',label:'SETTINGS',sub:'Gameplay, audio, controls'},
- {id:'howto',label:'HOW TO PLAY',sub:'Controls and mechanics'}
+ {id:'howto',label:'HOW TO PLAY',sub:'Controls and mechanics'},
+ {id:'clog',label:'CHANGELOG',sub:'Every update, newest first'}
 ];
+const CLOG=[["v81 (unreleased, live on index.html)", "Story doubled to 32 chapters: the Kingpin escapes at Chapter 16, a second act against the Board, and a final crown rematch", "Red health: 40% of each hit can heal back after 2s without being hit", "Air tech: press Grab once launched hitstun ends; mashing early locks you out for 40 frames", "Combo breaker: S+G during a 3+ hit combo, costs 50 meter (free in training)", "Training hitbox viewer (key 0)", "Frame data HUD names the move in startup/active/recovery", "Fix: moves stuck in recovery after landing a hit"], ["v80", "Story expanded to 16 chapters; roster unlocks through story mode (5 starters)"], ["v79", "Charcoal recoloured green with gold accents"], ["v78", "Balance pass: Tommy grab 16→13, Forgotten 150f, Blackout stun 18f, HP retune (CPU win rates 46–55%)"], ["v77", "Slow-motion instant replay kill cam after every KO (offline, skippable)"], ["v76", "Audit fixes: netplay determinism for samples and hit text, rollback no longer replays hit sounds or sprites, sprites follow camera, supers on platforms, round reset clears effects"], ["v75", "Hit sprites fade to soft glows, never square boxes"], ["v74", "Kenney CC0 hit/UI sounds, jingles and particle sprites; Bangers title font (credited)"], ["v73", "Super cut-ins, visuals and sounds for every new mechanic"], ["v72", "Audit fixes (Ghost invisibility, training resets, CPU supers, honest move list, low slides) and rebalance"], ["v71", "Balance pass from CPU sims; combos and fighter text match the new moves"], ["v70", "Every super and ultimate has its own mechanic: heal, bounty, armor, confuse, blackout, quake, slow, burn, grapple, invisibility, lifesteal, vortex"], ["v69", "Backstory moves for Skies, Donna, Ghost, 40oz and Charcoal; move-list text matches the new specials"], ["v68", "Backstory moves for Ember, Titan, Kingpin and Tommy"], ["v67", "Backstory moves for Rex, Danny, Brutus, Kira and Sensei"], ["v66", "Shift dashes (keyboard double-tap removed); How to Play updated"], ["v65", "Kick lean, two-hand projectile push, victory pose, flat waistband"], ["v64", "Run cycle, guard stance, jump tuck, hit recoil, grabbed and KO poses"], ["v63", "Hips so legs join the body"], ["v62", "Wider stance; back knee no longer bends forward"], ["v61", "Far arm from the rear shoulder behind the torso; legs in a front/back stance"], ["v60", "One input tracker in training, arrows and buttons only"], ["v59", "Clean text (no fake-bold Impact, kerning on), labels fit their boxes, aura particles in front of every fighter, ladder layout fix"], ["v58", "Outfit detail pass: torso shading, vests, belts, badges, aprons, sashes"], ["v57", "Every fighter gets their own body colours"], ["v56", "How to Play split into 8 short tabs that fit on one screen"], ["v55", "game-icons.net touch icons; plain-language combo key tab"], ["v54", "Special, super and ultimate are distinct for every fighter; bigger touch icons, no outline"], ["v53", "Touch buttons with dark outlines and filled icons"], ["v52", "Line-art icons on touch buttons; buttons more transparent"], ["v51", "Touch buttons: two big attack buttons, smaller icon buttons in a thumb arc"], ["v50", "Wide phone screens keep the game's shape; sides extended instead of stretched"], ["v49", "Fill the whole phone screen; auto fullscreen + landscape on first tap"], ["v48", "Tap to advance story and other button-less screens"], ["v47", "Any connected controller drives P1 (fixes ghost pad in slot 0 stealing input)"], ["v46", "How to Play shows touch controls on phones"], ["v45", "Touch controls for phones (floating joystick + action buttons)"], ["v44", "Super/Ult/Rage keys never fall back to attacks; double-tap down drops through platforms"], ["v42", "One-key Super (U), Ultimate (O), Rage (Space)"], ["v41", "Removed local Versus mode and P2 keyboard controls"], ["v40", "Clear controls table in How to Play"], ["v39", "Story props in every fighter's hand + story-matched projectiles"], ["v38", "Charcoal ultimate is now Jerk Pit Eruption (marching fire geysers)"], ["v37", "Charcoal ultimate reworked into smoke-teleport 7-hit flurry; game served directly at index.html, old links redirect to latest"], ["v36", "Updated How to Play (meter tab, full roster, super/ult/rage keys)"], ["v35", "Subtler auras"], ["v34", "Distinct per-fighter auras, Rex uppercut ult, Ember fire-pillar Inferno, Titan ground-smash Final Drive"], ["v33", "First tracked release; Pages launcher and README"]];let clogY=0;
 // ---------- STORY MODE ----------
 // CH idx: rex0 danny(volt)1 brutus2 kira3 sensei4 ember5 shade6 titan7 kingpin8 tommy9 skies10 will11 donna12 ghost13 40oz14 charcoal15
 const STORY=[
@@ -1788,6 +1790,7 @@ function menuU(){
   else if(it==='online'){aud.sfx('ok');netUI(true)}
   else if(it==='settings')openSettings('menu');
   else if(it==='howto')openHowTo('menu');
+  else if(it==='clog'){clogY=0;S='clog';aud.sfx('ok')}
  }
 }
 
@@ -1898,6 +1901,14 @@ function settingsU(){
  if(pr.Escape||pr.Backspace||padP('pbk')){S=prevS;aud.sfx('back')}
 }
 
+function clogLines(){const out=[];for(const e of CLOG){out.push([e[0],1]);for(const l of e.slice(1))out.push(['• '+l,0]);out.push(['',0])}return out}
+function clogU(){const n=clogLines().length,mx=Math.max(0,n-20);
+ if(pr.ArrowUp||pr.KeyW||padP('pu'))clogY=Math.max(0,clogY-3);
+ if(pr.ArrowDown||pr.KeyS||padP('pd'))clogY=Math.min(mx,clogY+3);
+ if(pr.Escape||pr.Backspace||pr.Enter||pr.Space||padP('pbk')||padP('pok')){S='menu';aud.sfx('back')}}
+function clogD(){X.fillStyle='#07080f';X.fillRect(0,0,W,H);X.textAlign='center';X.font='40px Bangers,Impact,sans-serif';X.fillStyle='#f5c542';X.fillText('CHANGELOG',W/2,52);
+ const L=clogLines();X.textAlign='left';for(let k=0;k<20&&clogY+k<L.length;k++){const [t,h]=L[clogY+k];X.font=h?'22px Bangers,Impact,sans-serif':'13px system-ui,sans-serif';X.fillStyle=h?'#ff2e88':'#dbe1f0';X.fillText(t,80,90+k*21,W-160)}
+ X.textAlign='center';X.font='12px system-ui,sans-serif';X.fillStyle='#8b90ad';X.fillText('↑↓ Scroll   ·   ENTER / ESC Back',W/2,H-18)}
 function howtoU(){
  if(pr.ArrowLeft||pr.KeyA||padP('pl')){howtoTab=(howtoTab+7)%8;aud.sfx('move')}
  if(pr.ArrowRight||pr.KeyD||padP('pr')){howtoTab=(howtoTab+1)%8;aud.sfx('move')}
@@ -2066,6 +2077,7 @@ function step(){
  else if(S==='story')storyU();
  else if(S==='settings')settingsU();
  else if(S==='howto')howtoU();
+ else if(S==='clog')clogU();
  else if(S==='pause')pauseU();
  else if(S==='ladder'){
   T++;
@@ -3270,6 +3282,7 @@ function draw0(){
  if(S==='ladder'){ladderD();return}
  if(S==='settings'){settingsD();return}
  if(S==='howto'){howtoD();return}
+ if(S==='clog'){clogD();return}
 
  X.save();
  if(camZ>1.001){X.translate(480,290);X.scale(camZ,camZ);X.translate(-480,-290)}
