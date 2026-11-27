@@ -12,6 +12,11 @@
 - DI: hold up/down/away while launched to change your trajectory
 - Training: - freeze, = frame step, [ save state, ] load state
 - In-game CHANGELOG screen on the main menu
+- Air combos: juggle points (20 per combo; light 1, heavy 2, special 3, supers free) replace the 5-hit air cap
+- Air hits float the opponent and hang you in the air; juggle gravity gets heavier as the combo grows
+- Air jump-cancel: press up on hit in the air to chase the juggle (once per jump)
+- Long-combo damage decay so 25–30 hit combos land 30–50%, not a kill
+- Removed the green heal rings
 - Frame data HUD names the move in startup/active/recovery
 - Fix: moves stuck in recovery after landing a hit
 
