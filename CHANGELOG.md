@@ -1,5 +1,13 @@
 # Changelog
 
+## v85
+- Natural fighting stance: both knees bend forward, guard hands up at the chin with elbows tucked (boxing stance)
+- Punches and kicks lunge the hips forward with the back foot planted instead of stretching the arm or leg
+- Limbs never stretch past their real length (projectile pushes, uppercuts, blockstun)
+- Runner's arm swing: hand forward, elbow driven back
+- Elbows bend downward on punches, blocks and victory flex
+- Swing arcs removed; strikes leave faint shadow frames instead
+
 ## v84
 - Fix: fighters could sink below the floor after a wall bounce near the ground
 - Fix: Restart Match in Survival restarts the whole run (no free full heal)

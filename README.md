@@ -1,10 +1,10 @@
 # Street Brawl Arcade
 
-**Version: v84**
+**Version: v85**
 
 **Play in your browser:** https://designwithtommy.github.io/street-brawl-arcade/
 
-Single-file HTML5 canvas fighting game. Or download `street-brawl-arcade-v84.html` and open it.
+Single-file HTML5 canvas fighting game. Or download `street-brawl-arcade-v85.html` and open it.
 
 ## Credits
 Touch button icons from [game-icons.net](https://game-icons.net) by Lorc, Carl Olsen and sbed, licensed CC BY 3.0.
