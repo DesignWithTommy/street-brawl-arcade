@@ -4,6 +4,11 @@
 - Training is now a tabbed menu: Training, Combo Trials, Survival
 - Combo Trials: 12 saved challenges from a 3-hit combo up to 25 hits, air and wall juggles, damage combos
 - Survival: one life against endless random CPUs, one round each, heal 30% per win, best run saved
+- UI audit: joke toasts no longer cover menus and buttons
+- Title outlines no longer spike; overhead callouts are outlined and no longer overlap
+- Frame-advantage popups only in training
+- Softer screen flashes (supers, ultimates, big hits); low-health bar pulses instead of strobing
+- Floor stains fade out; K.O. text gets a dark band; combo trial list aligned
 
 ## v81
 - Story doubled to 32 chapters: the Kingpin escapes at Chapter 16, a second act against the Board, and a final crown rematch
