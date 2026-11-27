@@ -786,7 +786,7 @@ const nf=(ch,id,x,bossScale=false)=>({
 });
 
 const IMF=[],TINT={};
-function tintImg(k,c){const id=k+c;if(TINT[id])return TINT[id];const im=PIMG[k];if(!im||!im.complete||!im.width)return null;const cv=document.createElement('canvas');cv.width=im.width;cv.height=im.height;const g=cv.getContext('2d');g.drawImage(im,0,0);g.globalCompositeOperation='source-in';g.fillStyle=c&&c[0]==='#'?c.slice(0,7):'#fff';g.fillRect(0,0,cv.width,cv.height);g.globalCompositeOperation='destination-over';g.drawImage(im,0,0);return TINT[id]=cv}
+function tintImg(k,c){const id=k+c;if(TINT[id])return TINT[id];const im=PIMG[k];if(!im||!im.complete||!im.width)return null;const cv=document.createElement('canvas');cv.width=im.width;cv.height=im.height;const g=cv.getContext('2d');g.drawImage(im,0,0);const hx=c&&c[0]==='#'&&c.length>=7?c.slice(1,7):'ffffff',tr=parseInt(hx.slice(0,2),16),tg=parseInt(hx.slice(2,4),16),tb=parseInt(hx.slice(4,6),16);let D;try{D=g.getImageData(0,0,cv.width,cv.height)}catch(_){return null}const d=D.data;const cw=cv.width,ch=cv.height;for(let i=0;i<d.length;i+=4){const px=(i/4)%cw/cw-.5,py=Math.floor(i/4/cw)/ch-.5,fd=Math.max(0,1-Math.max(0,Math.hypot(px,py)*2-.6)/.4),L=Math.max(d[i],d[i+1],d[i+2]),A=Math.min(d[i+3],L)*(L>16?1:0)*fd,w=L/255;d[i]=tr+(255-tr)*w*w*.6;d[i+1]=tg+(255-tg)*w*w*.6;d[i+2]=tb+(255-tb)*w*w*.6;d[i+3]=A}g.putImageData(D,0,0);return TINT[id]=cv}
 const spark=(v,c,n=1)=>{
  if(cfg.vfx===0)return;
  const cnt=cfg.vfx===1?1:n;
