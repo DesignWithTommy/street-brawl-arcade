@@ -6,6 +6,12 @@
 - Air tech: press Grab once launched hitstun ends; mashing early locks you out for 40 frames
 - Combo breaker: S+G during a 3+ hit combo, costs 50 meter (free in training)
 - Training hitbox viewer (key 0)
+- Super defence scaling: hits after a super/ultimate in the same combo do 70%
+- Hard knockdowns: supers, ultimates and big launchers can't be ground-teched (50f down)
+- Tech roll: hold left/right while teching on landing to roll
+- DI: hold up/down/away while launched to change your trajectory
+- Training: - freeze, = frame step, [ save state, ] load state
+- In-game CHANGELOG screen on the main menu
 - Frame data HUD names the move in startup/active/recovery
 - Fix: moves stuck in recovery after landing a hit
 
