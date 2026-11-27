@@ -719,7 +719,7 @@ let P1,P2,PJ=[],SP=[],EX=[],SL=[],DUST=[],PT=[],ST=[],rt=0,msg='',winQuote='',ju
 let HB={L:0,H:0,S:0,G:0,jump:0,blk:0,air:0},DN=[],slo=0,kof=0,pracLastDmg=0,pracIdleT=0,inputLock=0;
 
 const MENU_ITEMS=[
- {id:'story',label:'STORY',sub:'9 chapters. Take down the Kingpin.'},
+ {id:'story',label:'STORY',sub:'16 chapters. Unlock the roster, take down the Kingpin.'},
  {id:'arcade',label:'ARCADE',sub:'Pick a fighter, beat 5 opponents'},
  {id:'online',label:'ONLINE',sub:'Play a friend with a room code'},
  {id:'practice',label:'TRAINING',sub:'Drills, frame data, recording'},
@@ -735,12 +735,24 @@ const STORY=[
  {t:'SMOKE & GLASS',p:15,o:14,lv:3,pre:['Charcoal’s jerk stand burned last month. The syndicate did it.','Now 40oz is collecting “protection” on his block. Bad timing, bredda.'],post:['Earl coughs through the smoke. "I just do what they pay me for, man!"','"Den tell yuh boss Charcoal a come."']},
  {t:'GYM RATS',p:9,o:10,lv:0,pre:['Tommy needs one more win to buy back his family gym.','The Kingpin pays Skies to make sure he never gets it.'],post:['Skies lands flat on his back and laughs. "Okay, okay. I’m in, Tomcat."','Two more fighters join the resistance.']},
  {t:'ASHES',p:4,o:5,lv:1,pre:['Sensei finally finds the student who burned his dojo.','Ember. She says the Kingpin made her do it.'],post:['Ember drops to her knees. "He has my family."','Sensei offers his hand. "Then we will take them back."']},
+ {t:'FIRE & SPICE',p:15,o:5,lv:1,pre:['Charcoal still smells smoke when he sees Ember.','She wants to prove she has changed. He wants to see it with his own eyes.'],post:['Ember pulls her punches at the end. Charcoal notices.','"Alright, fire gyal. Yuh can stay."']},
+ {t:'LAST ORDERS',p:14,o:9,lv:2,pre:['Earl stumbles into Tommy’s gym at closing time.','He says he came to warn them. Tommy thinks he came to collect.'],post:['Earl hands over a crumpled envelope: the syndicate’s payroll.','"I’m done drinkin’ their money," he mumbles.']},
+ {t:'COLD CASE',p:11,o:6,lv:2,pre:['Nightshade is back, and this time she wants Will’s copy of the ledger.','Will has chased her across three cities. Not tonight.'],post:['Shade lowers her blade. "The Kingpin owns my debt. I never had a choice."','Will tears up her contract. "You do now."']},
+ {t:'VENOM TEST',p:12,o:1,lv:3,pre:['Danny says he can crack the Kingpin’s tower in ten minutes.','Donna wants to see if the kid can hold up under real pressure.'],post:['Danny’s hands stop shaking halfway through the fight.','"Fine," Donna says. "You’re in, Static."']},
  {t:'OVERCLOCK',p:1,o:7,lv:2,pre:['Danny hacks the Kingpin’s tower. One guard stands at the door.','Titan, number 99. The syndicate paid for his broken spine too.'],post:['Titan blocks the door, then steps aside.','"Go," he says. "Do what I never could."']},
+ {t:'BROADCAST',p:9,o:2,lv:3,pre:['A signal from the tower hits every screen in the city.','Brutus hears the Kingpin’s voice and picks his chains back up.'],post:['Tommy’s knee snaps Brutus out of it.','"Never again," Brutus says, and breaks the speaker with one fist.']},
+ {t:'TRUST ISSUES',p:12,o:11,lv:3,pre:['Someone tipped off the syndicate. The evidence points at Donna.','Will doesn’t want to believe it. He has to know.'],post:['The leak wasn’t Donna. The voice on the wire was disguised.','Somebody inside the tower has been playing them all.']},
  {t:'WHO IS GHOST?',p:0,o:13,lv:3,pre:['At the top of the tower, someone is already waiting.','No name. No face. Ghost.'],post:['Ghost drops a mask. Behind it: the referee from Rex’s last title fight.','"I counted you out," Ghost whispers. "He told me to. I’m sorry."']},
+ {t:'PAYBACK',p:2,o:7,lv:4,pre:['The Kingpin forced Titan back to the door with threats to his medical bills.','Brutus steps up. "Let me handle the big man."'],post:['Brutus catches Titan before he hits the floor.','"Bills are paid," Danny says, waving a laptop. "Kingpin’s accounts are ours."']},
  {t:'THE THRONE',p:0,o:8,lv:4,pre:['Every fighter Rex beat is standing behind him now.','The Kingpin rises from his throne. "Show me, champ."'],post:['The Kingpin falls. The Circuit is free.','Rex’s pacemaker settles back down to a normal beat. For now.']}
 ];
 let SM={i:0,ph:'pre',lost:0,on:0},storyBest=0;
-try{storyBest=+localStorage.getItem('sba_story')||0}catch(_){}
+try{storyBest=+localStorage.getItem('sba_story2')||0}catch(_){}
+// Roster locks: start with the first five story heroes; beat a fighter in story (or reach their chapter) to unlock them
+const STARTERS=[0,3,11,15,9];
+function isLocked(i){if(i===8)return !kingpinUnlocked;if(kingpinUnlocked||STARTERS.includes(i))return false;
+ for(let k=0;k<STORY.length;k++){const c=STORY[k];if((c.o===i&&k<storyBest)||(c.p===i&&k<=storyBest))return false}return true}
+function unlockCh(i){for(let k=0;k<STORY.length;k++){const c=STORY[k];if(c.o===i||c.p===i)return k+1}return 0}
 function storyStart(){
  const c=STORY[SM.i];SM.on=1;mode=1;LV=c.lv;pick=[c.p,c.o];opp=[c.o];continues=0;startMatch();
 }
@@ -752,7 +764,7 @@ function storyU(){
  }
  if(pr.Enter||pr.Space||padP('pok')){aud.sfx('ok');
   if(SM.ph==='pre')storyStart();
-  else if(SM.ph==='post'){if(SM.i<STORY.length-1){SM.i++;SM.ph='pre'}else{SM.ph='end'}}
+  else if(SM.ph==='post'){SM.nu=null;if(SM.i<STORY.length-1){SM.i++;SM.ph='pre'}else{SM.ph='end'}}
   else if(SM.ph==='end'){SM.on=0;S='menu'}
  }
  if(pr.Escape||padP('pbk')){SM.on=0;S='menu';aud.sfx('back')}
@@ -761,12 +773,12 @@ function storyD(){
  const c=STORY[SM.i],P=CH[c.p],O=CH[c.o];
  const g=X.createLinearGradient(0,0,W,H);g.addColorStop(0,P.c+'55');g.addColorStop(.5,'#07080f');g.addColorStop(1,O.c+'55');X.fillStyle=g;X.fillRect(0,0,W,H);
  X.save();X.globalAlpha=.06;X.fillStyle='#fff';for(let i=-4;i<14;i++){const xx=((i*110+fr*.6)%1300)-200;X.beginPath();X.moveTo(xx,0);X.lineTo(xx+30,0);X.lineTo(xx-170,H);X.lineTo(xx-200,H);X.fill()}X.restore();
- if(SM.ph==='end'){big('THE END',200,72,'#f5c542');X.fillStyle='#fff';X.font='bold 16px system-ui,sans-serif';X.textAlign='center';X.fillText('The Kingpin is unlocked in every mode. Thanks for playing.',480,260);X.fillStyle='#8b90ad';X.fillText('ENTER: Main menu',480,320);return}
+ if(SM.ph==='end'){big('THE END',200,72,'#f5c542');X.fillStyle='#fff';X.font='bold 16px system-ui,sans-serif';X.textAlign='center';X.fillText('Every fighter, including the Kingpin, is unlocked in every mode. Thanks for playing.',480,260);X.fillStyle='#8b90ad';X.fillText('ENTER: Main menu',480,320);return}
  for(const [ch,x,fc] of [[P,170,1],[O,790,-1]]){X.save();X.translate(x,420);X.scale(1.5,1.5);X.translate(0,-G);fig({ch,x:0,y:G,face:fc,st:'idle',vx:0,mv:null,t:0,cr:0,blk:0,hp:50,maxHp:100},true,true);X.restore()}
  X.save();X.translate(480,70);X.transform(1,0,-.15,1,0,0);X.textAlign='center';X.font='bold 14px system-ui,sans-serif';X.fillStyle='#f5c542';X.fillText('CHAPTER '+(SM.i+1)+' / '+STORY.length,0,-14);
  X.font='italic 44px Impact,sans-serif';X.fillStyle='#ff2e88';X.fillText(c.t,3,33);X.fillStyle='#fff';X.fillText(c.t,0,30);X.restore();
  X.font='15px Impact,sans-serif';X.textAlign='center';X.fillStyle=P.c2;X.fillText(P.n,170,450);X.fillStyle=O.c2;X.fillText(O.n,790,450);X.fillStyle='#fff';X.font='italic 26px Impact,sans-serif';X.fillText('VS',480,140);
- const lines=SM.ph==='post'?c.post:c.pre;
+ const lines=SM.ph==='post'?c.post.concat(SM.nu&&SM.nu.length?['UNLOCKED: '+SM.nu.join(', ')]:[]):c.pre;
  X.fillStyle='#000b';X.fillRect(270,170,420,40+lines.length*28);X.strokeStyle=(SM.ph==='post'?'#4ade80':'#ff2e88')+'aa';X.strokeRect(270,170,420,40+lines.length*28);
  X.font='15px system-ui,sans-serif';X.fillStyle='#e5e7eb';lines.forEach((l,j)=>X.fillText(l,480,200+j*28,400));
  X.font='bold 13px system-ui,sans-serif';
@@ -1761,6 +1773,7 @@ function menuU(){
  }
 }
 
+let selLock=0;
 function selU(){
  const LST=kingpinUnlocked?[...ROSTER,8]:ROSTER,ix=Math.max(0,LST.indexOf(cur));
  const lt=pr.KeyA||pr.ArrowLeft||padP('pl'),rt=pr.KeyD||pr.ArrowRight||padP('pr');
@@ -1776,6 +1789,7 @@ function selU(){
   else goMenu();
   return;
  }
+ if((pr.Enter||pr.Space||pr.KeyJ||padP('pok')||padP('pL'))&&isLocked(cur)){aud.sfx('back');selLock=90;return}
  if(pr.Enter||pr.Space||pr.KeyJ||padP('pok')||padP('pL')){
   pick[who]=cur;
   if(mode===3){pick[1]=(cur===0?7:0);startMatch()}
@@ -2000,7 +2014,7 @@ function fightU(){
 
 function after(){
  if(SM.on&&(wins[0]>=cfg.rounds||wins[1]>=cfg.rounds)){
-  if(wins[0]>=cfg.rounds){SM.ph='post';SM.lost=0;if(SM.i+1>storyBest){storyBest=SM.i+1;try{localStorage.setItem('sba_story',storyBest)}catch(_){}}if(SM.i===STORY.length-1){unlockKingpin();aud.sfx('clear')}}
+  if(wins[0]>=cfg.rounds){SM.ph='post';SM.lost=0;if(SM.i+1>storyBest){const was=ROSTER.filter(isLocked);storyBest=SM.i+1;try{localStorage.setItem('sba_story2',storyBest)}catch(_){}const nu=was.filter(i=>!isLocked(i));if(nu.length)SM.nu=nu.map(i=>CH[i].n)}if(SM.i===STORY.length-1){unlockKingpin();aud.sfx('clear')}}
   else{SM.ph='pre';SM.lost=1}
   S='story';return;
  }
@@ -2932,9 +2946,11 @@ function selD(){
   X.textAlign='center';X.fillStyle='#fff';X.font='15px Impact,sans-serif';X.fillText(c.n,bx+bw/2,by+124,bw-6);
   X.fillStyle=c.c2;X.font='bold 10px system-ui,sans-serif';X.fillText(c.st.toUpperCase(),bx+bw/2,by+139,bw-6);
   if(isP1){X.fillStyle='#f5c542';X.font='bold 11px sans-serif';X.fillText('P1',bx+14,by+16)}
+  if(isLocked(i)){X.fillStyle='#05060cdd';X.fillRect(bx,by,bw,bh);X.fillStyle='#f5c542';X.font='26px Bangers,Impact,sans-serif';X.fillText('LOCKED',bx+bw/2,by+66);X.fillStyle='#cbd5e1';X.font='bold 10px system-ui,sans-serif';X.fillText('STORY CH. '+unlockCh(i),bx+bw/2,by+86)}
   UI_HITS.push({x:bx,y:by,w:bw,h:bh,fn:()=>{if(cur===i){pr.Enter=1}else{cur=i;aud.sfx('move')}}});
  }
 
+ if(selLock>0){selLock--;X.textAlign='center';X.fillStyle='#000c';X.fillRect(250,232,460,40);X.fillStyle='#f5c542';X.font='22px Bangers,Impact,sans-serif';X.fillText('LOCKED: beat '+CH[cur].n+' in Story chapter '+unlockCh(cur),480,260)}
  // Secret 9th Fighter Banner (Kingpin) when unlocked
  if(kingpinUnlocked){
   const kc=CH[8],isK=cur===8;
