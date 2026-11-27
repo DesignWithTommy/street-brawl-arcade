@@ -764,7 +764,7 @@ const STORY=[
  {t:'THE BOARDROOM',p:3,o:6,lv:3,pre:['The Board’s chairman flees into the private boxes.','Kira and Nightshade race for him. Old rivals, one target.'],post:['They corner him together. Neither one admits who got there first.','The chairman laughs. "You think I’m the top? Look at the roof."']},
  {t:'CROWN OF THE CITY',p:0,o:8,lv:4,pre:['The Kingpin is back on his throne, now wearing the Board’s silver crown.','Every fighter in the city is in the stands. Rex steps into the ring alone.'],post:['The crown hits the canvas and rolls to Rex’s feet. He kicks it into the crowd.','The Circuit belongs to the fighters now. Rex’s pacemaker beats steady and slow.']}
 ];
-let SM={i:0,ph:'pre',lost:0,on:0},storyBest=0,HBX=false,TFZ=false,TSV=null;
+let SM={i:0,ph:'pre',lost:0,on:0},storyBest=0,HBX=false,TFZ=false,TSV=null,TKM=null;
 try{storyBest=+localStorage.getItem('sba_story2')||0}catch(_){}
 // Roster locks: start with the first five story heroes; beat a fighter in story (or reach their chapter) to unlock them
 const STARTERS=[0,3,11,15,9];
@@ -908,7 +908,7 @@ function newRound(){
  aud.sfx('start');
 }
 let stageRoll=0;
-function startMatch(){wins=[0,0];rd=1;stageRoll=(Math.random()*(STAGES.length-1))|0;newRound()}
+function startMatch(){TFZ=false;TSV=null;wins=[0,0];rd=1;stageRoll=(Math.random()*(STAGES.length-1))|0;newRound()}
 
 function resetPractice(q){
  P1.rec=[];P2.rec=[];P1.hq=P2.hq=null;P1.red=P2.red=0;P1.ng=P2.ng=P1.sg=P2.sg=0;P1.x=260;P1.y=G;P1.vx=0;P1.vy=0;P1.hp=P1.maxHp;P1.grd=100;P1.st='idle';P1.mv=null;P1.scd=0;P1.cmb=0;P1.cd=0;P1.jg=0;P1.face=1;P1.ih=[];P1.il=[];P1.aft=[];
@@ -1359,7 +1359,8 @@ function go(f,k,c,i){
 function take(a,v,dm,st,kx,ky,fc){
  kx=+kx||0;ky=+ky||0;fc=fc||1;dm=+dm||0;st=+st||12;
  if(!v.cmb)v.sdef=0;
- const scaled=Math.max(1,R(dm*cfg.dmgScale*(a.rage?1.3:1)*(v.sdef?.7:1)));if(a.mv&&(a.mv.sup||a.mv.ult))v.sdef=1;
+ const mm=TKM&&TKM.a===a?TKM.m:a.mv,isSup=!!(mm&&(mm.sup||mm.ult)),mid=mm&&(mm.n||'SUPER');TKM=null;
+ const scaled=Math.max(1,R(dm*cfg.dmgScale*(a.rage?1.3:1)*(v.sdef&&v.sdef!==mid?.7:1)));if(isSup&&!v.sdef)v.sdef=mid;
  if(!(a.ng>0))a.mt=Math.min(100,(a.mt||0)+scaled*(a.sg>0?.4:1.4));v.mt=Math.min(100,(v.mt||0)+scaled*.9);
  if(!a.rage)a.rg=Math.min(100,a.rg+scaled*.45);if(!v.rage)v.rg=Math.min(100,v.rg+scaled*.65);
  const adjStun=v.cmb>=7?Math.max(8,st-(v.cmb-6)*2):st;
@@ -1372,7 +1373,7 @@ function take(a,v,dm,st,kx,ky,fc){
  if(v.y<floorOf(v)-5){v.jg++;v.lz=1;v.vy=ky<0?ky*.85:-4}
  else if(ky<0){v.lz=1;v.vy=ky;v.y=G-1}
  else v.lz=0;
- if(v.lz){v.hkd=(a.mv&&(a.mv.sup||a.mv.ult))||ky<=-12?1:0;const li=v.li||{};if(li.u)v.vy*=1.12;else if(li.d)v.vy*=.88}
+ if(v.lz){v.hkd=isSup||ky<=-12?1:0;const li=v.li||{};if(li.u)v.vy*=1.12;else if(li.d)v.vy*=.88}
  const tg=a.mv&&a.mv.tight&&!v.lz&&v.y>=floorOf(v)-3;
  {const km=tg?1.4:scaled>9?4.4:2.9,kk=tg?Math.min(Math.abs(kx),2)*(kx<0?-1:1)||km:Math.abs(kx)<km?(kx<0?-km:km):kx;v.vx=kk*fc}
  if(tg){a.vx+=fc*.8}else if(Math.abs(a.x-v.x)<140&&a.y>=floorOf(a)-3)a.vx-=fc*(scaled>9?1.6:.9);
@@ -1408,7 +1409,7 @@ function detonateFire(p){
  }
 }
 
-function finishThrow(f,o,m){
+function finishThrow(f,o,m){TKM={a:f,m};
  if(o===P1){mstC(P1,'thrown');ev('thrown',{})}
  const fc=f.face;
  const dm=m.d*(RULE()===5?2:1)*Math.max(m.ult?.6:.35,1-.12*o.cmb)*(o.markT>0?1.4:1);
@@ -1430,6 +1431,7 @@ function finishThrow(f,o,m){
 }
 
 function connect(f,o,m,fc){
+ TKM={a:f,m};
  if(o.invT>0||o.tchT>0)return 0;
  if(f.invT>0)f.invT=0;
  if(o.st==='ko'||o.st==='down'||o.st==='grabbed'||(o.y<floorOf(o)-5&&o.jg>4))return 0;
@@ -1571,7 +1573,7 @@ function upd(f,o,i){
    if(ch.id==='sensei'&&f.b.S&&f.scd===0&&f.mt>=spCost(f)){f.b.S=0;f.bst=0;go(f,'S',0,i);return}
   }
   if(!f.bst&&f.cmb>=3&&f.mt>=50&&f.b.S&&f.b.G&&f.hp>0){f.b.S=f.b.G=0;if(mode!==3)f.mt-=50;f.st='idle';f.stun=0;f.lz=0;f.cmb=0;f.jg=0;f.tchT=24;const sd=Math.sign(o.x-f.x)||-f.face;if(o.st!=='ko'){o.st='hit';o.mv=null;o.bst=0;o.stun=20;o.vx=sd*9;o.lz=0}f.fx=['BREAKER!',50];addFx(f.x,f.y-60,f.ch.c2,120,'ring');addFx(f.x,f.y-60,'#fff',70,'ring');aud.sfx('boom');if(cfg.shake)shk=10;hs=5;return}
-  if(air&&f.lz&&!f.bst&&f.hp>0&&i.pG){if(f.stun<=0&&!(f.tlk>0)){f.st='idle';f.lz=0;f.cmb=0;f.jg=0;f.vy=Math.min(f.vy,-6);f.vx=-f.face*3;f.tchT=12;f.fx=['AIR TECH!',30];addFx(f.x,f.y-55,'#fff',50,'ring');aud.sfx('dash')}else f.tlk=40}
+  if(air&&f.lz&&!f.bst&&f.hp>0&&i.pG){if(f.stun<=0&&!(f.tlk>0)){f.st='idle';f.lz=0;f.cmb=0;f.jg=0;f.vy=Math.min(f.vy,-6);f.vx=-f.face*3;f.tchT=12;f.b.G=0;f.fx=['AIR TECH!',30];addFx(f.x,f.y-55,'#fff',50,'ring');aud.sfx('dash')}else f.tlk=40}
   if(--f.stun<=0&&!f.lz){f.st='idle';f.bst=0;f.cmb=0;f.jg=0}
  }
  else if(f.st==='down'){if(--f.stun<=0){f.st='idle';f.cmb=0;f.jg=0;f.lz=0;f.bn=0;f.wk=8}}
@@ -1777,6 +1779,7 @@ function handleClicks(){
  if(S==='story'){if(mx<110&&my<70)pr.Escape=1;else if(SM.ph==='pre'&&mx<W*.25)pr.ArrowLeft=1;else if(SM.ph==='pre'&&mx>W*.75)pr.ArrowRight=1;else pr.Enter=1}
  else if(S==='end'||S==='ladder'||S==='clear')pr.Enter=1;
  else if(S==='netwait')pr.Escape=1;
+ else if(S==='clog'){if(my<H*.33)pr.ArrowUp=1;else if(my>H*.67)pr.ArrowDown=1;else pr.Enter=1}
 }
 
 // --- Screen Updaters ---
@@ -2075,7 +2078,7 @@ function after(){
 function step(){
  fr++;if(!RBM)padU();for(const k in HB)HB[k]*=.9985;
  for(const d of DN){d.y-=1.1;d.l--}DN=DN.filter(d=>d.l>0);
- for(const f of [P1,P2])if(f){if(f.red>0&&f.hp>0&&f.st!=='ko'&&fr-(f.lhT??-999)>120&&S==='fight'){const g=Math.min(f.red,.06);f.hp+=g;f.red-=g}if(f.hpT>f.hp)f.hpT=Math.max(f.hp,f.hpT-(f.st==='hit'?.15:.6));else f.hpT=f.hp;if(f.cpop>0)f.cpop--}
+ for(const f of [P1,P2])if(f){if(f.red>0&&f.hp>0&&f.st!=='ko'&&fr-(f.lhT??-999)>120&&S==='fight'){const g=Math.min(f.red,.06,f.maxHp-f.hp);f.hp+=g;f.red=g>0?f.red-g:0}if(f.hpT>f.hp)f.hpT=Math.max(f.hp,f.hpT-(f.st==='hit'?.15:.6));else f.hpT=f.hp;if(f.cpop>0)f.cpop--}
  camZ+=(1-camZ)*.16;
  aud.musicTick(S,curStage===5||(mode===1&&LV===4),curStage);
  if(!RBM)handleClicks();
