@@ -1,5 +1,10 @@
 # Changelog
 
+## v82
+- Training is now a tabbed menu: Training, Combo Trials, Survival
+- Combo Trials: 12 saved challenges from a 3-hit combo up to 25 hits, air and wall juggles, damage combos
+- Survival: one life against endless random CPUs, one round each, heal 30% per win, best run saved
+
 ## v81
 - Story doubled to 32 chapters: the Kingpin escapes at Chapter 16, a second act against the Board, and a final crown rematch
 - Red health: 40% of each hit can heal back after 2s without being hit
