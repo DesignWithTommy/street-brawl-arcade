@@ -2758,7 +2758,7 @@ function drawFD(){
  X.fillStyle='#0a0c14dd';X.fillRect(px,py,200,ph);X.strokeStyle='#3fc1d966';X.lineWidth=1;X.strokeRect(px,py,200,ph);
  X.font='bold 11px monospace';X.textAlign='left';
  const L=(t,c,y)=>{X.fillStyle=c||'#d8e4ff';X.fillText(t,px+8,py+y)};
- const sF=f=>{if(f.st==='atk'&&f.mv){const m=f.mv;return f.t<=m.s?`STARTUP ${f.t}/${m.s}`:f.t<=m.s+m.a?`ACTIVE ${f.t-m.s}/${m.a}`:`RECOVERY ${f.t-m.s-m.a}/${m.r}`}return f.st==='hit'?(f.bst?'BLOCKSTUN ':'HITSTUN ')+f.stun:f.st.toUpperCase()};
+ const sF=f=>{if(f.st==='atk'&&f.mv){const m=f.mv,nm=(m.n||((f.k||'')+' '+(f.v||'')).trim())+' ';return nm+(f.t<=m.s?`STARTUP ${f.t}/${m.s}`:f.t<=m.s+m.a?`ACTIVE ${f.t-m.s}/${m.a}`:`RECOVERY ${f.t-m.s-m.a}/${m.r}`)}return f.st==='hit'?(f.bst?'BLOCKSTUN ':'HITSTUN ')+f.stun:f.st.toUpperCase()};
  L('FRAME DATA [1]','#3fc1d9',15);
  L('P1 '+sF(P1),'#fff',32);L('P2 '+sF(P2),'#fff',47);
  for(let k=0;k<2;k++){
