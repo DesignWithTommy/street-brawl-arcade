@@ -1,5 +1,10 @@
 # Changelog
 
+## v88
+- Body-part hit zones: head hits do +25% damage, body hits normal, leg hits -15% (HEAD/LEGS callout on hit)
+- Training hitbox viewer (key 0) shows the head, body and leg hurtboxes and the strike height of each attack
+- Removed the punch/kick motion arc that showed how far an attack reaches
+
 ## v87
 - Punches look like punches: fist starts at the chin guard, cocks back on heavies, snaps out to a fully straight arm with the shoulder driving forward, then returns to the guard
 - Rear hand stays home at the chin during punches
