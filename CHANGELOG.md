@@ -1,5 +1,12 @@
 # Changelog
 
+## v84
+- Fix: fighters could sink below the floor after a wall bounce near the ground
+- Fix: Restart Match in Survival restarts the whole run (no free full heal)
+- Fix: Esc on character select goes back to the Training menu from Training, Combo Trials and Survival
+- Combo Trials text moved down so it no longer overlaps the combo counter
+- Audit: 256 CPU matchups, rollback replay and every mode checked with no errors
+
 ## v83
 - Knees and elbows really bend: two-part limbs fold when crouching, jumping and guarding, and straighten on full punches and kicks
 - Smoother jump legs, proper legs during air attacks, knocked-down legs lie flat
