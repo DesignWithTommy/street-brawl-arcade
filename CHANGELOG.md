@@ -1,5 +1,9 @@
 # Changelog
 
+## v86
+- Held props (bottle, dynamite, parcel, spray can, shield, cane, gloves) follow the real hand in every pose instead of floating at a fixed spot
+- Thrown props leave the hand on release and come back only once the projectile is gone (40oz bottle, Ember dynamite, Kira parcel, Charcoal's coal)
+
 ## v85
 - Natural fighting stance: both knees bend forward, guard hands up at the chin with elbows tucked (boxing stance)
 - Punches and kicks lunge the hips forward with the back foot planted instead of stretching the arm or leg
