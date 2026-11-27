@@ -1622,7 +1622,7 @@ function upd(f,o,i){
    else if(ch.id==='shade'&&f.k==='S'&&f.b.H){f.b.H=0;go(f,'H',1,i)}
    else {const ii=f.bi?{...i,...f.bi}:i;for(const k of['S','H','L'])if(f.b[k]&&(O[k]>O[f.k]||(k!=='S'&&O[k]===O[f.k]&&dkey(f,k,ii)!==f.v&&f.cn<3)||comboNext(f,k,ii))){f.b[k]=0;go(f,k,1,i);break}}
   }
-  else if(f.st==='atk'&&f.t>=E+m.r){f.st='idle';f.mv=null}
+  if(f.st==='atk'&&f.mv===m&&f.t>=E+m.r){f.st='idle';f.mv=null}
  }
  else if(f.st==='idle'){
   f.face=o.x>f.x?1:-1;
