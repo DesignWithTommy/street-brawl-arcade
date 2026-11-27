@@ -237,7 +237,7 @@ const mk=(id,n,full,nick,st,c,c2,a,diff,hp,sp,jp,z,f,q,S,sn,sd,scdMax,rival,quot
 
 const CH=[
  mk('rex','REX','REX "REDLINE" VEGA','REDLINE','Brawler','#e74c3c','#ff4422','#7b241c','Beginner',
-  112,3.6,-15,1,1,1,
+  106,3.6,-15,1,1,1,
   M(6,2,20,0,30,0,0,0,{t:'buff',buff:210,k:'b'}),
   'Redline','Cranks his pacemaker into the red: +30% damage for a few seconds.',55,7,
   "I'm not done... not yet.",
@@ -253,7 +253,7 @@ const CH=[
   ['With The Kingpin defeated, Rex exposes the rigged Underground Circuit to the city press.','His boxing license is restored—and every fighter in the Circuit knows nobody owns Redline Vega.']
  ),
  mk('volt','DANNY','DANNY "STATIC" KANE','STATIC','Ranged','#0088ff','#00f0ff','#0e3660','Intermediate',
-  88,3.4,-15,1,1.05,.95,
+  89,3.4,-15,1,1.05,.95,
   M(13,2,26,9,50,20,7,-5,{t:'proj',vx:7.4,k:'b'}),
   'Energy Orb','Launches a high-voltage electric orb across the arena.',50,6,
   'Power never lies.',
@@ -270,7 +270,7 @@ const CH=[
   {w:84}
  ),
  mk('brutus','BRUTUS','BRUTUS "THE BEAST" COLE','THE BEAST','Grappler','#e67e22','#ff7700','#6e2c00','Advanced',
-  121,2.6,-13,1.18,1.4,1.28,
+  122,2.6,-13,1.18,1.4,1.28,
   M(9,4,24,11,140,28,-7,-5,{k:'b',whip:1}),
   'Chain Hook','Lashes out with his old pit chain and drags the foe into arm’s reach.',70,0,
   'No one beats me.',
@@ -286,7 +286,7 @@ const CH=[
   ['The Kingpin confesses to buying off Brutus’s former manager years ago.','Having settled his debt in full, Brutus walks away from the pit—his honor untarnished.']
  ),
  mk('kira','KIRA','KIRA "FLASH" MORI','FLASH','Rushdown','#e91e8c','#ff44cc','#7d1050','Intermediate',
-  76,4.5,-16,.93,.72,.85,
+  79,4.5,-16,.93,.72,.85,
   M(9,2,22,9,50,22,5,-6,{t:'proj',vx:10,ret:1,k:'p'}),
   'Express Delivery','Hurls a parcel that boomerangs back. Hits going out and coming home.',50,6,
   'Too slow.',
@@ -302,7 +302,7 @@ const CH=[
   ['Kira outpaces even The Kingpin’s elite bodyguards on her way to the title.','Crowned the fastest fighter alive, she turns the Circuit’s arena rooftops into her personal playground.']
  ),
  mk('sensei','SENSEI','SENSEI "IRON PALM" TAKEDA','IRON PALM','Counter','#27ae60','#22ff66','#145a32','Advanced',
-  112,3.5,-15,1,1,1,
+  110,3.5,-15,1,1,1,
   M(2,24,22,0,38,0,0,0,{t:'ctr',k:'b'}),
   'Perfect Reversal','Enters a defensive stance that reverses incoming strikes.',65,3,
   'Discipline creates strength.',
@@ -317,7 +317,7 @@ const CH=[
   ['Confronting The Kingpin reveals the truth behind his ruined dojo.','With the Circuit shattered, Takeda rebuilds his school—welcoming new fighters seeking honor over greed.']
  ),
  mk('ember','EMBER','EMBER "WILDFIRE" CROSS','WILDFIRE','Zoner','#ffaa00','#ffdd33','#7d4500','Intermediate',
-  109,3.4,-15,.97,1.1,.9,
+  106,3.4,-15,.97,1.1,.9,
   M(13,2,28,8,50,20,5,-6,{t:'proj',vx:9,vy:-5.2,g:.28,k:'b',burst:1,bd:11}),
   'Fire Lob / Flame Burst','Arcs a fireball that detonates into an AoE Flame Burst.',72,1,
   'Burn it all.',
@@ -332,7 +332,7 @@ const CH=[
   ['Ember blasts open The Kingpin’s ledger vault and torches every blackmail file inside.','Free from her past, Wildfire becomes an untouchable legend of the city’s neon nights.']
  ),
  mk('shade','SHADE','SHADE "NIGHTSHADE" SABLE','NIGHTSHADE','Ninja','#8e44ad','#b967ff','#2a143d','Advanced',
-  72,4.4,-17,.95,.8,.9,
+  70,4.4,-17,.95,.8,.9,
   M(13,4,14,13,62,22,5,-9,{t:'tele',lau:1,k:'k'}),
   'Shadow Step','Vanishes into smoke and ambushes from behind.',65,1,
   "You can't see me.",
@@ -348,7 +348,7 @@ const CH=[
   ['The Kingpin turns out to be the syndicate client who ordered Shade’s final contract.','With the bounty erased in blood and smoke, Ghost vanishes into the city once more.']
  ),
  mk('titan','TITAN','TITAN "THE WALL" MORROW','THE WALL','Heavy','#dce8f5','#3aa8ff','#2b425c','Beginner',
-  113,2.4,-12,1.25,1.7,1.45,
+  110,2.4,-12,1.25,1.7,1.45,
   M(16,6,30,18,82,32,10,-11,{t:'dash',dx:6.2,lau:1,k:'b',arm:1}),
   'Wrecking Charge','Slow armored shoulder rush with crushing knockback.',75,2,
   'I never quit.',
@@ -381,7 +381,7 @@ const CH=[
  ),
  mk('tommy','TOMMY','TOMMY "TOMCAT" REYES','TOMCAT','Striker','#14b8a6','#5eead4','#0f4c47','Intermediate',
   106,3.9,-15,1,.95,1.02,
-  M(6,3,26,16,70,34,10,-6,{t:'grab',k:'p'}),
+  M(6,3,26,13,70,34,10,-6,{t:'grab',k:'p'}),
   'Thai Clinch','Grabs the neck and drives knees in, then shoves the foe away.',60,10,
   'Eight limbs. Zero mercy.',
   'Muay Thai prodigy who quit rigged prize fights. Fighting to buy back his family gym.',
@@ -393,7 +393,7 @@ const CH=[
   ['Tommy wins the Circuit purse and buys back the family gym.','Kids from all over the city now train under the Tomcat, for free.']
  ),
  mk('danny','SKIES','SKIES "AIRBORNE" PARK','AIRBORNE','Aerial','#38bdf8','#e0f2fe','#0c4a6e','Advanced',
-  96,4.5,-17,.92,.85,.9,
+  100,4.5,-17,.92,.85,.9,
   M(7,14,22,12,66,24,5,-11,{t:'dash',dx:5,vy:-13,k:'k',lau:1}),
   'Sky Splitter','Rocketing flip kick straight into the sky. Launches on hit.',55,9,
   'Feel the rhythm.',
@@ -406,7 +406,7 @@ const CH=[
   ['Skies wins back his crew\'s spot and turns the Kingpin\'s penthouse into a block party.','Skies\'s battles become the most watched streams in the city.']
  ),
  mk('will','WILL','WILL "IRONCLAD" HART','IRONCLAD','Guardian','#3b6ea5','#93c5fd','#1e3a5f','Beginner',
-  102,3.0,-13,1.12,1.15,1.12,
+  105,3.0,-13,1.12,1.15,1.12,
   M(12,2,26,6,50,46,2,-3,{t:'proj',vx:5,vy:-5,g:.45,k:'p',burst:1,flash:1,bd:7,br:95}),
   'Flashbang','Tosses a flashbang. Anyone caught in the blast is stunned for ages.',70,12,
   'Nobody gets through.',
@@ -419,7 +419,7 @@ const CH=[
   ['Will hands the Kingpin\'s ledgers to an honest prosecutor.','The Circuit is shut down for good, and Ironclad finally takes off the shield.']
  ),
  mk('donna','DONNA','DONNA "VENOM" VALE','VENOM','Whip Zoner','#c026d3','#f0abfc','#581c87','Intermediate',
-  94,3.5,-15,.98,1.05,.95,
+  100,3.5,-15,.98,1.05,.95,
   M(11,4,24,11,150,30,5,-4,{k:'b',whip:1}),
   'Venom Lash','Long whip crack that reaches across half the stage. Long stun.',70,11,
   'One bite is all it takes.',
@@ -433,7 +433,7 @@ const CH=[
   {w:96}
  ),
  mk('ghost','GHOST','GHOST','PHANTOM','Phantom','#cbd5e1','#f8fafc','#334155','Advanced',
-  82,4.3,-16,.94,.85,.92,
+  81,4.3,-16,.94,.85,.92,
   M(12,2,22,10,50,24,4,-6,{t:'proj',vx:4.2,home:1,k:'p'}),
   'Wisp','Releases a slow spirit that drifts after the opponent.',75,6,
   'You never saw me.',
@@ -446,7 +446,7 @@ const CH=[
   ['Ghost takes the Circuit trophy and vanishes. Nobody is sure they were ever there.','Every arena in the city now keeps one seat empty, just in case.']
  ),
  mk('fortyoz','40OZ','EARL "40OZ" BANKS','40OZ','Bottle Brawler','#d97706','#fcd34d','#78350f','Intermediate',
-  92,3.0,-14,1.08,1.1,1.08,
+  91,3.0,-14,1.08,1.1,1.08,
   M(14,2,24,10,50,22,6,-7,{t:'proj',vx:7,vy:-6,g:.34,k:'b',bnc:1}),
   'Bottle Toss','Skips his bottle off the floor like a stone. Hard to read.',75,15,
   'Last call, buddy.',
@@ -508,7 +508,7 @@ const ULT={
  tommy:{n:'EIGHT LIMBS',t:'boss',s:5,a:30,r:22,d:5,hits:8,hi2:4,w:72,h:16,dx:5,k:'p'},
  danny:{n:'TORNADO HEADSPIN',t:'buff',vortex:4,s:6,a:60,r:20,d:0,w:30,h:0,k:'k'},
  will:{n:'LAST LINE',t:'dash',s:10,a:12,r:28,d:34,w:80,h:50,dx:10,kx:18,ky:-6,k:'b',arm:1},
- ghost:{n:'FORGOTTEN',t:'buff',invT:200,s:8,a:2,r:18,d:0,w:30,h:0,k:'b'},
+ ghost:{n:'FORGOTTEN',t:'buff',invT:150,s:8,a:2,r:18,d:0,w:30,h:0,k:'b'},
  fortyoz:{n:'LAST CALL MOLOTOV',t:'proj',s:10,a:2,r:26,d:10,w:50,h:30,vx:6,vy:-7,g:.3,k:'b',burst:1,bd:30,br:120,pil:1},
  charcoal:{n:'JERK PIT',t:'proj',s:10,a:2,r:24,d:14,w:60,h:30,vx:5,low:1,pl:120,k:'b',burn:360,kx:4,ky:-6},
  donna:{n:'BLACK WIDOW WEB',t:'proj',s:10,a:2,r:26,d:30,w:70,h:90,vx:4.5,pl:110,k:'b',kx:4,ky:-10}
@@ -1574,7 +1574,7 @@ function upd(f,o,i){
    if(m.invT){f.invT=m.invT;aud.sfx('dash')}
    if(m.markFoe){o.markT=m.markFoe;aud.sfx('metal');o.fx=['BOUNTY!',50];addFx(o.x,o.y-90,'#f5c542',60,'ring')}
    if(m.slowFoe){o.slowT=m.slowFoe;aud.sfx('back');o.fx=['SLOWED',50];addFx(o.x,o.y-60,'#7ee8fa',80,'ring')}
-   if(m.drainAll){aud.sfx('elec');o.mt=0;o.rg=0;o.rage=0;addFx(o.x,o.y-60,'#00e5ff',90,'ring');if(o.st!=='ko'&&o.y>=floorOf(o)-3&&!(o.st==='atk'&&o.mv&&o.mv.ult)){o.st='hit';o.mv=null;o.bst=0;o.stun=26;o.lz=0;o.hflash=6}o.fx=['BLACKOUT!',55];aud.sfx('boom')}
+   if(m.drainAll){aud.sfx('elec');o.mt=0;o.rg=0;o.rage=0;addFx(o.x,o.y-60,'#00e5ff',90,'ring');if(o.st!=='ko'&&o.y>=floorOf(o)-3&&!(o.st==='atk'&&o.mv&&o.mv.ult)){o.st='hit';o.mv=null;o.bst=0;o.stun=18;o.lz=0;o.hflash=6}o.fx=['BLACKOUT!',55];aud.sfx('boom')}
    if(m.quakeAll){aud.sfx('slam');if(cfg.shake)shk=18;if(cfg.vfx>0)FLASH=8;for(let q=0;q<12;q++)addDust(q*80+40,floorOf(o),q%2?1:-1,'#9ab4cc99',8);
     if(o.y>=floorOf(o)-3&&o.st!=='ko')connect(f,o,{...m,t:'burst',d:m.quakeAll,kx:3,ky:-10,h:30,lo:1},o.x>=f.x?1:-1);else o.fx=['DODGED',30]}
   }
