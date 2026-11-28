@@ -1,5 +1,10 @@
 # Changelog
 
+## v97
+- Hits have weight: hit-stop, screen shake and the victim's rattle scale with the damage instead of two fixed tiers
+- The camera kicks in the direction the hit travels and springs back; blocks get a small kick too
+- Still arcade: knockback distances and combo timing are unchanged
+
 ## v96
 - Real ragdoll KO: the loser's body is a jointed physics ragdoll (Verlet points and sticks) that whips off the hit, flops, crashes into the floor and skids
 - New K.O. screen: a black slab slams across, K.O. punches in with overshoot, the winner's tag, the victory quote, then an R.I.P. line
