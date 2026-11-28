@@ -1,5 +1,13 @@
 # Changelog
 
+## v95
+- KO sends the loser flying off the screen in a spinning ragdoll, limbs flailing, instead of a short knockdown
+- Forward dash: a low lunge with the lead hand up and the rear arm pumping back, back leg driving off the toe
+- Backdash: a hop back with the guard up and the front foot tucked
+- Air dashes lean into the dash with the legs trailing, or tuck up when dashing backward
+- Dash streak afterimages are fainter
+- Shadow frames no longer freeze in place after the round ends
+
 ## v94
 - Block bubble: a faint shield flares around the defender on each blocked hit and fades through blockstun; white on a perfect block, red when the guard is close to breaking
 - High guard holds the gloves at the chin and temple; crouching guard drops the forearms to cover the body
