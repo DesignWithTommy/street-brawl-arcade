@@ -1,5 +1,10 @@
 # Changelog
 
+## v101
+- Arcade is longer: 8 bouts instead of 5, with the rival in the 4th and the Kingpin last
+- New bouts: Back-Alley Brawl, Into the Pit and The Right Hand; the ladder screen shows all 8 stops
+- The arenas rotate through the run, and the CPU difficulty ramps more gradually up to the same final boss
+
 ## v100
 - Touch: flicking the stick twice now dashes (the stick was being treated as a keyboard, which never double-tap dashes)
 - Touch and mouse: the Training menu has a BACK button
