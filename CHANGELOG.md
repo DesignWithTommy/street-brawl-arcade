@@ -1,5 +1,10 @@
 # Changelog
 
+## v90
+- Kicks look like kicks: the foot leaves the floor, the knee chambers up, the leg snaps out to the target, then re-chambers and steps back down
+- The kicking leg is drawn in front of the body so high kicks no longer vanish behind the torso
+- Low kicks never dip below the floor
+
 ## v89
 - Hits make a small pop right at the point of contact instead of big circles and spark sprites
 - The fist or foot that lands catches fire for a moment (longer on heavy hits and counters)
