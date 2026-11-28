@@ -1,5 +1,16 @@
 # Changelog
 
+## v100
+- Touch: flicking the stick twice now dashes (the stick was being treated as a keyboard, which never double-tap dashes)
+- Touch and mouse: the Training menu has a BACK button
+- Survival: your best run is saved when you restart or quit, not only when you lose; each bout rolls a new arena and is titled SURVIVAL: BOUT n
+- Music 0% or Master 0% now also silences the vinyl crackle
+- Starting Training or Combo Trials no longer resumes the last drill or recording playback
+- Boss music stops when you leave the boss fight
+- Playing as the Kingpin in Arcade: the last fight is the FINAL BOUT, not "FINAL BOSS: THE KINGPIN"
+- Character select: up/down on the Kingpin no longer jumps to Rex
+- Fixes to v98: a fighter ending a dash can't block one frame early, no K.O. voice line in practice, and the error guard only gives up on repeated errors
+
 ## v99
 - Title screen: every fighter strikes their own signature pose instead of all throwing the same heavy punch
 - Rex peek-a-boo guard that pops a jab, Danny holds the sparking clamp to the sky, Brutus flexes, Kira waves you in, Sensei stands in the crane
