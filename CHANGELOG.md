@@ -1,5 +1,14 @@
 # Changelog
 
+## v93
+- Grabs: both fists lock onto the collar, then heave forward or swing the body back over the shoulder on a back throw
+- Grabbed fighters get pulled onto their toes, back foot dragging, both hands prying at the grabber's wrists
+- Thrown and launched fighters tip back instead of cartwheeling: arms fling up, knees tuck, then arms reach back to slap the floor
+- Landing settles onto the back with one knee up; getting up rocks through a kneel with a hand pushing off the floor
+- Shadows stay on the floor and shrink with height instead of floating under airborne fighters
+- Thrown bodies leave faint shadow frames instead of bright copies; grabs leave none
+- Brutus's shoulder strap follows the torso lean
+
 ## v92
 - Jump punches angle down at the opponent instead of punching level
 - Flying kicks angle down with the other leg tucked under
