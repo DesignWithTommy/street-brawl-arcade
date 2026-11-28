@@ -1,5 +1,12 @@
 # Changelog
 
+## v99
+- Title screen: every fighter strikes their own signature pose instead of all throwing the same heavy punch
+- Rex peek-a-boo guard that pops a jab, Danny holds the sparking clamp to the sky, Brutus flexes, Kira waves you in, Sensei stands in the crane
+- Ember shows off the lit dynamite, Shade crouches with the blade out, Titan strikes the stiff-arm trophy pose, the Kingpin leans on his cane
+- Tommy raises the knee in a Muay Thai guard, Skies toprocks, Will walls up behind his shield, Donna cocks a hip with the whip up
+- Ghost floats, 40oz sways and takes a swig, Charcoal leans back and points the tongs at you
+
 ## v98
 - Audit fixes: practice mode can no longer K.O. a fighter for good, and a long juggle no longer leaves the victim immune to air hits for the rest of the round
 - Nothing lands on the K.O. screen, so a won round can't turn into a loss (Survival included); projectiles fly on harmlessly
