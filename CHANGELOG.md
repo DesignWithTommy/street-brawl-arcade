@@ -1,5 +1,10 @@
 # Changelog
 
+## v94
+- Block bubble: a faint shield flares around the defender on each blocked hit and fades through blockstun; white on a perfect block, red when the guard is close to breaking
+- High guard holds the gloves at the chin and temple; crouching guard drops the forearms to cover the body
+- Blockstun keeps the guard up and braces the back foot as the defender slides back, instead of reusing the hit reaction
+
 ## v93
 - Grabs: both fists lock onto the collar, then heave forward or swing the body back over the shoulder on a back throw
 - Grabbed fighters get pulled onto their toes, back foot dragging, both hands prying at the grabber's wrists
