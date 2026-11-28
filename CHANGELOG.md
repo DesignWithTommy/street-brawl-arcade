@@ -1,5 +1,11 @@
 # Changelog
 
+## v96
+- Real ragdoll KO: the loser's body is a jointed physics ragdoll (Verlet points and sticks) that whips off the hit, flops, crashes into the floor and skids
+- New K.O. screen: a black slab slams across, K.O. punches in with overshoot, the winner's tag, the victory quote, then an R.I.P. line
+- 27 new R.I.P. captions: dark jokes plus jokes about how much of this game was made by AI
+- More AI jokes in the round tips and hit memes
+
 ## v95
 - KO sends the loser flying off the screen in a spinning ragdoll, limbs flailing, instead of a short knockdown
 - Forward dash: a low lunge with the lead hand up and the rear arm pumping back, back leg driving off the toe
