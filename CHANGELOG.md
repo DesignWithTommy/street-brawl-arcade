@@ -1,5 +1,19 @@
 # Changelog
 
+## v98
+- Audit fixes: practice mode can no longer K.O. a fighter for good, and a long juggle no longer leaves the victim immune to air hits for the rest of the round
+- Nothing lands on the K.O. screen, so a won round can't turn into a loss (Survival included); projectiles fly on harmlessly
+- Launchers and throws on a platform stay on the platform
+- Dash frames stop when you attack or get hit, so a backdash no longer resumes (or regains invincibility) after a move
+- Only an idle fighter can block, both players block from this frame's input, and same-frame trades can end in a double K.O.
+- No super, ultimate or rage cancels out of a throw clinch; armor and iron-body K.O.s get the full K.O. slow-mo
+- A strike passing over a crouching fighter is a body hit, not a head hit; buffered presses keep the live stick and jump
+- Glass Cannon rounds are now shorter, as promised
+- Online: presses are no longer dropped while clocks sync, peer data is checked, mismatched builds are refused, stale room status and ping floods are gone, and an error closes the match instead of freezing the game
+- Keys release and the fight pauses when the window loses focus; pause works during hit-stop
+- Gamepad: can't drive the menu behind the online popup (B closes it), can cancel a key rebind, and B no longer skips the ladder screen by accident
+- A corrupt settings save no longer skips the Kingpin unlock or the value checks; the kill cam stops recording after its replay
+
 ## v97
 - Hits have weight: hit-stop, screen shake and the victim's rattle scale with the damage instead of two fixed tiers
 - The camera kicks in the direction the hit travels and springs back; blocks get a small kick too
