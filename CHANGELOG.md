@@ -1,5 +1,8 @@
 # Changelog
 
+## v91
+- Hit reactions match where the hit lands: head hits whip the head back with arms flung, body hits double the fighter over clutching the gut, leg hits buckle the knees with arms out for balance
+
 ## v90
 - Kicks look like kicks: the foot leaves the floor, the knee chambers up, the leg snaps out to the target, then re-chambers and steps back down
 - The kicking leg is drawn in front of the body so high kicks no longer vanish behind the torso
