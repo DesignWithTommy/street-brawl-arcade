@@ -1,5 +1,10 @@
 # Changelog
 
+## v92
+- Jump punches angle down at the opponent instead of punching level
+- Flying kicks angle down with the other leg tucked under
+- Sweeps drop low, lean over the leg, and plant a hand on the floor
+
 ## v91
 - Hit reactions match where the hit lands: head hits whip the head back with arms flung, body hits double the fighter over clutching the gut, leg hits buckle the knees with arms out for balance
 
